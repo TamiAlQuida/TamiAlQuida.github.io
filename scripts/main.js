@@ -32,7 +32,7 @@ catImage.onclick = function changeCat() {
     catImage.setAttribute('src', 'images/cat2.jpg');
   }
   else if (catSrc === 'images/cat2.jpg') {
-    catImage.setAttribute('src', 'images/cat3.jpg');
+    catImage.setAttribute('src', 'images/Cat3.jpg');
   }
   else {
     catImage.setAttribute('src', 'images/cat.jpg');
