@@ -1,7 +1,8 @@
-// Start of program
+
 
 /* Functions for changing title 
 and contiously swaping places of names */
+//#region
 const myHeading = document.querySelector('h1');
 
 function changeTitle() {
@@ -23,14 +24,17 @@ function swapPlaces() {
 
 setTimeout(changeTitle, 3000)
 setInterval(swapPlaces, 1000)
+//#endregion
 
+// event listener that is not used
+//#region
 /* document.querySelector('html').addEventListener('click', function() {
     alert('Ouch! Stop poking me!');
   }); */
-
-
+//#endregion
 
 // Change cat cat picture by clicking
+//#region
 let catImage = document.getElementById('cats');
 
 catImage.onclick = function changeCat() {
@@ -45,8 +49,10 @@ catImage.onclick = function changeCat() {
     catImage.setAttribute('src', 'images/cat.jpg');
   }
 }
+//#endregion
 
 // change name
+//#region
 let mysteriousButton = document.querySelector('button');
 
 function mysteriousButtonAction() {
@@ -58,8 +64,10 @@ function mysteriousButtonAction() {
 mysteriousButton.onclick = function () {
   mysteriousButtonAction();
 }
+//#endregion
 
 // stone paper scissors game
+//#region
 let computersChoice = document.getElementById("BotChoice");
 let yourChoice = document.getElementById("PlayerChoice");
 
@@ -135,3 +143,4 @@ scissorsButton.onclick = function () {
   scissorsButtonAction();
   keepingScore()
 }
+//#endregion
