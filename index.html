@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width"> <!--supposed to make it fit in a phone-->
     <title>Toms web page</title> <!--This will be shown in the tab and as a bookmark-->
     <link href="styles/style.css" rel="stylesheet"> <!--decides the look of the web page-->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" /> <!--Python script-->
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script> <!--Python script-->
 </head>
 
 <body>
@@ -46,6 +48,10 @@
 <button id="scissors">scissors</button>
 
 <script src="scripts/main.js"></script> <!--this is where the javascript comes in-->
+
+<py-repl id="my-repl" auto-generate="true"></py-script>
+
+<!--<py-script> print('Now you can!') </py-script> Python script-->
 
 </body>
 
