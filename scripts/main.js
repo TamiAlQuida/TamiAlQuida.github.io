@@ -1,7 +1,11 @@
+// Start of program
+
+/* Functions for changing title 
+and contiously swaping places of names */
 const myHeading = document.querySelector('h1');
 
 function changeTitle() {
-    myHeading.textContent = 'Greetings young padawan!';
+  myHeading.textContent = 'Greetings young padawan!';
 }
 
 let li1 = document.getElementById('li1');
@@ -10,20 +14,23 @@ li1.textContent = 'Pauline'
 li2.textContent = '& Zoey'
 
 function swapPlaces() {
-    if (li1.textContent === 'Pauline') {
-        li1.textContent = 'Zoey', li2.textContent = '& Pauline'
-    } else {
-        li1.textContent = 'Pauline', li2.textContent = '& Zoey'
-    }
+  if (li1.textContent === 'Pauline') {
+    li1.textContent = 'Zoey', li2.textContent = '& Pauline'
+  } else {
+    li1.textContent = 'Pauline', li2.textContent = '& Zoey'
+  }
 }
 
 setTimeout(changeTitle, 3000)
 setInterval(swapPlaces, 1000)
 
-/*document.querySelector('html').addEventListener('click', function() {
+/* document.querySelector('html').addEventListener('click', function() {
     alert('Ouch! Stop poking me!');
-  });*/
+  }); */
 
+
+
+// Change cat cat picture by clicking
 let catImage = document.getElementById('cats');
 
 catImage.onclick = function changeCat() {
@@ -39,18 +46,20 @@ catImage.onclick = function changeCat() {
   }
 }
 
+// change name
 let mysteriousButton = document.querySelector('button');
 
 function mysteriousButtonAction() {
-    let myName = prompt('whats your name then?');
-    localStorage.setItem('name', myName);
-    myHeading.textContent = 'Greetings ' + myName
+  let myName = prompt('whats your name then?');
+  localStorage.setItem('name', myName);
+  myHeading.textContent = 'Greetings ' + myName
 }
 
-mysteriousButton.onclick = function() {
-    mysteriousButtonAction();
+mysteriousButton.onclick = function () {
+  mysteriousButtonAction();
 }
 
+// stone paper scissors game
 let computersChoice = document.getElementById("BotChoice");
 let yourChoice = document.getElementById("PlayerChoice");
 
@@ -66,7 +75,7 @@ function randomStonePaperScissors() {
   else if (randomNumber === 2) {
     computersChoice.textContent = 'Paper'
   }
-  else {computersChoice.textContent = 'Scissors'}
+  else { computersChoice.textContent = 'Scissors' }
 }
 
 let ComputerScoreVariable = 0
@@ -76,18 +85,18 @@ function keepingScore() {
   let ComputerScore = document.getElementById("ComputerScore");
   let PlayerScore = document.getElementById("PlayerScore");
 
-  if (yourChoice.textContent === 'Stone' && 
-  computersChoice.textContent === 'Stone' || yourChoice.textContent === 'Scissors' && 
-  computersChoice.textContent === 'Scissors' || yourChoice.textContent === 'Paper' && 
-  computersChoice.textContent === 'Paper') {
+  if (yourChoice.textContent === 'Stone' &&
+    computersChoice.textContent === 'Stone' || yourChoice.textContent === 'Scissors' &&
+    computersChoice.textContent === 'Scissors' || yourChoice.textContent === 'Paper' &&
+    computersChoice.textContent === 'Paper') {
     ComputerScore.textContent = 'Computer score:' + ComputerScoreVariable
     PlayerScore.textContent = 'Player score:' + PlayerScoreVariable
   }
-  
-  else if ((yourChoice.textContent === 'Stone' && 
-  computersChoice.textContent === 'Scissors') || (yourChoice.textContent === 'Paper' && 
-  computersChoice.textContent === 'Stone') || (yourChoice.textContent === 'Scissors' && 
-  computersChoice.textContent === 'Paper')) {
+
+  else if ((yourChoice.textContent === 'Stone' &&
+    computersChoice.textContent === 'Scissors') || (yourChoice.textContent === 'Paper' &&
+    computersChoice.textContent === 'Stone') || (yourChoice.textContent === 'Scissors' &&
+    computersChoice.textContent === 'Paper')) {
     PlayerScoreVariable = PlayerScoreVariable + 1
     ComputerScore.textContent = 'Computer score:' + ComputerScoreVariable
     PlayerScore.textContent = 'Player score:' + PlayerScoreVariable
