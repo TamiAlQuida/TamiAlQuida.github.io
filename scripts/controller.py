@@ -1,8 +1,14 @@
 # if you don't need to be wireless, check out the library pydualsense
 
+# first do this in terminal (see https://www.youtube.com/watch?v=pVKltuIJT70)
+# 'cd /dev/input'
+# 'll'
+# identify correct  'event' to put in gamepad = InputDevice('/dev/input/MY_CONTROLLER_EVENT_NUMBER') se comment below
+
+
 import time
 from evdev import InputDevice, categorize, ecodes                   # pip install evdev
-gamepad = InputDevice('/dev/input/MY_CONTROLLER_EVENT_NUMBER')      # "cd /dev/input" then "ls -al" to see your connections
+gamepad = InputDevice('/dev/input/event2')      # "cd /dev/input" then "ls -al" to see your connections
 
 button_presses = {                          # ecodes.EV_KEY
     304: 'square',
