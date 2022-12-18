@@ -6,6 +6,7 @@
 # identify correct  'event' to put in gamepad = InputDevice('/dev/input/MY_CONTROLLER_EVENT_NUMBER') se comment below
 # cat /proc/bus/input/devices for more info
 
+import RPi.GPIO as GPIO                     # controll outputs
 import time
 from evdev import InputDevice, categorize, ecodes                   # pip install evdev
 gamepad = InputDevice('/dev/input/event2')      # "cd /dev/input" then "ls -al" to see your connections
