@@ -1,6 +1,7 @@
 import bme280
 import smbus2
 from time import sleep
+import pandas as pd
 
 port = 1
 address = 0x76 # Adafruit BME280 address. Other BME280s may be different
@@ -15,4 +16,5 @@ while True:
     pressure  = bme280_data.pressure
     ambient_temperature = bme280_data.temperature
     print(f'{ambient_temperature:.4} C, {pressure:.6} hpa, {humidity:.4} %')
-    sleep(1) 
+    
+    sleep(1)
