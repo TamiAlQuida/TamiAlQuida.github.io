@@ -8,9 +8,7 @@ port = 1
 address = 0x76 # Adafruit BME280 address. Other BME280s may be different
 bus = smbus2.SMBus(port)
 
-bme280.load_calibration_params(bus,address)
-
-while True:
+def measuring_atmosphere():
     bme280_data = bme280.sample(bus,address)
     ambient_temperature = bme280_data.temperature
     pressure  = bme280_data.pressure
@@ -20,4 +18,10 @@ while True:
     
     df = pd.DataFrame({'Date': [date], 'Temperature C': [ambient_temperature], 'Pressure hPa': [pressure], 'Humidity %': [humidity]})
     df.to_csv('/home/pi/TamiAlQuida.github.io/scripts/bme280data.csv', mode='a', index=False, header=False)
+
+
+bme280.load_calibration_params(bus,address)
+
+while True:
+    measuring_atmosphere()
     sleep(1)
