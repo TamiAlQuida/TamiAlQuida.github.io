@@ -98,13 +98,13 @@ def decode_leftpad(event):
 
 
 if __name__ == '__main__':
-    # print(gamepad)
+    # print(gamepad)                                                                    # remove # to decode different usb/bluetooth devices
 
     for event in gamepad.read_loop():
-        # print(categorize(event))
-        # print(event)
+        # print(categorize(event))                                                      # remove # to decode different usb/bluetooth devices
+        # print(event)                                                                  # remove # to decode different usb/bluetooth devices
 
-        if event.type == ecodes.EV_KEY and event.code in button_presses:       # any button press other than leftpad
+        if event.type == ecodes.EV_KEY and event.code in button_presses:                # any button press other than leftpad
             button, direction = button_presses[event.code], button_values[event.value]
             print(f'{button} {direction}')
 
