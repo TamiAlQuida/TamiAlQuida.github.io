@@ -98,14 +98,14 @@ def decode_leftpad(event):
     return f'leftpad: {action}'
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': # this condition makes the code below run only if this script file is running. If you were to import it, then the file that all gets imported to, would only import what's above this line. So you'd have to call the function below manually from that file.
     # print(gamepad)
 
     for event in gamepad.read_loop():
         # print(categorize(event))
         # print(event)
 
-        if event.type == ecodes.EV_KEY and event.code in button_presses:       # any button press other than leftpad
+        if event.type == ecodes.EV_KEY and event.code in button_presses:                # any button press other than leftpad
             button, direction = button_presses[event.code], button_values[event.value]
             print(f'{button} {direction}')
 

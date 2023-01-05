@@ -1,7 +1,11 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 
-bme280_plot_data = pd.read_csv('/home/pi/TamiAlQuida.github.io/scripts/bme280data.csv')
+try:
+    bme280_plot_data = pd.read_csv('/home/pi/TamiAlQuida.github.io/scripts/bme280data.csv')         # Linux
+except:
+    bme280_plot_data = pd.read_csv(r'scripts\bme280data.csv')  # Windows
+
 # print(bme280_plot_data),
 
 # print(bme280_plot_data['Date'])
