@@ -1,12 +1,14 @@
 from picamera import PiCamera
 from time import sleep
+from datetime import datetime
 
 camera = PiCamera()
 camera.resolution = (3280, 2464)    # max resolution 3280 x 2464
 camera.start_preview()
 # Camera warm-up time
+datetime_1 = datetime.now()
 sleep(2)
-camera.capture('foo.jpg')
+camera.capture(f'foo{datetime_1}.jpg')
 
 
 

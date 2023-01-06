@@ -22,6 +22,17 @@ servo1.start(0)
 
 gamepad = InputDevice('/dev/input/event2')      # "cd /dev/input" then "ls -al" to see your connections
 
+button_presses = {                          # ecodes.EV_KEY
+    304: 'square',
+    305: 'x',
+    313: 'pause',                           # 3 horizontal lines, top right of touchpad
+}
+
+button_values = {                           # ecodes.EV_KEY button press values
+    0: 'up',
+    1: 'down'
+}
+
 absolutes = {                               # ecodes.EV_ABS
     0: 'left joystick left/right',          # 0 = left, 255 = right
     1: 'left joystick up/down',             # 0 = up, 255 = down
@@ -35,13 +46,9 @@ absolutes = {                               # ecodes.EV_ABS
 
 CENTER = 128
 BLIND = 6                                   # there's a lot of drift at 128, so don't report changes within (128 - this value)
-MAX_EMERGENCY_DELAY = 1000                  # max number of milliseconds between taps to qualify as an emergency double-tap
-
 new_center = CENTER - 38
 
-emergency_tap_time = 0                      # track when the last time the emergency button (touchpad) was pressed
 left_joystick, right_joystick = [new_center, new_center], [CENTER, CENTER]
-
 
 def update_left_joystick_position(event):
     global left_joystick
@@ -49,6 +56,18 @@ def update_left_joystick_position(event):
         left_joystick[0] = int(value * 180 / 255)
     #elif event.code == 1:                   # left joystick, y-axis (up/down)
     #    left_joystick[1] = int(value * 180 / 255)
+
+
+def move_servo():
+    angle = left_joystick[0]
+    print(angle)
+    servo1.ChangeDutyCycle(2+(angle/18))
+
+
+def turn_off():
+    servo1.stop()
+    GPIO.cleanup()
+    print("Goodbye!")
 
 
 
@@ -59,6 +78,19 @@ if __name__ == '__main__': # this condition makes the code below run only if thi
         # print(categorize(event))
         # print(event)
 
+        if event.type == ecodes.EV_KEY and event.code in button_presses:                # any button press other than leftpad
+            button, direction = button_presses[event.code], button_values[event.value]
+            print(f'{button} {direction}')
+
+            if event.code in [313]:
+                break
+
+            if event.code in [305]:
+                import camera_test
+            
+            if event.code in [304]:
+                import bme280_sensor_data_plot
+
         if event.type == ecodes.EV_ABS and event.code in absolutes:                     # leftpad, joystick motion, or L2/R2 triggers
             action, value = absolutes[event.code], event.value
             
@@ -66,13 +98,10 @@ if __name__ == '__main__': # this condition makes the code below run only if thi
                 if event.code in [0, 1]:                                                # left joystick moving
                     update_left_joystick_position(event)
 
-                if event.value > (CENTER - BLIND) and event.value < (CENTER + BLIND):   # skip printing the jittery center for the joysticks
+                if event.value > (new_center - BLIND) and event.value < (new_center + BLIND):   # skip printing the jittery center for the joysticks
                     continue
                         
                 print(f'{left_joystick}')
-                angle = left_joystick[0]
-                print(angle)
-                servo1.ChangeDutyCycle(2+(angle/18))
-                #time.sleep(0.1)
-                #servo1.ChangeDutyCycle(0)
+                move_servo()
                 continue
+            
