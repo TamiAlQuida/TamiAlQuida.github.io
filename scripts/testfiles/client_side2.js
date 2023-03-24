@@ -1,45 +1,62 @@
 // client-side JavaScript code using fetch API
 function postData() {
-    fetch('http://localhost:5000/data', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({name: 'John', age: 30})
-    })
-    .then(response => response.json())
-    .then(data => console.log(data));
-  }
-  
+  fetch('http://localhost:5000/data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({name: 'John', age: 30})
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+}
+
 let SendDataButton = document.getElementById('button1');
 
 SendDataButton.onclick = function () {
   postData();
 }
 
+function updateValue(data) {
+  const speed = data.speed;
+  const direction = data.direction;
+  document.getElementById('value').innerText = `Speed: ${speed}, Direction: ${direction}`;
+}
 
-function postKeyStroke(key) {
+function postKeyStroke(key, type) {
   fetch('http://localhost:5000/keystroke', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({key: key})
+    body: JSON.stringify({key: key, type: type})
   })
   .then(response => response.json())
-  .then(data => console.log(data));
+  .then(data => {
+    updateValue(data);
+    console.log(data);
+  });
 }
 
 // listens to key strokes and sends them to console
 var keyMap = {};
+var keyIntervalMap = {};
 
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', function(e) {
     if (keyMap[e.key]) return;
     keyMap[e.key] = true;
     console.log(e.key + ' pressed');
-    postKeyStroke(e.key + ' pressed');
-
+    postKeyStroke(e.key, 'pressed');
+    
+    keyIntervalMap[e.key] = setInterval(function() {
+      if (keyMap[e.key]) {
+        console.log(e.key + ' pressed');
+        postKeyStroke(e.key, 'pressed');
+      } else {
+        clearInterval(keyIntervalMap[e.key]);
+      }
+    }, 100); // Change the interval as desired
     
     // Add your code to handle the keypress here
     
@@ -48,13 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keyup', function(e) {
     keyMap[e.key] = false;
     console.log(e.key + ' released');
-    postKeyStroke(e.key + ' released');
+    postKeyStroke(e.key, 'released');
+    
+    clearInterval(keyIntervalMap[e.key]);
     
     // Add your code to handle the key release here
     
   });
 });
-
-
-
 
