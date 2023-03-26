@@ -74,3 +74,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+function updateValue(data) {
+  const speed = data.speed;
+  const direction = data.direction;
+  document.getElementById('value').innerText = `Speed: ${speed}, Direction: ${direction}`;
+
+  let indicator = document.getElementById("indicator");
+  if (speed === 0 && direction === 0) {
+    indicator.className = "center";
+  } else if (speed === 100) {
+    indicator.className = "top center";
+  } else if (direction === -100) {
+    indicator.className = "left center";
+  } else {
+    // reset the class to remove any previous positioning styles
+    indicator.className = "";
+  }
+}

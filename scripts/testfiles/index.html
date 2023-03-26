@@ -2,11 +2,16 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Example</title>
-    <script src="client_side.js"></script>
+    <title>Flight controller</title>
+    <link href="style.css" rel="stylesheet"> <!--decides the look of the web page-->
   </head>
   <body>
-    <h1>Example Page</h1>
-    <button onclick="postData()">Send Data</button>
+    <h1>Flight controller</h1>
+    <div id="value">value</div>
+    <div id="box">
+      <div id="indicator" class="speed-10 direction--20"></div>
+    </div>
+    <button id="button1">Send Data</button>
+    <script src="client_side.js"></script>
   </body>
 </html>
