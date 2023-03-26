@@ -82,9 +82,9 @@ function updateValue(data) {
   let indicator = document.getElementById("indicator");
   if (speed === 0 && direction === 0) {
     indicator.className = "center";
-  } else if (speed === 100) {
+  } else if (speed === 10) {
     indicator.className = "top center";
-  } else if (direction === -100) {
+  } else if (direction === -10) {
     indicator.className = "left center";
   } else {
     // reset the class to remove any previous positioning styles
