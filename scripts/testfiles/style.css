@@ -23,36 +23,3 @@ html {
   width: 20px;
   height: 20px;
 }
-
-/* Illustrate the direction of the car */
-#indicator.speed-0.direction-0 {
-  /* Center the indicator */
-}
-
-#indicator.speed-100.direction-0 {
-  /* Center the indicator horizontally and align it with the top border */
-  top: 10px;
-}
-
-#indicator.speed-0.direction-100 {
-  /* Move the indicator to the right and align it with the center */
-  left: 110%;
-}
-
-#indicator.speed-0.direction--100 {
-  /* Move the indicator to the left and align it with the center */
-  left: -30%;
-}
-
-/* Illustrate the speed of the car */
-#indicator.speed-10 {
-  /* Move the indicator 10% to the right */
-  left: 10%;
-}
-
-#indicator.speed-20 {
-  /* Move the indicator 20% to the right */
-  left: 20%;
-}
-
-/* Add more rules for other speed values as needed */

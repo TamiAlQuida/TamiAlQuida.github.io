@@ -63,17 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
 let speed = 0;
 let direction = 0;
 
-function updateIndicator(speed, direction) {
-  let indicator = document.getElementById("indicator");
+const indicator = document.getElementById("indicator");
 
-  if (speed === 0 && direction === 0) {
-    indicator.className = "center";
-  } else if (speed === 10) {
-    indicator.className = "top center";
-  } else if (direction === -10) {
-    indicator.className = "left center";
-  } else {
-    // reset the class to remove any previous positioning styles
-    indicator.className = "";
-  }
+function updateIndicator(speed, direction) {
+    var topPosition = -speed*5 + 50
+    var leftPosition = direction*5 + 50
+    
+    // Update the style properties
+    indicator.style.top = `${topPosition}%`;
+    indicator.style.left = `${leftPosition}%`;
 }
