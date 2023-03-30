@@ -15,7 +15,6 @@ function updateValue(data) {
   const direction = data.direction;
   document.getElementById('value').innerText = `Speed: ${speed}, Direction: ${direction}`;
   console.log(speed, direction)
-
   // update the indicator based on the current speed and direction
   updateIndicator(speed, direction);
 }
@@ -43,9 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(keyIntervalMap[e.key]);
       }
     }, 70); // Change the interval as desired 70ms
-    
-    // Add your code to handle the keypress here
-    
   });
 
   document.addEventListener('keyup', function(e) {
@@ -54,9 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     postKeyStroke(e.key, 'released');
     
     clearInterval(keyIntervalMap[e.key]);
-    
-    // Add your code to handle the key release here
-    
   });
 });
 
@@ -68,7 +61,6 @@ const indicator = document.getElementById("indicator");
 function updateIndicator(speed, direction) {
     var topPosition = -speed*5 + 50
     var leftPosition = direction*5 + 50
-    
     // Update the style properties
     indicator.style.top = `${topPosition}%`;
     indicator.style.left = `${leftPosition}%`;
