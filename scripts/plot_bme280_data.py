@@ -8,7 +8,7 @@ except:
 
 # print(bme280_plot_data),
 
-# print(bme280_plot_data['Date'])
+print(bme280_plot_data['Date'])
 # print(bme280_plot_data['Date'].loc[bme280_plot_data.index[0]])
 
 # print(bme280_plot_data['Temperature C'])
