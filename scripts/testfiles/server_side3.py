@@ -3,17 +3,10 @@ import json
 import websockets
 import socket
 
-speed = -10
-direction = -10
+speed = 0
+direction = 0
 
-
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((socket.gethostname(), 5001))
-s.listen(0) # maybe makes it so only 1 can connect, not sure
-clientsocket, address = s.accept()
-print(f'Connection from {address}')
-
-async def handleData5000(websocket):
+async def handleData5000(websocket, path):
     global speed, direction
     async for message in websocket:
         data = json.loads(message)
@@ -42,22 +35,23 @@ async def handleData5000(websocket):
         await websocket.send(json.dumps({'speed': speed, 'direction': direction}))
 
 async def handleData5001():
-    print('Hello') 
     global speed, direction
     while True:
-            #clientsocket.send(json.dumps({'speed': speed, 'direction': direction}).encode())
-            #clientsocket.send(json.dumps((speed, direction)).encode())
-            clientsocket.send((f'{speed} {direction}').encode())
-            print(f'Speed: {speed}, Direction: {direction}')
-            #speed += 100
-            await asyncio.sleep(0.07)
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.connect(('192.168.1.40', 5001))
+            while True:
+                sock.send(json.dumps({'speed': speed, 'direction': direction}).encode())
+                await asyncio.sleep(0.07)
+        except Exception as e:
+            print(f"Error: {e}")
+            await asyncio.sleep(1)
 
 async def main():
-    async with websockets.serve(handleData5000, 'localhost', 5000):
-        print("Server started")
-        await asyncio.Future()  # run forever
+    server5000 = websockets.serve(handleData5000, 'localhost', 5000)
+    server5001 = asyncio.create_task(handleData5001())
+    await asyncio.gather(server5000, server5001)
 
-async def run_all():
-    await asyncio.gather(main(), handleData5001())
 
-asyncio.run(run_all())
+
+asyncio.run(main())

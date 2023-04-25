@@ -59,8 +59,8 @@ let direction = 0;
 const indicator = document.getElementById("indicator");
 
 function updateIndicator(speed, direction) {
-    var topPosition = -speed*5 + 50
-    var leftPosition = direction*5 + 50
+    var topPosition = -speed + 100
+    var leftPosition = direction
     // Update the style properties
     indicator.style.top = `${topPosition}%`;
     indicator.style.left = `${leftPosition}%`;
