@@ -20,33 +20,34 @@ async def handleData5000(websocket):
         if data['type'] == 'pressed':
             if (data['key'] == 'ArrowUp' or data['key'] == 'w') and speed < 90:
                 speed += 5
+                handleData5001()
             elif (data['key'] == 'ArrowDown' or data['key'] == 's') and speed > 10:
                 speed -= 5
+                handleData5001()
             elif (data['key'] == 'ArrowRight' or data['key'] == 'd') and direction < 90:
                 direction += 5
+                handleData5001()
             elif (data['key'] == 'ArrowLeft' or data['key'] == 'a') and direction > 10:
                 direction -= 5
+                handleData5001()
         elif data['type'] == 'released':
             if data['key'] == 'ArrowRight' or data['key'] == 'ArrowLeft' or data['key'] == 'a' or data['key'] == 'd':
                 while direction > 50 and data['type'] != 'pressed':
                     direction -= 5
-                    print(f'Speed: {speed}, Direction: {direction}')
                     handleData5001()
                     await websocket.send(json.dumps({'speed': speed, 'direction': direction}))
                     await asyncio.sleep(0.07)
                 while direction < 50 and data['type'] != 'pressed':
                     direction += 5
-                    print(f'Speed: {speed}, Direction: {direction}')
                     handleData5001()
                     await websocket.send(json.dumps({'speed': speed, 'direction': direction}))
                     await asyncio.sleep(0.07)
-        print(f'Speed: {speed}, Direction: {direction}')
-        handleData5001()
+        #handleData5001()
         await websocket.send(json.dumps({'speed': speed, 'direction': direction}))
 
 def handleData5001():
     clientsocket.send((f'{speed} {direction}').encode())
-    #print(f'Speed: {speed}, Direction: {direction}')
+    print(f'Speed: {speed}, Direction: {direction}')
 
 
 async def main():
