@@ -2,9 +2,16 @@ import socket
 from time import sleep
 from evdev import InputDevice, categorize, ecodes                   # pip install evdev
 
-gamepad = InputDevice('/dev/input/event12')      # "cd /dev/input" then "ls -al" to see your connections
 
-button_presses = {                          # ecodes.EV_KEY
+#gamepad = InputDevice('/dev/input/event5')      # "cd /dev/input" then "ls -al" to see your connections
+for i in range(0, 20):
+    try:
+        input1 = '/dev/input/event' + str(i)
+        gamepad = InputDevice(input1)
+    except:
+        continue
+
+button_presses = {                          # ecodes.EV_KEYy
     304: 'square',
     305: 'x',
     315: 'pause',
@@ -27,38 +34,73 @@ CENTER = 128
 BLIND = 4                                 # there's a lot of drift at 128, so don't report changes within (128 - this value)
 initial_center = CENTER - 78
 
-speed, direction = [0], [initial_center]
+speed, direction = 50, 50
 
 
 def update_left_joystick_position(event):
     global direction
-    direction[0] = int(value * 80 / 255) + 10
+    direction = int(value * 80 / 255) + 10
 
 
 def update_r2(event):
     global speed
-    speed[0] = int(value * 40 / 255) + 50
-
+    speed = int(value * 40 / 255) + 50
+                                             
 
 def update_l2(event):
     global speed
-    speed[0] = int(-value * 40 / 255) + 50
+    speed = int(-value * 40 / 255) + 50
 
 
-def handleData5001():
+#def handleData5001():
     #clientsocket.send((f'{speed} {direction}').encode())
-    print(f'{direction} {speed}')
+    #print(f'{speed} {direction}')
+class handleData5001:
+    """Check if change occurs"""
+    def __init__(self):
+        self.old_speed = None
+        self.new_speed = None
+        self.old_direction = None
+        self.new_direction = None
+
+    def set_value(self, speed, direction):
+        self.new_speed = speed
+        self.new_direction = direction
+        if self.new_speed != self.old_speed:
+            clientsocket.send((f'{speed} {direction}').encode())
+            print(f'{speed} {direction}')
+            self.old_speed = self.new_speed
+        elif self.new_direction != self.old_direction:
+            clientsocket.send((f'{speed} {direction}').encode())
+            print(f'{speed} {direction}')
+            self.old_direction = self.new_direction
+        elif self.new_speed == self.old_speed and self.new_direction == self.old_direction:
+            #print('pass')
+            pass
+
+def connect_to_pico():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # s.bind((socket.gethostname(), 5001)) # windows
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # makes it so that you can bind same port in linux after crash
+    s.bind(('192.168.1.78', 5001)) # linux mint
+    s.listen(0) # maybe makes it so only 1 can connect, not sure
+    clientsocket, address = s.accept()
+    print(f'Connection from {address}')
 
 
 if __name__ == '__main__': # this condition makes the code below run only if this script file is running. If you were to import it, then the file that all gets imported to, would only import what's above this line. So you'd have to call the function below manually from that file.
     print(gamepad)
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((socket.gethostname(), 5001))
+    # s.bind((socket.gethostname(), 5001)) # windows
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # makes it so that you can bind same port in linux after crash
+    s.bind(('192.168.1.78', 5001)) # linux mint
     s.listen(0) # maybe makes it so only 1 can connect, not sure
     clientsocket, address = s.accept()
     print(f'Connection from {address}')
-    
+    #connect_to_pico()
+
+    handle_data = handleData5001()# Create a single instance of handleData5001
 
     for event in gamepad.read_loop():
         #print(categorize(event))
@@ -81,7 +123,7 @@ if __name__ == '__main__': # this condition makes the code below run only if thi
                 if event.value > (CENTER - BLIND) and event.value < (CENTER + BLIND):   # skip printing the jittery center for the joysticks
                     continue
                         
-                handleData5001()
+                handle_data.set_value(speed, direction) # Call the set_value() method on the instance
                 continue
 
             if event.code in [5]:                                                    # L2/R2 triggers
@@ -89,7 +131,7 @@ if __name__ == '__main__': # this condition makes the code below run only if thi
                 #dc_motor()
                 #print(f'{r2}') 
                 update_r2(event)
-                handleData5001()
+                handle_data.set_value(speed, direction) # Call the set_value() method on the instance
                 continue
 
             if event.code in [2]:                                                    # L2/R2 triggers
@@ -97,5 +139,5 @@ if __name__ == '__main__': # this condition makes the code below run only if thi
                 #dc_motor()
                 #print(f'{r2}') 
                 update_l2(event)
-                handleData5001()
+                handle_data.set_value(speed, direction) # Call the set_value() method on the instance
                 continue

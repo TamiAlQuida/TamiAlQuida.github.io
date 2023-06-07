@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         clearInterval(keyIntervalMap[e.key]);
       }
-    }, 70); // Change the interval as desired 70ms
+    }, 50); // Change the interval as desired 70ms
   });
 
   document.addEventListener('keyup', function(e) {
