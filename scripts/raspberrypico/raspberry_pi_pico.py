@@ -1,3 +1,4 @@
+"""run this on pico. And run server_req_controller.py, or server_req_webbrowser.py + index.html"""
 #import mip ## new upip
 from machine import Pin, PWM
 #import machine
