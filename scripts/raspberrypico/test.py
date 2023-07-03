@@ -1,5 +1,4 @@
 
-#dict_cars = {'model':[], 'year':[], 'color':[]}
 list_cars = []
 
 class cars():
@@ -11,9 +10,6 @@ class cars():
     
     def add_to_dict(self):
         list_cars.append(self.__dict__)
-        #dict_cars['model'].append(self.model)
-        #dict_cars['year'].append(self.year)
-        #dict_cars['color'].append(self.color)
 
     def show(self):
         print(list_cars)
@@ -48,4 +44,3 @@ for x in list_cars:
         res_3.append(x)
 
 print(f'Complete dictionaries of the cars that contain 2009 and yellow: \n{res_3}')
-
