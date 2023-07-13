@@ -4,7 +4,7 @@ import pandas as pd
 try:
     bme280_plot_data = pd.read_csv('scripts/raspberrypico/bme280_data_pico.csv')  # Linux
 except:
-    bme280_plot_data = pd.read_csv(r'scripts\raspberrypico\bme280_data_pico.csv')  # Windows
+    bme280_plot_data = pd.read_csv(r'scripts/raspberrypico\bme280_data_pico.csv')  # Windows
 
 data_dictionary_list = []
 
@@ -18,7 +18,7 @@ def connect_to_pico():
 
     while True:
         try:
-            data = clientsocket.recv(1024)
+            data = clientsocket.recv(BUFFER_SIZE)
             if data:
                 data_decoded = data.decode()
                 data_list = data_decoded.split(',')
@@ -41,6 +41,7 @@ def connect_to_pico():
                     index=False,
                     header=False,
                 )
+                break
             else:
                 print("Connection closed by the Raspberry Pi Pico")
                 break
@@ -51,4 +52,5 @@ def connect_to_pico():
     clientsocket.close()
 
 if __name__ == '__main__':
+    BUFFER_SIZE = 262144  # Size of the buffer on the Host PC side
     connect_to_pico()
