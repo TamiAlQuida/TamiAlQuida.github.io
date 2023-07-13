@@ -3,6 +3,7 @@ import usocket as socket
 from time import sleep
 from machine import Pin, I2C
 import bme280
+import ntptime
 import utime
 
 # Constants and variables
@@ -52,6 +53,7 @@ def connect_wifi():
         sleep(2)
     ip = wlan.ifconfig()[0]
     print(f'Connected to WiFi, on {ip}')
+    ntptime.settime()
     led.on()
     return wlan
 
@@ -122,5 +124,4 @@ while True:
         pass
 
     sleep(25)
-
-
+    
