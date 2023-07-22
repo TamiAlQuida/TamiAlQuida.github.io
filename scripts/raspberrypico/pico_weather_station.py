@@ -11,6 +11,7 @@ led = Pin("LED", Pin.OUT)
 SSID = 'Pallans Special'
 PASSWORD = '62g2cuhkw'
 HOST_IP = '192.168.1.78'  # Linux Mint IP address
+#HOST_IP = '192.168.1.96'  # Linux Ubuntu IP address
 PORT = 5002
 
 # Initialize BME280 sensor
@@ -47,29 +48,12 @@ action_times = {
 # Time zone adjustment for Swedish summer time (Central European Summer Time, UTC+2)
 def adjust_time_for_dst():
     year, month, _, hour, _, _, _, _ = utime.localtime()
-    last_sunday_march = find_last_sunday(year, 3)
-    last_sunday_october = find_last_sunday(year, 10)
 
-    if month < 3 or month > 10:
+    if month <= 3 or month >= 10:
         return 1  # Apply the time adjustment
-    elif month == 3 and (month, hour) >= last_sunday_march:
-        return 2
-    elif month == 10 and (month, hour) < last_sunday_october:
-        return 2
     else:
         return 2  # Apply the time adjustment
 
-
-def find_last_sunday(year, month):
-    last_day = 31
-    while True:
-        try:
-            weekday = utime.localtime(utime.mktime((year, month, last_day, 0, 0, 0, 0, 0)))[6]
-            if weekday == 6:  # Sunday
-                return (month, last_day)
-            last_day -= 1
-        except:
-            last_day -= 1
 
 def connect_wifi():
     wlan = network.WLAN(network.STA_IF)
@@ -103,8 +87,21 @@ def format_date_time():
     formatted_time = '{:02d}-{:02d}-{:02d},{:02d}:{:02d}'.format(t[0], t[1], t[2], adjusted_hour, t[4])
     return formatted_time
 
+def read_bme280_data():
+    for i in range(10):
+        temperature, pressure, humidity = bme.values
+        sleep(1)
+    print(f"{current_date_time}, {pressure}, {temperature}, {humidity}")
+
+    # Append to CSV file
+    with open('bme280_data_pico.csv', 'a') as f:
+        f.write(current_date_time + ',' + str(pressure) + ',' + str(temperature) + ',' + str(humidity) + ',')
+
 # Connect to Wi-Fi
 wlan = connect_wifi()
+current_time = format_time()
+current_date_time = format_date_time()
+read_bme280_data()
 
 while True:
     if not wlan.isconnected() and format_time() not in action_times:
@@ -118,14 +115,7 @@ while True:
 
     if current_time in action_times:
         # Read BME280 sensor values
-        for i in range(10):
-            temperature, pressure, humidity = bme.values
-            sleep(1)
-        print(f"Temperature: {temperature}, Pressure: {pressure}, Humidity: {humidity}")
-
-        # Append to CSV file
-        with open('bme280_data_pico.csv', 'a') as f:
-            f.write(current_date_time + ',' + str(pressure) + ',' + str(temperature) + ',' + str(humidity) + ',')
+        read_bme280_data()
         sleep(40)
 
     try:

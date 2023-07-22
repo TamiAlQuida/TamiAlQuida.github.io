@@ -12,6 +12,7 @@ def connect_to_pico():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind(('192.168.1.78', 5002))  # Linux Mint IP address and different port
+    #s.bind(('192.168.1.96', 5002))  # Linux Ubuntu IP address and different port
     s.listen(0)
     clientsocket, address = s.accept()
     print(f'Connection from {address}')
@@ -27,8 +28,8 @@ def connect_to_pico():
                     data_dict = {
                         'Date': data_list.pop(0),
                         'Time': data_list.pop(0),
-                        'Temperature C': data_list.pop(0),
                         'Pressure hPa': data_list.pop(0),
+                        'Temperature C': data_list.pop(0),
                         'Humidity %': data_list.pop(0),
                     }
                     data_dictionary_list.append(data_dict)
