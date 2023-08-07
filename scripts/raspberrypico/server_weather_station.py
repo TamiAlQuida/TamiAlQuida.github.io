@@ -11,8 +11,9 @@ data_dictionary_list = []
 def connect_to_pico():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind(('192.168.1.78', 5002))  # Linux Mint IP address and different port
+    #s.bind(('192.168.1.78', 5002))  # Linux Mint IP address and different port
     #s.bind(('192.168.1.96', 5002))  # Linux Ubuntu IP address and different port
+    s.bind(('192.168.1.41', 5002))  # New Linux Ubuntu IP address and different port
     s.listen(0)
     clientsocket, address = s.accept()
     print(f'Connection from {address}')
