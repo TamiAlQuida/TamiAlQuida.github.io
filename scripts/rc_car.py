@@ -12,7 +12,13 @@ servo1 = GPIO.PWM(11,50) # pin 11 for servo1, pulse 50Hz
 # Start PWM running, with value of 0 (pulse off)
 servo1.start(0)
 
-gamepad = InputDevice('/dev/input/event2')      # "cd /dev/input" then "ls -al" to see your connections
+#gamepad = InputDevice('/dev/input/event2')      # "cd /dev/input" then "ls -al" to see your connections
+for i in range(0, 20):
+    try:
+        input1 = '/dev/input/event' + str(i)
+        gamepad = InputDevice(input1)
+    except:
+        continue
 
 button_presses = {                          # ecodes.EV_KEY
     313: 'pause',                           # 3 horizontal lines, top right of touchpad

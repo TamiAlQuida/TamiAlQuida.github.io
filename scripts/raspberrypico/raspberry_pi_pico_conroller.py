@@ -1,17 +1,18 @@
+"""run this on pico. And run server_req_controller.py, or server_req_webbrowser.py + index.html"""
 #import mip ## new upip
 from machine import Pin, PWM
 #import machine
 import network
 import socket
 import uasyncio as asyncio
-import ujson as json
+#import ujson as json
 from time import sleep
 
 #constants and variables
 led = Pin("LED", Pin.OUT)
 SSID = 'Pallans Special'
 PASSWORD = '62g2cuhkw'
-HOST_IP = '192.168.1.25'
+HOST_IP = '192.168.1.78' #linuxmint '192.168.1.25'#pc
 PORT = 5001
 
 parameters = []
@@ -42,22 +43,33 @@ def connect_wifi():
     print(f'Connected to WiFi, on {ip}')
     led.on()
 
-def connect_socket():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((HOST_IP, PORT))
 
 async def handle_data_5001():
-    global speed, direction, parameters, speed_translation
-    data1 = s.recv(5)
-    data = data1.decode()
-    parameters = data.split()
-    print(parameters)
-    speed = int(parameters[0])
-    direction = int(parameters[1])
-    adjust_speed()
-    adjust_direction()
-    if parameters == []:
-        quit()
+    global parameters
+    while True:
+        data1 = s.recv(5)
+        data = data1.decode()
+        parameters = data.split()
+        await asyncio.sleep(0)  # Allow other coroutines to run
+
+async def process_data():
+    global speed, direction, parameters
+    while True:
+        if parameters:
+            speed = int(parameters[0])
+            direction = int(parameters[1])
+            adjust_speed()
+            adjust_direction()
+        await asyncio.sleep_ms(0)  # Adjust the sleep duration as needed
+
+async def main():
+    try:
+        task1 = asyncio.create_task(handle_data_5001())
+        task2 = asyncio.create_task(process_data())
+        await asyncio.gather(task1, task2)
+    
+    except Exception as e:
+        print("Exception:", e)
 
 def adjust_direction():
     global direction_translation, direction
@@ -66,31 +78,25 @@ def adjust_direction():
     # So a .duty_u16 value of c.1350 is zero degrees; 8200 is 180 degrees.
     if direction == 50:
         direction_translation = ((direction-10)*86)+1350
-        print('Direction is 0')
         servo_motor_pwm.duty_u16(direction_translation)
     else:
         direction_translation = ((direction-10)*86)+1350
-        print(direction_translation)
         servo_motor_pwm.duty_u16(direction_translation)
-
 def adjust_speed():
     global speed_translation, speed  
     if speed > 50:
         dc_motor_backward.value(0)
         dc_motor_forward.value(1)
         speed_translation = (speed-50)*1638
-        print(speed_translation)
         dc_motor_pwm.duty_u16(speed_translation)
     
     if speed < 50:
         dc_motor_forward.value(0)
         dc_motor_backward.value(1)
         speed_translation = (speed-50)*-1638
-        print(speed_translation)
         dc_motor_pwm.duty_u16(speed_translation)
     
     if speed == 50:
-        print('Speed is 0')
         dc_motor_backward.value(0)
         dc_motor_forward.value(0)
         dc_motor_pwm.duty_u16(0)
@@ -113,6 +119,7 @@ def turn_off():
 connect_wifi()
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST_IP, PORT))
+
 #motor setup
 dc_motor_forward = Pin(1, Pin.OUT)#GP1=pin2
 dc_motor_backward = Pin(2, Pin.OUT)#GP2=pin4
@@ -122,7 +129,7 @@ dc_motor_pwm.freq(100)
 while True:
     try:
         while True:
-            asyncio.run(handle_data_5001())
+            asyncio.run(main())  # Run the main coroutine
     
     finally:
         turn_off()
