@@ -10,8 +10,9 @@ import utime
 led = Pin("LED", Pin.OUT)
 SSID = 'Pallans Special'
 PASSWORD = '62g2cuhkw'
-HOST_IP = '192.168.1.78'  # Linux Mint IP address
+#HOST_IP = '192.168.1.78'  # Linux Mint IP address
 #HOST_IP = '192.168.1.96'  # Linux Ubuntu IP address
+HOST_IP = '192.168.1.41'  # New Linux Ubuntu IP address
 PORT = 5002
 
 # Initialize BME280 sensor
@@ -91,11 +92,16 @@ def read_bme280_data():
     for i in range(10):
         temperature, pressure, humidity = bme.values
         sleep(1)
-    print(f"{current_date_time}, {pressure}, {temperature}, {humidity}")
+    #print(bme.values)
+    temperature = temperature[:-1]
+    pressure = pressure[:-3]
+    humidity = humidity[:-1]
+    formatted_pressure, formatted_temperature, formatted_humidity = f"{pressure:07}", f"{temperature:05}", f"{humidity:05}"
+    print(formatted_pressure, formatted_temperature, formatted_humidity)
 
     # Append to CSV file
     with open('bme280_data_pico.csv', 'a') as f:
-        f.write(current_date_time + ',' + str(pressure) + ',' + str(temperature) + ',' + str(humidity) + ',')
+        f.write(current_date_time + ',' + formatted_pressure + ',' + formatted_temperature + ',' + formatted_humidity + ',')
 
 # Connect to Wi-Fi
 wlan = connect_wifi()
@@ -104,7 +110,7 @@ current_date_time = format_date_time()
 read_bme280_data()
 
 while True:
-    if not wlan.isconnected() and format_time() not in action_times:
+    if not wlan.isconnected() and current_time not in action_times:
         wlan = connect_wifi()
         
     current_time = format_time()
