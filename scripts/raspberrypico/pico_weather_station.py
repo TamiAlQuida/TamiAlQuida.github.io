@@ -10,6 +10,7 @@ import utime
 led = Pin("LED", Pin.OUT)
 SSID = 'Pallans Special'
 PASSWORD = '62g2cuhkw'
+#HOST_IP = '192.168.1.25'  # Windows laptop IP address
 #HOST_IP = '192.168.1.78'  # Linux Mint IP address
 #HOST_IP = '192.168.1.96'  # Linux Ubuntu IP address
 HOST_IP = '192.168.1.41'  # New Linux Ubuntu IP address
