@@ -1,0 +1,12 @@
+[Unit]
+Description=bme280_sensor service
+After=network-online.target
+[Service]
+ExecStart=/usr/bin/python3.9 -u bme280_sensor.py
+WorkingDirectory=/home/zero/tamialquida.github.io/scripts
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=zero
+[Install]
+WantedBy=multi-user.target
