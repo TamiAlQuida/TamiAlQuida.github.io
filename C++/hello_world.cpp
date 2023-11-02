@@ -1,15 +1,25 @@
 #include <iostream>
 #include <vector>
 #include <string>
+
 #ifdef _WIN32
-#include <windows.h>
+#include <windows.h> //if compiling with windows (Sleep / usleep)
 #else
-#include <linux_header.h>
+#include <unistd.h> //if compiling with ubuntu (Sleep / usleep)
 #endif
+
+void sleep_ms(int milliseconds)
+{
+    #ifdef _WIN32
+    Sleep(milliseconds); //if compiling with windows (Sleep / usleep)
+    #else
+    usleep(milliseconds * 1000); //if compiling with ubuntu (Sleep / usleep)
+    #endif
+}
 
 void last_function()
 {
-    std::vector<std::string> msg {"Hello,", "C++ World from VS Code", "and the C++ extension!"};
+    std::vector<std::string> msg {"I  said,", " that you are", "a real mothafucka!"};
     
     for (const std::string& word : msg)
     {
@@ -21,13 +31,13 @@ void last_function()
 int main()
 {
     std::cout << "Hello,  my friend! wait 5 sec please.\n";
-    Sleep(5000);
+    sleep_ms(5000);
     std::cout << "You mothafucka";
     std::cout << std::endl; //Inserts line like \n and "flushes the buffer"
-    Sleep(3000);
+    sleep_ms(3000);
 
     last_function();
-    Sleep(3000);
+    sleep_ms(3000);
 
     return 0; // supposedly here to add an exit code so that the program ends without errors
 }
