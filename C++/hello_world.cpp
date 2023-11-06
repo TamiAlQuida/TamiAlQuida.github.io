@@ -1,12 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdlib> // For system()
 
 #ifdef _WIN32
-#include <windows.h> //if compiling with windows (Sleep / usleep)
+#include <windows.h> //if compiling with windows (Sleep)
 #else
-#include <unistd.h> //if compiling with ubuntu (Sleep / usleep)
+#include <unistd.h> //if compiling with ubuntu (usleep)
 #endif
+
+const std::string imagePath = "../images/cat.jpg";
+const std::string scriptPath = "../scripts/foraldradagar.py";
 
 void sleep_ms(int milliseconds)
 {
@@ -28,6 +32,21 @@ void last_function()
     std::cout << std::endl;
 }
 
+void openImage() {
+    #ifdef _WIN32
+    std::string command = "start " + imagePath;
+    #else
+    std::string command = "xdg-open " + imagePath;
+    #endif
+    system(command.c_str());
+}
+
+void runPythonScript() {
+    // Command to run a Python script. Assumes 'python' command is available.
+    std::string command = "python " + scriptPath;
+    system(command.c_str());
+}
+
 int main()
 {
     std::cout << "Hello,  my friend! wait 5 sec please.\n";
@@ -38,6 +57,8 @@ int main()
 
     last_function();
     sleep_ms(3000);
+    runPythonScript();
+    openImage();
 
     return 0; // supposedly here to add an exit code so that the program ends without errors
 }
