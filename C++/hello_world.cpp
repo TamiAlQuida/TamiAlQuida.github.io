@@ -43,7 +43,11 @@ void openImage() {
 
 void runPythonScript() {
     // Command to run a Python script. Assumes 'python' command is available.
+    #ifdef _WIN32
     std::string command = "python " + scriptPath;
+    #else
+    std::string command = "python3.11 " + scriptPath;
+    #endif
     system(command.c_str());
 }
 
