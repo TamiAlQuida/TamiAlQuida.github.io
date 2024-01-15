@@ -6,8 +6,8 @@ from evdev import InputDevice, categorize, ecodes                   # pip instal
 GPIO.setmode(GPIO.BOARD)
 
 # Setting up pins
-GPIO.setup(11,GPIO.OUT) # Set pin 11 as an output, and define as servo1 as PWM pin
-servo1 = GPIO.PWM(11,50) # pin 11 for servo1, pulse 50Hz
+GPIO.setup(8,GPIO.OUT) # Set pin 11 as an output, and define as servo1 as PWM pin
+servo1 = GPIO.PWM(8,50) # pin 11 for servo1, pulse 50Hz
 servo1.start(0) # Start PWM running, with value of 0 (pulse off)
 
 GPIO.setup(33,GPIO.OUT) # backward (L2)
