@@ -4,6 +4,8 @@ dark.jpg
 /.idea
 /.venv
 /.vscode
+/build
 nerja.py
 Nerja.csv
 kladd copy.csv
+
