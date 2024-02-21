@@ -11,6 +11,7 @@
 
 const std::string imagePath = "../images/cat.jpg";
 const std::string scriptPath = "../scripts/foraldradagar.py";
+const std::string hello = "Hello,  my friend! wait 5 sec please.\n";
 
 void sleep_ms(int milliseconds)
 {
@@ -53,7 +54,7 @@ void runPythonScript() {
 
 int main()
 {
-    std::cout << "Hello,  my friend! wait 5 sec please.\n";
+    std::cout << hello;
     sleep_ms(5000);
     std::cout << "You mothafucka";
     std::cout << std::endl; //Inserts line like \n and "flushes the buffer"
@@ -61,8 +62,8 @@ int main()
 
     last_function();
     sleep_ms(3000);
-    runPythonScript();
     openImage();
+    runPythonScript();
 
     return 0; // supposedly here to add an exit code so that the program ends without errors
 }
