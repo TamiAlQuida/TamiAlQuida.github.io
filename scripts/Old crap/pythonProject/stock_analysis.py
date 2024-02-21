@@ -14,9 +14,9 @@ print("\nV = EPS * (8.5 + 2*g) * 4.4 / Y \n"
       "Y = Current yield of AAA Corporate bonds\n")
 
 """Check FRED AAA bonds"""
-browser = webdriver.Firefox()
+browser = webdriver.ChromiumEdge()
 browser.get('https://fred.stlouisfed.org/series/AAA')
-Y_input = browser.find_element(by=By.XPATH, value='/html/body/div/div[2]/div/div[2]/div[1]/div[2]/span[2]')
+Y_input = browser.find_element(by=By.XPATH, value='//*[@id="meta-left-col"]/div[2]/span[2]')
 Y_string = Y_input.text
 Y = float(Y_string)
 browser.close()
@@ -25,7 +25,7 @@ browser.close()
 df = pandas.read_csv("stocks_in_the_sp_500_index.csv")
 df_to_list = df["Symbol"]
 tickers = df_to_list.values.tolist()
-# print(tickers)
+print(tickers)
 
 for i in range(0, 5):
     stock_to_analyze = tickers[i]

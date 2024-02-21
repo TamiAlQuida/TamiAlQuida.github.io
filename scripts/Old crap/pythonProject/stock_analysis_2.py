@@ -1,10 +1,8 @@
 import time
-
-from pandas_datareader import data
-import matplotlib.pyplot as plt
-import pandas as pd
-import scrapy
-
+#from pandas_datareader import data
+#import matplotlib.pyplot as plt
+#import pandas as pd
+#import scrapy
 from lxml import html
 import requests
 

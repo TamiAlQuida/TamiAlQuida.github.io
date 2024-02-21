@@ -1,19 +1,11 @@
-import time
+from lxml import html
+import requests
 
-import numpy as np
-import matplotlib.pyplot as plt
+page_analysis = requests.get('https://finance.yahoo.com/quote/AAPL/analysis?p=AAPL')
 
-numbers = [0]
-def counter():
-    numbers.append(numbers[-1] + 1)
-    print(numbers)
+tree_analysis = html.fromstring(page_analysis.content)
+
+g = tree_analysis.xpath('/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/section/table[6]/tbody/tr[5]/td[2]')
 
 
-def weirdo():
-    if numbers[-1] % 10 == 0:
-        print("{} reached".format(numbers[-1]))
-
-while True:
-    counter()
-    weirdo()
-    time.sleep(1)
+print("g (growth rate for next 5 years per year):", g)

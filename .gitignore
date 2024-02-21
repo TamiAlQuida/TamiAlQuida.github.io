@@ -5,6 +5,9 @@ dark.jpg
 /.venv
 /.vscode
 /build
+/venv 
+#source venv/bin/activate # deactivate 
+# pip freeze > requirements.txt (makes list of whats in venv)# pip install -r requirements.txt  (installs whats in the list)
 nerja.py
 Nerja.csv
 kladd copy.csv
