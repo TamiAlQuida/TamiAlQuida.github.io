@@ -19,6 +19,8 @@ expects bytes as input.)"""
 tree_summary = html.fromstring(page_summary.content)
 tree_analysis = html.fromstring(page_analysis.content)
 
+print(tree_summary.forms)
+
 print("V = EPS * (8.5 + 2*g) * 4.4 / Y")
 print("V = Intrinsic Value \n"
       "EPS = Earnings per share \n"
@@ -40,7 +42,11 @@ print('EPS:', EPS)
 
 time.sleep(1)
 
-g = tree_analysis.xpath('/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/'
-                        'div/div/section/table[6]/tbody/tr[6]/td[2]/text()')
+#g = tree_analysis.xpath('/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/'
+#                        'div/div/section/table[6]/tbody/tr[6]/td[2]/text()')
 
-print("g (growth rate for next 5 years per year):", g)
+g = tree_analysis.xpath('/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/div/div/section/table[6]/tbody/tr[5]/td[2]')
+
+print(g)
+
+#print("g (growth rate for next 5 years per year):", g)

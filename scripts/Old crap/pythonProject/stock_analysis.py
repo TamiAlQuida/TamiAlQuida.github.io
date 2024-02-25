@@ -22,7 +22,7 @@ Y = float(Y_string)
 browser.close()
 
 """What stocks to analyze"""
-df = pandas.read_csv("stocks_in_the_sp_500_index.csv")
+df = pandas.read_csv("scripts/Old crap/pythonProject/stocks_in_the_sp_500_index.csv")
 df_to_list = df["Symbol"]
 tickers = df_to_list.values.tolist()
 print(tickers)

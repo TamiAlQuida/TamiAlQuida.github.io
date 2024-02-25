@@ -1,11 +1,22 @@
-from lxml import html
+
+import pandas as pd
 import requests
 
-page_analysis = requests.get('https://finance.yahoo.com/quote/AAPL/analysis?p=AAPL')
+# ticker = input("What stock/ticker do you want to analyse?")
+ticker = 'AAPL'
 
-tree_analysis = html.fromstring(page_analysis.content)
+""" Request the page"""
+#page_summary = 'https://finance.yahoo.com/quote/AAPL?p=AAPL'
+page_analysis = 'https://finance.yahoo.com/quote/AAPL/analysis?p=AAPL'
 
-g = tree_analysis.xpath('/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[1]/section/table[6]/tbody/tr[5]/td[2]')
+headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0'}
 
+"""Parsing the page"""
+#tree_summary = pd.read_html(requests.get(page_summary, headers=headers).text)[0]
+tree_analysis = pd.read_html(requests.get(page_analysis, headers=headers).text)[5]
 
-print("g (growth rate for next 5 years per year):", g)
+growth_estimates = tree_analysis[ticker]
+growth_next_5_years = growth_estimates.values.tolist()[-1]
+
+#print(tree_summary)
+print(growth_next_5_years)
