@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -6,20 +7,13 @@ using namespace std;
 const int amountOfChairs = 20;
 int totalInhabitants = 0;
 
-class SkiChair {
-    // A class that contains data about ski chairs
-    public:
-        string chairName;
-        int inhabitants;
-};
-
 SkiChair listOfChairs[amountOfChairs]; //creates a list full of objects made from the class
 
 void addingToAList () {
 
     //loop through the list and empty chair at the top, add values to the objects + print + sleep
     for (int i = 0; i < amountOfChairs; i++)
-    {   
+    {
         //empty the last chair
         if (i < 19)
         {
@@ -40,7 +34,7 @@ void addingToAList () {
         //print the values
         cout << listOfChairs[i].chairName << "\n";
         cout << listOfChairs[i].inhabitants << "\n";
-        
+
         totalInhabitants += listOfChairs[i].inhabitants;
         cout << totalInhabitants<< "\n" << "\n";
 
@@ -49,9 +43,3 @@ void addingToAList () {
     }
 };
 
-int main() {
-    while (true)
-    {
-        addingToAList();
-    }
-};

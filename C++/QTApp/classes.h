@@ -1,16 +1,18 @@
+#pragma once
 #include <iostream>
-#include <chrono>
-#include <thread>
 using namespace std;
+
+#ifndef CLASSES_H
+#define CLASSES_H
 
 const int amountOfChairs = 20;
 int totalInhabitants = 0;
 
 class SkiChair {
     // A class that contains data about ski chairs
-    public:
-        string chairName;
-        int inhabitants;
+public:
+    string chairName;
+    int inhabitants;
 };
 
 SkiChair listOfChairs[amountOfChairs]; //creates a list full of objects made from the class
@@ -19,7 +21,7 @@ void addingToAList () {
 
     //loop through the list and empty chair at the top, add values to the objects + print + sleep
     for (int i = 0; i < amountOfChairs; i++)
-    {   
+    {
         //empty the last chair
         if (i < 19)
         {
@@ -38,20 +40,12 @@ void addingToAList () {
         int random = rand() % 5;
         listOfChairs[i].inhabitants = random;
         //print the values
-        cout << listOfChairs[i].chairName << "\n";
-        cout << listOfChairs[i].inhabitants << "\n";
-        
+        cout << listOfChairs[i].chairName << "  ";
+        cout << listOfChairs[i].inhabitants << "  ";
+
         totalInhabitants += listOfChairs[i].inhabitants;
-        cout << totalInhabitants<< "\n" << "\n";
-
-        //sleep
-        this_thread::sleep_for(chrono::milliseconds(1000));
+        cout << totalInhabitants<< "\n";
     }
 };
 
-int main() {
-    while (true)
-    {
-        addingToAList();
-    }
-};
+#endif // CLASSES_H
