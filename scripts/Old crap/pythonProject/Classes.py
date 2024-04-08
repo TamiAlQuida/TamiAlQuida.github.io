@@ -82,6 +82,7 @@ chairs = []
 for i in range(1, NUM_CHAIRS + 1):
     chairs.append(CorrectChair(i))
 
+
 print(chairs[3].__dict__)  # {'id': 4, 'count': 0}
 print(chairs[4].id)
 print(chairs[4].count)
