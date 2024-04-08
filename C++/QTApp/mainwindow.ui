@@ -1485,7 +1485,7 @@ TalkingUI &gt; QFrame {
         <set>Qt::ImhHiddenText</set>
        </property>
        <property name="text">
-        <string/>
+        <string>How many calories?</string>
        </property>
        <property name="placeholderText">
         <string>Vad kostar huset?</string>
