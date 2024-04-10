@@ -1,5 +1,8 @@
+
+
 total_amount_of_calories = 672 + 500 # + fett
 amount_of_fat_contained_in_food = 672*0.55 + 500*0.56 # +fett
+#check if above is true because ...*0.55 should be of grams not of 
 
 fat_percentage = amount_of_fat_contained_in_food/total_amount_of_calories
 
