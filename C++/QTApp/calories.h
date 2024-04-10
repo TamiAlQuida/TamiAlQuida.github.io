@@ -18,15 +18,6 @@ float fatCaloriesNeededToStayInKetosis;
 
 
 void inputData (float weight, float gramsOfCarbohydratePer100g, float gramsOfProteinPer100g, float gramsOfFatPer100g) {
-    //cout << "how much does the food weigh?" << "\n";
-    //cin >> weight;
-    //cout << "how many grams of carbohydrates does it contain per 100g?" << "\n";
-    //cin >> gramsOfCarbohydratePer100g;
-    //cout << "how many grams of protein does it contain per 100g?" << "\n";
-    //cin >> gramsOfProteinPer100g;
-    //cout << "how many grams of fat does it contain per 100g?" << "\n";
-    //cin >> gramsOfFatPer100g;
-
     float amountOfCaloriesInCarbohydratesPer1g = (gramsOfCarbohydratePer100g * amountOfCaloriesIn1gCarbohydrate) / 100;
     float amountOfCaloriesInProteinPer1g = (gramsOfProteinPer100g * amountOfCaloriesIn1gProtein) / 100;
     float amountOfCaloriesInFatPer1g = (gramsOfFatPer100g * amountOfCaloriesIn1gFat) / 100;
@@ -49,8 +40,3 @@ void inputData (float weight, float gramsOfCarbohydratePer100g, float gramsOfPro
     float gramsOfFatNeededToStayInKetosis = fatCaloriesNeededToStayInKetosis / 9;
     cout << "grams of fat to stay in ketosis: " << gramsOfFatNeededToStayInKetosis << "\n\n";
 };
-
-
-int main () {
-    inputData(100, 9, 9, 24);
-}

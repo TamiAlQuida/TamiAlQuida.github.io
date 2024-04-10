@@ -4,12 +4,16 @@
 #include "classes.h"
 #include "get_value.h"
 #include "bolan.h"
+#include "calories.h"
 
 using namespace std;
 
 QString textvalue;
 string convertedString;
 int strToInt;
+int strToInt2;
+int strToInt3;
+int strToInt4;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -51,7 +55,24 @@ void MainWindow::on_pushButton_5_clicked()
     convertedString = textvalue.toStdString();
     strToInt = stoi(convertedString);
     cout << strToInt << "\n";
-    bolan(strToInt);
+    //bolan(strToInt);
+
+    textvalue = ui->lineEdit_2->displayText();
+    convertedString = textvalue.toStdString();
+    strToInt2 = stoi(convertedString);
+    cout << strToInt2 << "\n";
+
+    textvalue = ui->lineEdit_3->displayText();
+    convertedString = textvalue.toStdString();
+    strToInt3 = stoi(convertedString);
+    cout << strToInt3 << "\n";
+
+    textvalue = ui->lineEdit_4->displayText();
+    convertedString = textvalue.toStdString();
+    strToInt4 = stoi(convertedString);
+    cout << strToInt4 << "\n";
+
+    inputData(strToInt, strToInt2, strToInt3, strToInt4);
 }
 
 

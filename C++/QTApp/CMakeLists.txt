@@ -22,6 +22,7 @@ set(PROJECT_SOURCES
         style.xml
         get_value.h
         bolan.h
+        calories.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
