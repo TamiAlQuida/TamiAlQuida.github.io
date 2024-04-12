@@ -15,6 +15,7 @@ const float desiredFatPercentage = 0.7;
 
 float fatPercentage;
 float fatCaloriesNeededToStayInKetosis;
+float gramsOfFatNeededToStayInKetosis;
 
 
 void inputData (float weight, float gramsOfCarbohydratePer100g, float gramsOfProteinPer100g, float gramsOfFatPer100g) {
@@ -37,6 +38,6 @@ void inputData (float weight, float gramsOfCarbohydratePer100g, float gramsOfPro
     fatCaloriesNeededToStayInKetosis = (totalAmountofCaloriesInThisMealFromFat - (desiredFatPercentage * totalAmountOfCaloriesInThisMeal))/(desiredFatPercentage - 1);
     cout << "calories needed from fat to stay in ketosis: " << fatCaloriesNeededToStayInKetosis << "\n\n";
     
-    float gramsOfFatNeededToStayInKetosis = fatCaloriesNeededToStayInKetosis / 9;
+    gramsOfFatNeededToStayInKetosis = fatCaloriesNeededToStayInKetosis / 9;
     cout << "grams of fat to stay in ketosis: " << gramsOfFatNeededToStayInKetosis << "\n\n";
 };

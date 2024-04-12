@@ -20,8 +20,8 @@ set(PROJECT_SOURCES
         classes.h
         bolan.py
         style.xml
+        bolan.py
         get_value.h
-        bolan.h
         calories.h
 )
 

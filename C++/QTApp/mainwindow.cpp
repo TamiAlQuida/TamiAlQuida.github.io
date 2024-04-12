@@ -10,10 +10,12 @@ using namespace std;
 
 QString textvalue;
 string convertedString;
-int strToInt;
-int strToInt2;
-int strToInt3;
-int strToInt4;
+int gramsOfFood;
+int carbsPer100g;
+int proteinPer100g;
+int fatPer100g;
+string dataToPrint;
+QString QgramsOfFatNeededToStayInKetosis;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -50,30 +52,28 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    cout << "button clicked" << "\n";
     textvalue = ui->lineEdit->displayText();
     convertedString = textvalue.toStdString();
-    strToInt = stoi(convertedString);
-    cout << strToInt << "\n";
-    //bolan(strToInt);
+    gramsOfFood = stoi(convertedString);
+    //bolan(gramsOfFood);
 
     textvalue = ui->lineEdit_2->displayText();
     convertedString = textvalue.toStdString();
-    strToInt2 = stoi(convertedString);
-    cout << strToInt2 << "\n";
+    carbsPer100g = stoi(convertedString);
 
     textvalue = ui->lineEdit_3->displayText();
     convertedString = textvalue.toStdString();
-    strToInt3 = stoi(convertedString);
-    cout << strToInt3 << "\n";
+    proteinPer100g = stoi(convertedString);
 
     textvalue = ui->lineEdit_4->displayText();
     convertedString = textvalue.toStdString();
-    strToInt4 = stoi(convertedString);
-    cout << strToInt4 << "\n";
+    fatPer100g = stoi(convertedString);
 
-    inputData(strToInt, strToInt2, strToInt3, strToInt4);
+    inputData(gramsOfFood, carbsPer100g, proteinPer100g, fatPer100g);
+    cout << gramsOfFatNeededToStayInKetosis << "\n";
+    QgramsOfFatNeededToStayInKetosis = QString::number(gramsOfFatNeededToStayInKetosis);
+    ui->lineEdit_5->setText(QgramsOfFatNeededToStayInKetosis);
+    //on_textEditConsole_textChanged()->QgramsOfFat
+
 }
-
-
 
