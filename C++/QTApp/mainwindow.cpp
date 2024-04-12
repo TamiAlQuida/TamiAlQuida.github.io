@@ -16,6 +16,7 @@ int proteinPer100g;
 int fatPer100g;
 string dataToPrint;
 QString QgramsOfFatNeededToStayInKetosis;
+QString QcaloriesOfMeal;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -73,7 +74,8 @@ void MainWindow::on_pushButton_5_clicked()
     cout << gramsOfFatNeededToStayInKetosis << "\n";
     QgramsOfFatNeededToStayInKetosis = QString::number(gramsOfFatNeededToStayInKetosis);
     ui->lineEdit_5->setText(QgramsOfFatNeededToStayInKetosis);
-    //on_textEditConsole_textChanged()->QgramsOfFat
 
+    QcaloriesOfMeal = QString::number(caloriesOfMeal);
+    ui->lineEdit_6->setText(QcaloriesOfMeal);
 }
 

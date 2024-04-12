@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-float totalAmountOfCalories;
 float weight;
 float gramsOfCarbohydratePer100g;
 float gramsOfProteinPer100g;
@@ -16,6 +15,7 @@ const float desiredFatPercentage = 0.7;
 float fatPercentage;
 float fatCaloriesNeededToStayInKetosis;
 float gramsOfFatNeededToStayInKetosis;
+float caloriesOfMeal;
 
 
 void inputData (float weight, float gramsOfCarbohydratePer100g, float gramsOfProteinPer100g, float gramsOfFatPer100g) {
@@ -40,4 +40,7 @@ void inputData (float weight, float gramsOfCarbohydratePer100g, float gramsOfPro
     
     gramsOfFatNeededToStayInKetosis = fatCaloriesNeededToStayInKetosis / 9;
     cout << "grams of fat to stay in ketosis: " << gramsOfFatNeededToStayInKetosis << "\n\n";
+
+    caloriesOfMeal = fatCaloriesNeededToStayInKetosis + totalAmountOfCaloriesInThisMeal;
+    cout << "Calories of meal + fat: " << caloriesOfMeal << "\n\n";
 };
