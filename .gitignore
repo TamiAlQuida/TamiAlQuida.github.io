@@ -8,6 +8,7 @@ dark.jpg
 /C++/QTApp/build
 C++/QTApp/build-QTApp-Desktop-Debug
 C++/QTApp/build-QTApp-Desktop-Release
+C++/QTAppQmake/build-QTAppQmake-Desktop-Release
 /build
 /venv 
 # virtualenv --python python3.11 venv # source .venv/bin/activate # deactivate 
