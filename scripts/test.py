@@ -1,27 +1,23 @@
 
+##Tesla 
 
-total_amount_of_calories = 672 + 500 # + fett
-amount_of_fat_contained_in_food = 672*0.55 + 500*0.56 # +fett
-#check if above is true because ...*0.55 should be of grams not of 
+pauline_mil_om_året = 3036+1500
 
-fat_percentage = amount_of_fat_contained_in_food/total_amount_of_calories
+inköpspris_tesla = 684170
+service_tesla = (5000 + 5000) *10
+försäkring_tesla = 1000 * 12 * 10
+elkostnad_per_mil = 3.7
+elkostnad_per_10_år = pauline_mil_om_året * elkostnad_per_mil * 10
+total_kostnad_elbil = elkostnad_per_10_år +inköpspris_tesla + service_tesla + försäkring_tesla
 
-desired_fat_percentage = 0.7
-
-coconut_calories_needed_to_stay_in_ketosis = (amount_of_fat_contained_in_food -(desired_fat_percentage*total_amount_of_calories))/(desired_fat_percentage-1)
-
-print(total_amount_of_calories)
-print(amount_of_fat_contained_in_food)
-print(fat_percentage)
-print(coconut_calories_needed_to_stay_in_ketosis)
+inköp_bensinbil = 40000 + 120000
+service = 5000 * 10
+försäkring_bensin = 353 * 12 * 10
+bensinkostnad_per_mil = 21
+bensinkostnad_per_10_år = pauline_mil_om_året * bensinkostnad_per_mil * 10
+total_kostnad_bensinbil = bensinkostnad_per_10_år + inköp_bensinbil + service + försäkring_bensin
 
 
-grams_of_coconut_oil = (100/900)*coconut_calories_needed_to_stay_in_ketosis
-print(grams_of_coconut_oil)
+print(total_kostnad_elbil, "\n")
 
-ml_of_coconut_oil = grams_of_coconut_oil*1.08
-
-print(ml_of_coconut_oil)
-
-total_amount_of_calories_plus_coconut_oil_calories = total_amount_of_calories + coconut_calories_needed_to_stay_in_ketosis
-print(total_amount_of_calories_plus_coconut_oil_calories)
+print(total_kostnad_bensinbil)
