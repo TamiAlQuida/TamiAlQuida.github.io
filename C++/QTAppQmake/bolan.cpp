@@ -1,3 +1,9 @@
+#include <iostream>
+using namespace std;
+
+int huskostnad = 3000000;
+double ranta = 0.04;
+int antal_ar = 20;
 
 float kvar_pa_lan;
 float kvar_pa_lan_2;
@@ -41,4 +47,8 @@ void bolan (int huskostnad, double ranta, int antal_ar) {
 
         // plussa på kontantinsatsen på totalt betalt
     }
+};
+
+int main () {
+    bolan(huskostnad, ranta, antal_ar);
 };

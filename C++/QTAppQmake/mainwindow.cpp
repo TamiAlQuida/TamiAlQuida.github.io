@@ -17,6 +17,9 @@ int fatPer100g;
 string dataToPrint;
 QString QgramsOfFatNeededToStayInKetosis;
 QString QcaloriesOfMeal;
+int huskostnad;
+double ranta;
+int antal_ar;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -39,7 +42,7 @@ void MainWindow::on_helloMF_clicked() // mainwindow.h from class MainWindow, fro
 
 
 void MainWindow::on_pushButton_clicked() // mainwindow.h from class MainWindow, from private slot on_push...
-{
+{   
     system("python3 /home/tomcarl/QT_app/QTApp/QTApp/bolan.py");
 }
 
@@ -77,5 +80,23 @@ void MainWindow::on_pushButton_5_clicked()
 
     QcaloriesOfMeal = QString::number(caloriesOfMeal);
     ui->lineEdit_6->setText(QcaloriesOfMeal);
+}
+
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    textvalue = ui->lineEdit_9->displayText();
+    convertedString = textvalue.toStdString();
+    huskostnad = stoi(convertedString);
+
+    textvalue = ui->lineEdit_10->displayText();
+    convertedString = textvalue.toStdString();
+    ranta = stof(convertedString);
+
+    textvalue = ui->lineEdit_11->displayText();
+    convertedString = textvalue.toStdString();
+    antal_ar = stoi(convertedString);
+    
+    bolan(huskostnad, ranta, antal_ar);
 }
 
