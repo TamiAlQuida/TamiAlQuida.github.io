@@ -8,7 +8,7 @@
 
 using namespace std;
 
-QString textvalue;
+QString textvalueloan;
 string convertedString;
 int gramsOfFood;
 int carbsPer100g;
@@ -58,16 +58,16 @@ void MainWindow::on_pushButton_5_clicked()
     gramsOfFood = stoi(convertedString);
     //bolan(gramsOfFood);
 
-    textvalue = ui->lineEdit_2->displayText();
-    convertedString = textvalue.toStdString();
+    textvalueloan = ui->lineEdit_2->displayText();
+    convertedString = textvalueloan.toStdString();
     carbsPer100g = stoi(convertedString);
 
-    textvalue = ui->lineEdit_3->displayText();
-    convertedString = textvalue.toStdString();
+    textvalueloan = ui->lineEdit_3->displayText();
+    convertedString = textvalueloan.toStdString();
     proteinPer100g = stoi(convertedString);
 
-    textvalue = ui->lineEdit_4->displayText();
-    convertedString = textvalue.toStdString();
+    textvalueloan = ui->lineEdit_4->displayText();
+    convertedString = textvalueloan.toStdString();
     fatPer100g = stoi(convertedString);
 
     inputData(gramsOfFood, carbsPer100g, proteinPer100g, fatPer100g);

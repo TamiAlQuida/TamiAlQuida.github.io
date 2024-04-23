@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+
 using namespace std;
 
 int huskostnad = 3000000;
@@ -24,12 +26,18 @@ void bolan (int huskostnad, double ranta, int antal_ar) {
     ranta_per_manad = ranta / 12;
     antal_manader_per_ar = 12;
     antal_betalningstillfallen = antal_manader_per_ar * antal_ar;
-    totalt_betalat = 0;
+    totalt_betalat = kontantinsats;
+
+    ofstream out("output.txt");
     
     cout << "##################################################################" << "\n\n";
+    out << "##################################################################" << "\n\n";
     std::cout << std::fixed;
     cout << "kontaninsats  : " << kontantinsats << "\n";
-    cout << "lån           : " << kvar_pa_lan << "\n";
+    out << "kontaninsats  : " << kontantinsats << "\n";
+
+    cout << "lån           : " << kvar_pa_lan << "\n\n";
+    out << "lån           : " << kvar_pa_lan << "\n\n";
 
     for (int i = 0; i < antal_betalningstillfallen; i++)
     {
@@ -40,13 +48,21 @@ void bolan (int huskostnad, double ranta, int antal_ar) {
         totalt_betalat += att_betala;
 
         cout << "kostnad_ranta : " << kostnad_ranta << "\n";
-        cout << "kostnad_lån   : " << kostnad_lan << "\n";
-        cout << "att_betala    : " << att_betala << "\n";
-        cout << "kvar_på_lån   : " << kvar_pa_lan << "\n";
-        cout << "totalt_betalat: " << totalt_betalat << "\n\n";
+        out << "kostnad_ranta : " << kostnad_ranta << "\n";
 
-        // plussa på kontantinsatsen på totalt betalt
+        cout << "kostnad_lån   : " << kostnad_lan << "\n";
+        out << "kostnad_lån   : " << kostnad_lan << "\n";
+
+        cout << "att_betala    : " << att_betala << "\n";
+        out << "att_betala    : " << att_betala << "\n";
+
+        cout << "kvar_på_lån   : " << kvar_pa_lan << "\n";
+        out <<"kvar_på_lån   : " << kvar_pa_lan << "\n";
+
+        cout << "totalt_betalat: " << totalt_betalat << "\n\n";
+        out << "totalt_betalat: " << totalt_betalat << "\n\n";
     }
+    out.close();
 };
 
 int main () {

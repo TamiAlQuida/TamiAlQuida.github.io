@@ -5,6 +5,7 @@
 #include "get_value.h"
 #include "bolan.h"
 #include "calories.h"
+#include <QFile>
 
 using namespace std;
 
@@ -42,44 +43,37 @@ void MainWindow::on_helloMF_clicked() // mainwindow.h from class MainWindow, fro
 
 
 void MainWindow::on_pushButton_clicked() // mainwindow.h from class MainWindow, from private slot on_push...
-{   
-    system("python3 /home/tomcarl/QT_app/QTApp/QTApp/bolan.py");
-}
-
-
-void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
-    //textvalue2 = ui->lineEdit->displayText();
-    //data1 = textvalue.toStdString();
+    //system("python3 /home/tomcarl/QT_app/QTApp/QTApp/bolan.py");
 }
 
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    textvalue = ui->lineEdit->displayText();
+    textvalue = ui->lineEdit_16->displayText();
     convertedString = textvalue.toStdString();
     gramsOfFood = stoi(convertedString);
     //bolan(gramsOfFood);
 
-    textvalue = ui->lineEdit_2->displayText();
+    textvalue = ui->lineEdit_17->displayText();
     convertedString = textvalue.toStdString();
     carbsPer100g = stoi(convertedString);
 
-    textvalue = ui->lineEdit_3->displayText();
+    textvalue = ui->lineEdit_18->displayText();
     convertedString = textvalue.toStdString();
     proteinPer100g = stoi(convertedString);
 
-    textvalue = ui->lineEdit_4->displayText();
+    textvalue = ui->lineEdit_19->displayText();
     convertedString = textvalue.toStdString();
     fatPer100g = stoi(convertedString);
 
     inputData(gramsOfFood, carbsPer100g, proteinPer100g, fatPer100g);
     cout << gramsOfFatNeededToStayInKetosis << "\n";
     QgramsOfFatNeededToStayInKetosis = QString::number(gramsOfFatNeededToStayInKetosis);
-    ui->lineEdit_5->setText(QgramsOfFatNeededToStayInKetosis);
+    ui->lineEdit_12->setText(QgramsOfFatNeededToStayInKetosis);
 
     QcaloriesOfMeal = QString::number(caloriesOfMeal);
-    ui->lineEdit_6->setText(QcaloriesOfMeal);
+    ui->lineEdit_13->setText(QcaloriesOfMeal);
 }
 
 
@@ -98,5 +92,16 @@ void MainWindow::on_pushButton_7_clicked()
     antal_ar = stoi(convertedString);
     
     bolan(huskostnad, ranta, antal_ar);
+
+
 }
 
+void MainWindow::on_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}

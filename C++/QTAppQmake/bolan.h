@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 
 float kvar_pa_lan;
 float kvar_pa_lan_2;
@@ -18,12 +20,12 @@ void bolan (int huskostnad, double ranta, int antal_ar) {
     ranta_per_manad = ranta / 12;
     antal_manader_per_ar = 12;
     antal_betalningstillfallen = antal_manader_per_ar * antal_ar;
-    totalt_betalat = 0;
+    totalt_betalat = kontantinsats;
     
     cout << "##################################################################" << "\n\n";
     std::cout << std::fixed;
     cout << "kontaninsats  : " << kontantinsats << "\n";
-    cout << "lån           : " << kvar_pa_lan << "\n";
+    cout << "lån           : " << kvar_pa_lan << "\n\n";
 
     for (int i = 0; i < antal_betalningstillfallen; i++)
     {
@@ -38,7 +40,5 @@ void bolan (int huskostnad, double ranta, int antal_ar) {
         cout << "att_betala    : " << att_betala << "\n";
         cout << "kvar_på_lån   : " << kvar_pa_lan << "\n";
         cout << "totalt_betalat: " << totalt_betalat << "\n\n";
-
-        // plussa på kontantinsatsen på totalt betalt
     }
 };
