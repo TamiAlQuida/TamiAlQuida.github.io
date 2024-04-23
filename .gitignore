@@ -3,6 +3,21 @@ foo.jpg
 dark.jpg
 /.idea
 /.venv
+/.vscode
+/C++/QTApp/.vscode
+/C++/QTApp/build
+C++/QTApp/build-QTApp-Desktop-Debug
+C++/QTApp/build-QTApp-Desktop-Release
+C++/QTAppQmake/build-QTAppQmake-Desktop-Release
+/build
+/venv 
+# virtualenv --python python3.11 venv # source .venv/bin/activate # deactivate 
+# pip freeze > requirements.txt (makes list of whats in venv)# pip install -r requirements.txt  (installs whats in the list)
 nerja.py
 Nerja.csv
 kladd copy.csv
+/scripts/Old crap/pythonProject/transaktioner_sparkonto_merge_ 20221229.csv
+/scripts/Old crap/pythonProject/Transaktioner_2022-12-29_11-41-40.csv
+/scripts/Old crap/pythonProject/Transaktioner sparkonto.csv
+/scripts/Old crap/pythonProject/Transaktioner sparkonto modified.csv
+/scripts/Old crap/pythonProject/Transaktioner privatkonto.csv

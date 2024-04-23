@@ -1,26 +1,23 @@
-import pandas as pd
-import numpy as np
-from matplotlib import pyplot as plt
 
-dagar = [0, 5, 6, 8, 9]
+##Tesla 
 
-df3 = pd.DataFrame({'person':'Tom', 'danskadagar':[5, 2, 3, 7, 9], 'dagar':dagar})
+pauline_mil_om_året = 3036+1500
 
-df1 = pd.DataFrame({'person':'Pauline', 'danskadagar':[5, 6, 1, 2, 3], 'dagar':[9, 5, 7, 1, 3]})
+inköpspris_tesla = 684170
+service_tesla = (5000 + 5000) *10
+försäkring_tesla = 1000 * 12 * 10
+elkostnad_per_mil = 3.7
+elkostnad_per_10_år = pauline_mil_om_året * elkostnad_per_mil * 10
+total_kostnad_elbil = elkostnad_per_10_år +inköpspris_tesla + service_tesla + försäkring_tesla
 
-df2 = df1.append(df3)
+inköp_bensinbil = 40000 + 120000
+service = 5000 * 10
+försäkring_bensin = 353 * 12 * 10
+bensinkostnad_per_mil = 21
+bensinkostnad_per_10_år = pauline_mil_om_året * bensinkostnad_per_mil * 10
+total_kostnad_bensinbil = bensinkostnad_per_10_år + inköp_bensinbil + service + försäkring_bensin
 
-#print(df3)
-#print(df1)
 
-print(df2)
+print(total_kostnad_elbil, "\n")
 
-keys = df2
-danskadagar= df2['danskadagar']
-dagar= df2['dagar']
-print(keys)
-print(danskadagar)
-
-plt.bar('danskadagar', danskadagar)
-plt.bar('dagar', dagar)
-plt.show()
+print(total_kostnad_bensinbil)
