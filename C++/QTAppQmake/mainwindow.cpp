@@ -6,6 +6,7 @@
 #include "bolan.h"
 #include "calories.h"
 #include <QFile>
+#include <QTextStream>
 
 using namespace std;
 
@@ -93,7 +94,12 @@ void MainWindow::on_pushButton_7_clicked()
     
     bolan(huskostnad, ranta, antal_ar);
 
-
+    QFile file("output.txt");
+    file.open(QIODevice::ReadOnly);
+    QTextStream stream(&file);
+    QString content = stream.readAll();
+    file.close();
+    ui->textEditConsole->setPlainText(content);
 }
 
 void MainWindow::on_pushButton_2_clicked()

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int huskostnad = 3000000;
+int huskostnad = 2000000;
 double ranta = 0.04;
 int antal_ar = 20;
 
@@ -31,7 +31,7 @@ void bolan (int huskostnad, double ranta, int antal_ar) {
     ofstream out("output.txt");
     
     cout << "##################################################################" << "\n\n";
-    out << "##################################################################" << "\n\n";
+    out << "############################################################" << "\n\n";
     std::cout << std::fixed;
     cout << "kontaninsats  : " << kontantinsats << "\n";
     out << "kontaninsats  : " << kontantinsats << "\n";
@@ -41,24 +41,24 @@ void bolan (int huskostnad, double ranta, int antal_ar) {
 
     for (int i = 0; i < antal_betalningstillfallen; i++)
     {
+        int year = i / 12;
+        int month = i % 12 + 1;
         kostnad_ranta = kvar_pa_lan * ranta_per_manad;
         kostnad_lan = kvar_pa_lan_2 / antal_betalningstillfallen;
         att_betala = kostnad_ranta + kostnad_lan;
         kvar_pa_lan -= kostnad_lan;
         totalt_betalat += att_betala;
 
+        cout << "year: " << year << " month: " << month << "\n";
+        out << "year: " << year << " month: " << month << "\n";
         cout << "kostnad_ranta : " << kostnad_ranta << "\n";
         out << "kostnad_ranta : " << kostnad_ranta << "\n";
-
         cout << "kostnad_lån   : " << kostnad_lan << "\n";
         out << "kostnad_lån   : " << kostnad_lan << "\n";
-
         cout << "att_betala    : " << att_betala << "\n";
         out << "att_betala    : " << att_betala << "\n";
-
         cout << "kvar_på_lån   : " << kvar_pa_lan << "\n";
         out <<"kvar_på_lån   : " << kvar_pa_lan << "\n";
-
         cout << "totalt_betalat: " << totalt_betalat << "\n\n";
         out << "totalt_betalat: " << totalt_betalat << "\n\n";
     }

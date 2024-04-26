@@ -28,6 +28,9 @@
   <property name="windowTitle">
    <string>Mother fucking app</string>
   </property>
+  <property name="windowIcon">
+   <iconset theme="face-kiss"/>
+  </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>
@@ -5074,5 +5077,54 @@ TalkingUI &gt; QFrame {
   <tabstop>pushButton_4</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>progressBar</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>397</x>
+     <y>899</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>393</x>
+     <y>935</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>dial</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>534</x>
+     <y>897</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>589</x>
+     <y>890</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dial</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>597</x>
+     <y>905</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>898</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
