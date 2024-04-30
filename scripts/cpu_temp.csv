@@ -12446,3 +12446,325 @@ first line 2024-04-10 09:04:25.424498
  {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
 first line 2024-04-28 10:43:38.083481 
  {'cpu_thermal': [shwtemp(label='', current=49.05, high=None, critical=None)]} 
+first line 2024-04-28 11:08:43.972305 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 11:28:43.973953 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-28 11:48:43.975333 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-28 12:08:43.976674 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-28 12:28:43.978053 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-28 12:48:43.979404 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-28 13:08:43.980728 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 13:28:43.982080 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 13:48:43.983403 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 14:08:43.984709 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-28 14:28:43.985997 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 14:48:43.987307 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 15:08:43.988620 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 15:28:43.989936 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-28 15:48:43.991256 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-28 16:08:43.992542 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 16:28:43.993849 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-28 16:48:43.995193 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 17:08:43.996507 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 17:28:43.997810 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 17:48:43.999144 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 18:08:44.000421 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 18:28:44.001701 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 18:48:44.003044 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 19:08:44.004321 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 19:28:44.005634 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 19:48:44.006952 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 20:08:44.008298 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 20:28:44.009636 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 20:48:44.010948 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-28 21:08:44.012249 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-28 21:28:44.013554 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-28 21:48:44.014887 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-28 22:08:44.016192 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 22:28:44.017522 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-28 22:48:44.018845 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 23:08:44.020139 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 23:28:44.021442 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-28 23:48:44.022744 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 00:08:44.024032 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 00:28:44.025331 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 00:48:44.026663 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 01:08:44.027985 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 01:28:44.029315 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 01:48:44.030621 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 02:08:44.031930 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 02:28:44.033259 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 02:48:44.034546 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 03:08:44.035907 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-29 03:28:44.037189 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 03:48:44.038502 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 04:08:44.039835 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 04:28:44.041126 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 04:48:44.042418 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-29 05:08:44.043732 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 05:28:44.045040 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 05:48:44.046332 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 06:08:44.047679 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 06:28:44.048970 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 06:48:44.050266 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 07:08:44.051612 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 07:28:44.052910 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 07:48:44.054224 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 08:08:44.055546 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 08:28:44.056830 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-29 08:48:44.058117 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 09:08:44.059439 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 09:28:44.060785 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 09:48:44.062103 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 10:08:44.063425 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 10:28:44.064720 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 10:48:44.066046 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-29 11:08:44.067363 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 11:28:44.068697 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 11:48:44.069982 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 12:08:44.071293 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 12:28:44.072615 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 12:48:44.073927 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-29 13:08:44.075273 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 13:28:44.076570 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 13:48:44.077864 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-29 14:08:44.079234 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 14:28:44.080562 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 14:48:44.081841 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 15:08:44.083178 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 15:28:44.084470 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 15:48:44.085753 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 16:08:44.087109 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 16:28:44.088415 
+ {'cpu_thermal': [shwtemp(label='', current=48.5, high=None, critical=None)]} 
+first line 2024-04-29 16:48:44.089706 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 17:08:44.091020 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 17:28:44.092316 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 17:48:44.093602 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 18:08:44.094923 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 18:28:44.096240 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 18:48:44.097533 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 19:08:44.098867 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-29 19:28:44.100216 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 19:48:44.101533 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 20:08:44.102869 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 20:28:44.104186 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-29 20:48:44.105495 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 21:08:44.106815 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 21:28:44.108104 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 21:48:44.109400 
+ {'cpu_thermal': [shwtemp(label='', current=48.5, high=None, critical=None)]} 
+first line 2024-04-29 22:08:44.110702 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 22:28:44.111989 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-29 22:48:44.113290 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 23:08:44.114604 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 23:28:44.115951 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-29 23:48:44.117245 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 00:08:44.118567 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 00:28:44.119874 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 00:48:44.121205 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 01:08:44.122500 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 01:28:44.123837 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 01:48:44.125137 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 02:08:44.126439 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 02:28:44.127757 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 02:48:44.129052 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 03:08:44.130347 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 03:28:44.131703 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-30 03:48:44.132999 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-30 04:08:44.134282 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 04:28:44.135598 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 04:48:44.136923 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 05:08:44.138274 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 05:28:44.139629 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 05:48:44.140917 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 06:08:44.142236 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 06:28:44.143562 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-30 06:48:44.144877 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-30 07:08:44.146168 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 07:28:44.147523 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 07:48:44.148817 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-30 08:08:44.150105 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 08:28:44.151440 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-30 08:48:44.152754 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-30 09:08:44.154041 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 09:28:44.155344 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 09:48:44.156638 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-30 10:08:44.157949 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 10:28:44.159267 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-30 10:48:44.160555 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 11:08:44.161850 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-30 11:28:44.163164 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-30 11:48:44.164456 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 12:08:44.165739 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 12:28:44.167080 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-30 12:48:44.168388 
+ {'cpu_thermal': [shwtemp(label='', current=46.85, high=None, critical=None)]} 
+first line 2024-04-30 13:08:44.169670 
+ {'cpu_thermal': [shwtemp(label='', current=47.95, high=None, critical=None)]} 
+first line 2024-04-30 13:28:44.170983 
+ {'cpu_thermal': [shwtemp(label='', current=48.5, high=None, critical=None)]} 
+first line 2024-04-30 13:48:44.172297 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-30 14:08:44.173593 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 14:28:44.174913 
+ {'cpu_thermal': [shwtemp(label='', current=46.3, high=None, critical=None)]} 
+first line 2024-04-30 14:48:44.176242 
+ {'cpu_thermal': [shwtemp(label='', current=45.75, high=None, critical=None)]} 
+first line 2024-04-30 15:08:44.177526 
+ {'cpu_thermal': [shwtemp(label='', current=48.5, high=None, critical=None)]} 
+first line 2024-04-30 15:28:44.178830 
+ {'cpu_thermal': [shwtemp(label='', current=47.4, high=None, critical=None)]} 
+first line 2024-04-30 15:48:44.180131 
+ {'cpu_thermal': [shwtemp(label='', current=45.2, high=None, critical=None)]} 
+first line 2024-04-30 16:08:44.181420 
+ {'cpu_thermal': [shwtemp(label='', current=48.5, high=None, critical=None)]} 
+first line 2024-04-30 16:11:41.540630 
+ {'cpu_thermal': [shwtemp(label='', current=50.15, high=None, critical=None)]} 
