@@ -2,6 +2,7 @@
 #include <fstream>
 using namespace std;
 
+//variables
 float kvar_pa_lan;
 float kvar_pa_lan_2;
 float kontantinsats;
@@ -14,6 +15,7 @@ float kostnad_lan;
 float att_betala;
 
 
+//function
 void bolan (int huskostnad, double ranta, int antal_ar) {
     kvar_pa_lan = huskostnad * 0.85;
     kvar_pa_lan_2 = kvar_pa_lan;
