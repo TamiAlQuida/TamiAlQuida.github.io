@@ -26,11 +26,12 @@ void bolan (int huskostnad, double ranta, int antal_ar) {           // start of 
     antal_manader_per_ar = 12;
     antal_betalningstillfallen = antal_manader_per_ar * antal_ar;
     totalt_betalat = kontantinsats;
+    hypotetisk_hyra = 0;
 
     ofstream out("output.txt");                                     // write to text file for QT to read from
     
     cout << "##################################################################" << "\n\n";
-    out << "############################################################" << "\n\n";
+    out << "########################################" << "\n\n";
     std::cout << std::fixed;
     cout << "kontaninsats  : " << kontantinsats << "\n";
     out << "kontaninsats  : " << kontantinsats << "\n";

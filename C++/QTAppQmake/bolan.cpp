@@ -21,6 +21,13 @@ float kostnad_lan;
 float att_betala;
 int hypotetisk_hyra;
 
+
+
+//lägg in lön och antal personer som betalar, levnadskostnad(mat och bensin kläder etc)
+
+
+
+
 //function
 void bolan (int huskostnad, double ranta, int antal_ar) {           // start of loan
     kvar_pa_lan = huskostnad * 0.85;                                // - kontantinstatsen
@@ -30,6 +37,7 @@ void bolan (int huskostnad, double ranta, int antal_ar) {           // start of 
     antal_manader_per_ar = 12;
     antal_betalningstillfallen = antal_manader_per_ar * antal_ar;
     totalt_betalat = kontantinsats;
+    hypotetisk_hyra = 0;
 
     ofstream out("output.txt");                                     // write to text file for QT to read from
     
