@@ -20,13 +20,20 @@ print("V = Intrinsic Value \n"
 counter = 1
 summary_dict = {'stock': [], 'EPS': [], 'P/E': [], 'growth_5_years': [], 'actual price': [], 'intrinsic value': [], 'price evaluation': []}
 
-for i in tickers:
+
+def sleep_random_time ():
+    time_to_sleep = 5 + (10 * random())
+    print(time_to_sleep)
+    sleep(time_to_sleep)
+
+
+def parse_data_yahoo (ticker):
     try:
-        print(i)
+        print(ticker)
     
         """ Web adresses"""
-        page_summary = f'https://finance.yahoo.com/quote/{i}'
-        page_analysis = f'https://finance.yahoo.com/quote/{i}/analysis'
+        page_summary = f'https://finance.yahoo.com/quote/{ticker}'
+        page_analysis = f'https://finance.yahoo.com/quote/{ticker}/analysis'
 
         """Parsing the summary page with requests_html"""
         request_page_summary = HTMLSession().get(page_summary)
@@ -56,7 +63,7 @@ for i in tickers:
         price_evaluation = previous_close_float / v #ratio between actual price and intrinsic value
 
         """Put the values in the dictionary"""
-        summary_dict['stock'] += [i]
+        summary_dict['stock'] += [ticker]
         summary_dict['EPS'] += [EPS]
         summary_dict['P/E'] += [PE]
         summary_dict['growth_5_years'] += [growth_5_years]
@@ -68,12 +75,17 @@ for i in tickers:
         print(f"{counter}" + "/" + f"{len(tickers)}")
         counter += 1
 
-        time_to_sleep = 5 + (10 * random())
-        print(time_to_sleep)
-        sleep(time_to_sleep)
+        sleep_random_time()
 
     except:
         print("Failed for some reason")
+        sleep_random_time()
+
+
+for ticker in tickers:
+    parse_data_yahoo(ticker)
+    sleep_random_time
+
 
 df = pd.DataFrame.from_dict(summary_dict)
 print(df)
