@@ -22,6 +22,7 @@ QString QcaloriesOfMeal;
 int huskostnad;
 double ranta;
 int antal_ar;
+string tickers;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -46,6 +47,24 @@ void MainWindow::on_helloMF_clicked() // mainwindow.h from class MainWindow, fro
 void MainWindow::on_pushButton_clicked() // mainwindow.h from class MainWindow, from private slot on_push...
 {
     //system("python3 /home/tomcarl/QT_app/QTApp/QTApp/bolan.py");
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }
 
 
@@ -102,12 +121,12 @@ void MainWindow::on_pushButton_7_clicked()
     ui->textEditConsole->setPlainText(content);
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_pushButton_8_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    //textvalue = ui->textEditConsole_2->toPlainText();
+    //convertedString = textvalue.toStdString();
+    //tickers = stoi(convertedString);
+
+    system("python3 ../stock_analysis.py");
 }
 
-void MainWindow::on_pushButton_3_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(1);
-}
