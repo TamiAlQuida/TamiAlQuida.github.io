@@ -24,6 +24,7 @@ set(PROJECT_SOURCES
         get_value.h
         calories.h
         stock_analysis.py
+        shared_memory.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

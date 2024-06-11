@@ -3,9 +3,23 @@ import pandas as pd
 from requests_html import HTMLSession
 from time import sleep
 from random import random
+import mmap
 
-# ticker = input("What stock/ticker do you want to analyse?")
-tickers = ['AAPL', 'MSFT', 'BRK-B', 'AMZN', 'TSLA', 'META', 'NVDA', 'GOOG', 'AMD', 'BABA']
+# Open the shared memory region (saved "ticker"- list from C++)
+with open('/dev/shm/tickers', 'r') as f:
+    # Map the shared memory region into the address space
+    mm = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
+
+    # Read the tickers list from the shared memory region
+    tickers = mm.readline().decode('utf-8').strip().split(',')
+    # print("Tickers:", tickers) # tickers with all the 1024 values
+    tickers.pop(-1) # remove the unnecessary \x00 values
+    print(tickers)
+
+    # Close the shared memory region
+    mm.close()
+
+#tickers = ['TSM','AAPL', 'MSFT', 'BRK-B', 'AMZN', 'TSLA', 'META', 'NVDA', 'GOOG', 'AMD', 'BABA']
 #tickers = ['AAPL', 'MSFT', 'BRK-B','AMZN', 'TSLA', 'META', 'UNH', 'V', 'NVDA', 'JNJ', 'XOM', 'WMT', 'JPM', 'PG', 'MA', 'HD', 'LLY', 'PFE', 'CVX', 'BAC', 'KO', 'ABBV', 'COST', 'PEP', 'MRK', 'TMO', 'AVGO', 'DHR', 'VZ', 'ORCL', 'ABT', 'ADBE', 'ACN', 'DIS', 'CMCSA', 'MCD', 'CSCO', 'CRM', 'QCOM', 'NKE', 'TMUS', 'INTC', 'WFC', 'UPS', 'BMY', 'NEE', 'TXN', 'AMD', 'MS', 'PM', 'LIN', 'RTX', 'T', 'UNP', 'AMGN', 'LOW', 'SPGI', 'HON', 'CVS', 'MDT', 'INTU', 'SCHW', 'AMT', 'COP', 'IBM', 'AXP', 'GS', 'ELV', 'LMT', 'C', 'NFLX', 'BLK', 'DE', 'CAT', 'PYPL', 'SBUX', 'BA', 'EL', 'PLD', 'NOW', 'ADP', 'AMAT', 'ADI', 'ZTS', 'MDLZ', 'CI', 'CHTR', 'ISRG', 'DUK', 'MMC', 'CB', 'GOOG', 'GOOGL', 'MO', 'GILD', 'MMM', 'SYK', 'SO', 'GE', 'CCI', 'TJX', 'BKNG', 'CME', 'TGT', 'VRTX', 'USB', 'NOC', 'MU', 'BDX', 'CSX', 'MRNA']
 
 #headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/125.0.2'}
@@ -17,7 +31,7 @@ print("V = Intrinsic Value \n"
       "P/E = price per earnings \n"
       "r = Expected earnings growth rate \n")
 
-counter = 1
+counter = 0
 summary_dict = {'stock': [], 'EPS': [], 'P/E': [], 'growth_5_years': [], 'actual price': [], 'intrinsic value': [], 'price evaluation': []}
 
 
@@ -28,6 +42,7 @@ def sleep_random_time ():
 
 
 def parse_data_yahoo (ticker):
+    global counter
     try:
         print(ticker)
     
@@ -72,19 +87,16 @@ def parse_data_yahoo (ticker):
         summary_dict['price evaluation'] += [price_evaluation]
         #print(summary_dict)
 
-        print(f"{counter}" + "/" + f"{len(tickers)}")
         counter += 1
-
-        sleep_random_time()
+        print(f"{counter}" + "/" + f"{len(tickers)}")
 
     except:
         print("Failed for some reason")
-        sleep_random_time()
 
 
 for ticker in tickers:
     parse_data_yahoo(ticker)
-    sleep_random_time
+    sleep_random_time()
 
 
 df = pd.DataFrame.from_dict(summary_dict)

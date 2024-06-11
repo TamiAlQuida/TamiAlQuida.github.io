@@ -5233,7 +5233,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <set>Qt::ImhHiddenText</set>
          </property>
          <property name="text">
-          <string>&quot;TSM,MSFT,META,NVDA,GOOG,AMD,&quot;</string>
+          <string>TSM,MSFT,META,NVDA,GOOG,AMD,</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

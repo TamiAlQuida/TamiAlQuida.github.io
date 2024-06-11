@@ -23,8 +23,11 @@ kladd copy.csv
 /scripts/Old_crap/pythonProject/Transaktioner privatkonto.csv
 /home/tomcarl/TamiAlQuida.github.io/C++/build-QTAppQmake-Android-Release
 C++/QTAppQmake/build
+C++/.vscode
+C++/build
 
 scripts/tensorflow/ssd_mobilenet_v2_coco_2018_03_29 
 # http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz
 
 /models
+
