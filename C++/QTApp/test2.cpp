@@ -32,10 +32,10 @@ int main() {
     close(shm_fd);
 
     // Unmap the shared memory
-    munmap(shared_memory, sizeof(char) * 1024);
+    //munmap(shared_memory, sizeof(char) * 1024);
 
     // Close the shared memory file descriptor
-    close(shm_fd);
+    //close(shm_fd);
 
     // Unlink the shared memory object
     shm_unlink("/tickers");

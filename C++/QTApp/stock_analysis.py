@@ -36,7 +36,7 @@ summary_dict = {'stock': [], 'EPS': [], 'P/E': [], 'growth_5_years': [], 'actual
 
 
 def sleep_random_time ():
-    time_to_sleep = 5 + (10 * random())
+    time_to_sleep = 3 + (7.5 * random())
     print(time_to_sleep)
     sleep(time_to_sleep)
 
@@ -63,7 +63,7 @@ def parse_data_yahoo (ticker):
 
         """Parsing the analysis page with requests_html"""
         request_page_analysis = HTMLSession().get(page_analysis)
-        sel_growth_5_years = '.gridLayout > section:nth-child(7) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)' #Firefox-> copy CSS Selector.
+        sel_growth_5_years = '.gridLayout > section:nth-child(8) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)' #Firefox-> copy CSS Selector.
         growth_5_years = request_page_analysis.html.find(sel_growth_5_years, first=True).text
 
         """Convert strings into floats"""
@@ -101,5 +101,7 @@ for ticker in tickers:
 
 df = pd.DataFrame.from_dict(summary_dict)
 print(df)
+sorted_values = df.sort_values(by=['price evaluation'])
+print(sorted_values)
 
-df.to_csv('stock_values.csv', index=False)
+sorted_values.to_csv('stock_values.csv', index=False)

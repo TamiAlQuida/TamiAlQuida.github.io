@@ -23,7 +23,6 @@ QString QcaloriesOfMeal;
 int huskostnad;
 double ranta;
 int antal_ar;
-//string tickers = "TSM,MSFT,META,NVDA,GOOG,AMD,";
 string tickers;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -125,18 +124,13 @@ void MainWindow::on_pushButton_7_clicked()
 
 void MainWindow::on_pushButton_8_clicked()
 {
-    //textvalue = ui->textEditConsole_2->toPlainText();
-    //convertedString = textvalue.toStdString();
-    //tickers = stoi(convertedString);
-
     textvalue = ui->lineEdit_20->displayText();
     tickers = textvalue.toStdString();
-    cout << tickers << "hello";
 
     sharedMemory(tickers);
 
     system("python3 ../stock_analysis.py");
 
-    //deleteSharedMemory(); //continue here. now to delete the occupied RAM (/dev/shm/tickers) run ./test2 
+    deleteSharedMemoryFromRam(); // delete the occupied RAM (/dev/shm/tickers)
 }
 

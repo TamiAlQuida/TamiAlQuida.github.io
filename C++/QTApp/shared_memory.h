@@ -31,3 +31,8 @@ void sharedMemory(std::string tickers) {
     munmap(shared_memory, sizeof(char) * 1024);
     close(shm_fd);
 }
+
+void deleteSharedMemoryFromRam() {
+    // Unlink the shared memory object
+    shm_unlink("/tickers");
+}

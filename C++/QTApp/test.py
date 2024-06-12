@@ -1,15 +1,8 @@
-import mmap
+tickers = [ 'AAPL', 'MSFT', 'BRK-B','AMZN', 'TSLA', 'META', 'UNH', 'V', 'NVDA', 'JNJ', 'XOM', 'WMT', 'JPM', 'PG', 'MA', 'HD', 'LLY', 'PFE', 'CVX', 'BAC', 'KO', 'ABBV', 'COST', 'PEP', 'MRK', 'TMO', 'AVGO', 'DHR', 'VZ', 'ORCL', 'ABT', 'ADBE', 'ACN', 'DIS', 'CMCSA', 'MCD', 'CSCO', 'CRM', 'QCOM', 'NKE', 'TMUS', 'INTC', 'WFC', 'UPS', 'BMY', 'NEE', 'TXN', 'AMD', 'MS', 'PM', 'LIN', 'RTX', 'T', 'UNP', 'AMGN', 'LOW', 'SPGI', 'HON', 'CVS', 'MDT', 'INTU', 'SCHW', 'AMT', 'COP', 'IBM', 'AXP', 'GS', 'ELV', 'LMT', 'C', 'NFLX', 'BLK', 'DE', 'CAT', 'PYPL', 'SBUX', 'BA', 'EL', 'PLD', 'NOW', 'ADP', 'AMAT', 'ADI', 'ZTS', 'MDLZ', 'CI', 'CHTR', 'ISRG', 'DUK', 'MMC', 'CB', 'GOOG', 'GOOGL', 'MO', 'GILD', 'MMM', 'SYK', 'SO', 'GE', 'CCI', 'TJX', 'BKNG', 'CME', 'TGT', 'VRTX', 'USB', 'NOC', 'MU', 'BDX', 'CSX', 'MRNA']
 
-# Open the shared memory region
-with open('/dev/shm/tickers', 'r') as f:
-    # Map the shared memory region into the address space
-    mm = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
+tickers_string = ""
 
-    # Read the tickers list from the shared memory region
-    tickers = mm.readline().decode('utf-8').strip().split(',')
-    # print("Tickers:", tickers) # tickers with all the 1024 values
-    tickers.pop(-1) # remove the unnecessary \x00 values
-    print(tickers)
+for i in tickers:
+    tickers_string += i + ","
 
-    # Close the shared memory region
-    mm.close()
+print(tickers_string)
