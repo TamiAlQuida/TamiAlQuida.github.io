@@ -36,7 +36,7 @@ summary_dict = {'stock': [], 'EPS': [], 'P/E': [], 'growth_5_years': [], 'actual
 
 
 def sleep_random_time ():
-    time_to_sleep = 3 + (7.5 * random())
+    time_to_sleep = 5 + (10 * random())
     print(time_to_sleep)
     sleep(time_to_sleep)
 
