@@ -5,10 +5,13 @@
 #include "get_value.h"
 #include "bolan.h"
 #include "calories.h"
+#include <QFile>
+#include <QTextStream>
+#include "shared_memory.h"
 
 using namespace std;
 
-QString textvalueloan;
+QString textvalue;
 string convertedString;
 int gramsOfFood;
 int carbsPer100g;
@@ -17,6 +20,10 @@ int fatPer100g;
 string dataToPrint;
 QString QgramsOfFatNeededToStayInKetosis;
 QString QcaloriesOfMeal;
+int huskostnad;
+double ranta;
+int antal_ar;
+string tickers;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -40,42 +47,90 @@ void MainWindow::on_helloMF_clicked() // mainwindow.h from class MainWindow, fro
 
 void MainWindow::on_pushButton_clicked() // mainwindow.h from class MainWindow, from private slot on_push...
 {
-    system("python3 /home/tomcarl/QT_app/QTApp/QTApp/bolan.py");
+    //system("python3 /home/tomcarl/QT_app/QTApp/QTApp/bolan.py");
 }
 
 
-void MainWindow::on_lineEdit_textChanged(const QString &arg1)
+void MainWindow::on_pushButton_2_clicked()
 {
-    // textvalue2 = ui->lineEdit->displayText();
-    //data1 = textvalue.toStdString();
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }
 
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    textvalue = ui->lineEdit->displayText();
+    textvalue = ui->lineEdit_16->displayText();
     convertedString = textvalue.toStdString();
     gramsOfFood = stoi(convertedString);
     //bolan(gramsOfFood);
 
-    textvalueloan = ui->lineEdit_2->displayText();
-    convertedString = textvalueloan.toStdString();
+    textvalue = ui->lineEdit_17->displayText();
+    convertedString = textvalue.toStdString();
     carbsPer100g = stoi(convertedString);
 
-    textvalueloan = ui->lineEdit_3->displayText();
-    convertedString = textvalueloan.toStdString();
+    textvalue = ui->lineEdit_18->displayText();
+    convertedString = textvalue.toStdString();
     proteinPer100g = stoi(convertedString);
 
-    textvalueloan = ui->lineEdit_4->displayText();
-    convertedString = textvalueloan.toStdString();
+    textvalue = ui->lineEdit_19->displayText();
+    convertedString = textvalue.toStdString();
     fatPer100g = stoi(convertedString);
 
     inputData(gramsOfFood, carbsPer100g, proteinPer100g, fatPer100g);
     cout << gramsOfFatNeededToStayInKetosis << "\n";
     QgramsOfFatNeededToStayInKetosis = QString::number(gramsOfFatNeededToStayInKetosis);
-    ui->lineEdit_5->setText(QgramsOfFatNeededToStayInKetosis);
+    ui->lineEdit_12->setText(QgramsOfFatNeededToStayInKetosis);
 
     QcaloriesOfMeal = QString::number(caloriesOfMeal);
-    ui->lineEdit_6->setText(QcaloriesOfMeal);
+    ui->lineEdit_13->setText(QcaloriesOfMeal);
+}
+
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    textvalue = ui->lineEdit_9->displayText();
+    convertedString = textvalue.toStdString();
+    huskostnad = stoi(convertedString);
+
+    textvalue = ui->lineEdit_10->displayText();
+    convertedString = textvalue.toStdString();
+    ranta = stof(convertedString);
+
+    textvalue = ui->lineEdit_11->displayText();
+    convertedString = textvalue.toStdString();
+    antal_ar = stoi(convertedString);
+    
+    bolan(huskostnad, ranta, antal_ar);
+
+    QFile file("output.txt");
+    file.open(QIODevice::ReadOnly);
+    QTextStream stream(&file);
+    QString content = stream.readAll();
+    file.close();
+    ui->textEditConsole->setPlainText(content);
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    textvalue = ui->lineEdit_20->displayText();
+    tickers = textvalue.toStdString();
+
+    sharedMemory(tickers);
+
+    system("python3 ../stock_analysis.py");
+
+    deleteSharedMemoryFromRam(); // delete the occupied RAM (/dev/shm/tickers)
 }
 
