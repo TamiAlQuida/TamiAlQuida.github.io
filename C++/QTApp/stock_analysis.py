@@ -35,8 +35,8 @@ counter = 0
 summary_dict = {'stock': [], 'EPS': [], 'P/E': [], 'growth_5_years': [], 'actual price': [], 'intrinsic value': [], 'price evaluation': []}
 
 
-def sleep_random_time ():
-    time_to_sleep = 10 + (10 * random())
+def sleep_random_time (x):
+    time_to_sleep = x + (7.5 * random())
     print(time_to_sleep)
     sleep(time_to_sleep)
 
@@ -62,8 +62,9 @@ def parse_data_yahoo (ticker):
         PE = request_page_summary.html.find(sel_PE, first=True).text
 
         """Parsing the analysis page with requests_html"""
+        sleep_random_time(1)
         request_page_analysis = HTMLSession().get(page_analysis)
-        sel_growth_5_years = '.gridLayout > section:nth-child(8) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)' #Firefox-> copy CSS Selector.
+        sel_growth_5_years = '.gridLayout > section:nth-child(7) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)' #Firefox-> copy CSS Selector.
         growth_5_years = request_page_analysis.html.find(sel_growth_5_years, first=True).text
 
         """Convert strings into floats"""
@@ -96,7 +97,7 @@ def parse_data_yahoo (ticker):
 
 for ticker in tickers:
     parse_data_yahoo(ticker)
-    sleep_random_time()
+    sleep_random_time(7.5)
 
 
 df = pd.DataFrame.from_dict(summary_dict)
