@@ -1,7 +1,7 @@
 import pandas
 from sklearn import linear_model
 
-df = pandas.read_csv("cars.csv")
+df = pandas.read_csv("scripts/Old_crap/pythonProject/cars.csv")
 
 X = df[['Weight', 'Volume']]
 y = df['CO2']
