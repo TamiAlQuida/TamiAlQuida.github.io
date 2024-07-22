@@ -10,11 +10,11 @@ int coordinates[5][5] = {
 {0, 0, 0, 0 ,0}
 };
 const char* namesOfRooms[5][5] = {
-{"0", "0", "0", "0" ,"0"},
-{"0", "0", "Djungle", "0" ,"0"},
-{"0", "Flower garden", "Entrance (cave in the ground)", "Beach by a lake" ,"0"},
-{"0", "0", "Steep hill", "0" ,"0"},
-{"0", "0", "Mountain wall", "0" ,"0"}
+{"Open sea", "River lands", "Swamp", "Mangroove" ,"Tree top kingdom"},
+{"1000 islands", "Red frog beach", "Jungle", "Thick jungle" ,"Coconut tree forest"},
+{"Grasslands peninsula", "Flower garden", "Entrance (cave in the ground)", "Dessert" ,"Beach by a lake"},
+{"Grassland horizon", "Grasslans hills", "Steep hill", "Canyon lands" ,"Scourching mountains"},
+{"Top of the world", "Snowy mountains", "Mountain wall", "Rocky mountains" ,"Volcano"}
 };
 
 void movePosition (string keyboardIn) {
@@ -22,13 +22,13 @@ void movePosition (string keyboardIn) {
     cin >> keyboardIn;
     
     //check if correct form of input, tell otherwise
-    if (keyboardIn != "w" && keyboardIn != "a" && keyboardIn != "s" && keyboardIn != "d")
+    if (keyboardIn != "w" && keyboardIn != "a" && keyboardIn != "s" && keyboardIn != "d" && keyboardIn != "W" && keyboardIn != "A" && keyboardIn != "S" && keyboardIn != "D")
     {
         cout << "enter w,a,s or d"<< "\n" << "\n";
     };
     
     //if correct input do below
-    if (keyboardIn == "w")
+    if (keyboardIn == "w" || keyboardIn == "W")
         {
         for (int i = 0; i < 5; i++)
         {
@@ -45,7 +45,7 @@ void movePosition (string keyboardIn) {
         }
     };
 
-    if (keyboardIn == "a")
+    if (keyboardIn == "a" || keyboardIn == "A")
     {
         for (int i = 0; i < 5; i++)
         {
@@ -62,7 +62,7 @@ void movePosition (string keyboardIn) {
         }
     };
 
-    if (keyboardIn == "s")
+    if (keyboardIn == "s" || keyboardIn == "S")
     {
         for (int i = 0; i < 5; i++)
         {
@@ -86,7 +86,7 @@ void movePosition (string keyboardIn) {
         }
     };
 
-    if (keyboardIn == "d")
+    if (keyboardIn == "d" || keyboardIn == "D")
     {
         for (int i = 0; i < 5; i++)
         {
