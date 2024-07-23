@@ -33,14 +33,18 @@ void falling () {
     {
         fallTime += timer;
         height -= gravity * fallTime;
+        if (height < 0)
+        {
+            height = 0;
+        }
+        
         cout << height << "\n";
         cout << fallTime << "\n" <<"\n";
         this_thread::sleep_for(chrono::milliseconds(millisecondsToSleep));
     }
     
     height = 0;
-    fallTime = 0;
-    
+    fallTime = 0;    
 }
 
 
