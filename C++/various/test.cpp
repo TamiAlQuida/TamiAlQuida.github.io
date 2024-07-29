@@ -4,7 +4,7 @@
 using namespace std;
 
 string keyboardIn;
-float height;
+float playerPositionY;
 int millisecondsToSleep = 100;
 float timer = millisecondsToSleep / 1000;
 float fallTime;
@@ -20,30 +20,30 @@ void movePosition (string keyboardIn) {
     };
 
     if (keyboardIn == "w") {
-        height += 100;
+        playerPositionY += 100;
         timer = 0.1;
-        cout << height << "\n";
+        cout << playerPositionY << "\n";
     };
 }
 
 
 void falling () {
 
-    while (height > 0)
+    while (playerPositionY > 0)
     {
         fallTime += timer;
-        height -= gravity * fallTime;
-        if (height < 0)
+        playerPositionY -= gravity * fallTime;
+        if (playerPositionY < 0)
         {
-            height = 0;
+            playerPositionY = 0;
         }
         
-        cout << height << "\n";
+        cout << playerPositionY << "\n";
         cout << fallTime << "\n" <<"\n";
         this_thread::sleep_for(chrono::milliseconds(millisecondsToSleep));
     }
     
-    height = 0;
+    playerPositionY = 0;
     fallTime = 0;    
 }
 

@@ -54,6 +54,7 @@
         "cwctype": "cpp",
         "format": "cpp",
         "numbers": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "cinttypes": "cpp"
     }
 }

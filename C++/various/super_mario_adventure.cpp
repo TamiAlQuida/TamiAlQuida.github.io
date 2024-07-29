@@ -1,8 +1,9 @@
-#include <SDL2/SDL.h> //sudo apt install libsdl2-dev
-#include <SDL2/SDL_image.h> //sudo apt install libsdl2-image-dev  
+#include <SDL2/SDL.h> // sudo apt install libsdl2-dev               used for graphics etc
+#include <SDL2/SDL_image.h> // sudo apt install libsdl2-image-dev   used for showing pictures etc
 #include <iostream>
-#include <chrono>
-#include <thread>
+#include <chrono> // time
+#include <thread> // is used to use an extra cpu-thread, so that you can do asynchronous programming. 
+#include <atomic> // async, see atomic-bool explanation below
 
 const int WIDTH = 1200;  // Width of the window
 const int HEIGHT = 800; // Height of the window
@@ -12,13 +13,20 @@ int PLAYER_POSITION_X = WIDTH / 2 - PLAYER_WIDTH / 2; // Height of the window
 int PLAYER_POSITION_Y = HEIGHT / 2 - PLAYER_HEIGHT / 2; // Height of the window
 
 
-float height;
+float playerPositionY;
+float playerPositionX;
+float maxSpeed = 5.0;// m/s
 int millisecondsToSleep = 50;
 float timer = millisecondsToSleep / 1000.0;
 float fallTime = 0.0;
+float runTime = 0.0;
 const float gravity = 9.82; // m/s2
-float jumpSpeed = 7.5; // m/s
+const float acceleration = 60.0;
+float jumpSpeed = 8.0; // m/s
 
+std::atomic_bool isJumping(false); // atomic bool makes sure the false/true condition is updated directly so that two functions/threads wont see it as false simultaneously
+std::atomic_bool isRunningRight(false);
+std::atomic_bool isRunningLeft(false);
 
 SDL_Texture* loadTexture(const std::string &path, SDL_Renderer* renderer) {
     SDL_Texture* newTexture = nullptr;
@@ -101,6 +109,75 @@ void refreshScreen (SDL_Renderer* renderer, SDL_Texture* playerTexture) {
     SDL_RenderPresent(renderer);
 }
 
+
+void jump(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
+    isJumping = true;
+    while (isJumping) {
+        fallTime += timer;
+        playerPositionY = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
+        PLAYER_POSITION_Y = HEIGHT - HEIGHT / 5 - playerPositionY * 100;
+        refreshScreen(renderer, playerTexture);
+        std::cout << "Height: " << playerPositionY << "\n";
+        std::cout << "Fall Time: " << fallTime << "\n" << "\n";
+        std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
+        if (playerPositionY <= 0) {
+            playerPositionY = 0;
+            fallTime = 0;
+            break;
+        }
+    }
+    isJumping = false;
+}
+
+void runRight(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
+    isRunningRight = true;
+    while (isRunningRight) {
+        if (playerPositionX <= maxSpeed)
+        {
+            playerPositionX = 0.1;
+            runTime += timer;
+            playerPositionX = playerPositionX * acceleration * runTime;
+            PLAYER_POSITION_X = PLAYER_POSITION_X + playerPositionX * 10;
+            refreshScreen(renderer, playerTexture);
+            std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
+        }
+        else if (playerPositionX >= maxSpeed)
+        {
+            PLAYER_POSITION_X = PLAYER_POSITION_X + maxSpeed * 10;
+            refreshScreen(renderer, playerTexture);
+            std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
+        }        
+    }
+    runTime = 0;
+    playerPositionX = 0;
+}
+
+void runLeft(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
+    isRunningLeft = true;
+    while (isRunningLeft) {
+        if (playerPositionX <= maxSpeed)
+        {
+            playerPositionX = 0.1;
+            runTime += timer;
+            playerPositionX = playerPositionX * acceleration * runTime;
+            PLAYER_POSITION_X = PLAYER_POSITION_X - playerPositionX * 10;
+            refreshScreen(renderer, playerTexture);
+            std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
+        }
+        else if (playerPositionX >= maxSpeed)
+        {
+            PLAYER_POSITION_X = PLAYER_POSITION_X - maxSpeed * 10;
+            refreshScreen(renderer, playerTexture);
+            std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
+        }
+    
+    }
+    runTime = 0;
+    playerPositionX = 0;
+}
+
+
+
 int main(int argc, char* argv[]) {
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
@@ -122,7 +199,8 @@ int main(int argc, char* argv[]) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
-            } else if (e.type == SDL_KEYDOWN) {
+            } 
+            else if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                     case SDLK_ESCAPE:
                         quit = true;
@@ -145,27 +223,35 @@ int main(int argc, char* argv[]) {
                         break;
                     case SDLK_w:
                         std::cout << "w key pressed" << std::endl;
-                        //PLAYER_POSITION_Y -= PLAYER_HEIGHT;
-                        while (height >= 0) {
-                            fallTime += timer;
-                            height = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
-                            PLAYER_POSITION_Y = HEIGHT - HEIGHT / 5 - height * 100;
-                            refreshScreen(renderer, playerTexture);
-                            if (height < 0) {
-                                height = 0;
-                            }
-
-                            std::cout << "Height: " << height << "\n";
-                            std::cout << "Fall Time: " << fallTime << "\n" << "\n";
-                            std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
-
-                            if (height <= 0) {
-                                height = 0;
-                                fallTime = 0;
-                                break;
-                            }
+                        if (!isJumping) {
+                            std::thread jumpThread(jump, renderer, playerTexture);
+                            jumpThread.detach();
                         }
                         break;
+                    case SDLK_d:
+                        std::cout << "d key pressed" << std::endl;
+                        if (playerPositionX < maxSpeed && !isRunningRight) {
+                            std::thread runThread(runRight, renderer, playerTexture);
+                            runThread.detach();
+                        }
+                        break;
+                    case SDLK_a:
+                        std::cout << "a key pressed" << std::endl;
+                        if (playerPositionX < maxSpeed && !isRunningLeft) {
+                            std::thread runThread(runLeft, renderer, playerTexture);
+                            runThread.detach();
+                        }
+                        break;
+                }
+            }
+            else if (e.type == SDL_KEYUP) {
+                switch (e.key.keysym.sym) {
+                    case SDLK_d:
+                    std::cout << "d up" << std::endl;
+                    isRunningRight = false;
+                    case SDLK_a:
+                    std::cout << "a up" << std::endl;
+                    isRunningLeft = false;
                 }
             }
         }

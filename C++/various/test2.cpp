@@ -3,7 +3,7 @@
 #include <thread>
 
 std::string keyboardIn;
-float height = 0.0;
+float playerPositionY = 0.0;
 int millisecondsToSleep = 100;
 float timer = millisecondsToSleep / 1000.0; // Allocate memory and assign value
 float fallTime = 0.0;
@@ -17,19 +17,19 @@ void movePosition(std::string keyboardIn) {
     }
 
     if (keyboardIn == "w") {
-        while (height >= 0) {
+        while (playerPositionY >= 0) {
             fallTime += timer; // Dereference pointer to get value
-            height = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
-            if (height < 0) {
-                height = 0;
+            playerPositionY = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
+            if (playerPositionY < 0) {
+                playerPositionY = 0;
             }
 
-            std::cout << "Height: " << height << "\n";
+            std::cout << "Height: " << playerPositionY << "\n";
             std::cout << "Fall Time: " << fallTime << "\n" << "\n";
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
 
-            if (height <= 0) {
-                height = 0;
+            if (playerPositionY <= 0) {
+                playerPositionY = 0;
                 fallTime = 0;
                 break;
             }
@@ -38,19 +38,19 @@ void movePosition(std::string keyboardIn) {
 }
 
 void falling() {
-    while (height > 0) {
+    while (playerPositionY > 0) {
         fallTime += timer;
-        height = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
-        if (height < 0) {
-            height = 0;
+        playerPositionY = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
+        if (playerPositionY < 0) {
+            playerPositionY = 0;
         }
 
-        std::cout << "Height: " << height << "\n";
+        std::cout << "Height: " << playerPositionY << "\n";
         std::cout << "Fall Time: " << fallTime << "\n" << "\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
     }
 
-    height = 0;
+    playerPositionY = 0;
     fallTime = 0;
 }
 
