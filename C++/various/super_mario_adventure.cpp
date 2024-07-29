@@ -1,22 +1,24 @@
 #include <SDL2/SDL.h> // sudo apt install libsdl2-dev               used for graphics etc
 #include <SDL2/SDL_image.h> // sudo apt install libsdl2-image-dev   used for showing pictures etc
+#include <SDL2/SDL_mixer.h> //  sudo apt-get install libsdl2-mixer-dev   used for mp3
 #include <iostream>
 #include <chrono> // time
 #include <thread> // is used to use an extra cpu-thread, so that you can do asynchronous programming. 
 #include <atomic> // async, see atomic-bool explanation below
 
-const int WIDTH = 1200;  // Width of the window
-const int HEIGHT = 800; // Height of the window
-const int PLAYER_WIDTH = WIDTH / 10; // Height of the window
-const int PLAYER_HEIGHT = HEIGHT / 10; // Height of the window
+const int WIDTH = 1920;  // Width of the window
+const int HEIGHT = 1080; // Height of the window
+const int PLAYER_WIDTH = WIDTH / 20; // Height of the window
+const int PLAYER_HEIGHT = HEIGHT / 20; // Height of the window
 int PLAYER_POSITION_X = WIDTH / 2 - PLAYER_WIDTH / 2; // Height of the window
 int PLAYER_POSITION_Y = HEIGHT / 2 - PLAYER_HEIGHT / 2; // Height of the window
 
+std::string pathToMp3File = "/home/tomcarl/TamiAlQuida.github.io/C++/various/maro-jump-sound-effect_1.mp3";
 
 float playerPositionY;
 float playerPositionX;
 float maxSpeed = 5.0;// m/s
-int millisecondsToSleep = 50;
+int millisecondsToSleep = 25;
 float timer = millisecondsToSleep / 1000.0;
 float fallTime = 0.0;
 float runTime = 0.0;
@@ -27,6 +29,8 @@ float jumpSpeed = 8.0; // m/s
 std::atomic_bool isJumping(false); // atomic bool makes sure the false/true condition is updated directly so that two functions/threads wont see it as false simultaneously
 std::atomic_bool isRunningRight(false);
 std::atomic_bool isRunningLeft(false);
+
+Mix_Chunk* jumpSound = nullptr; // CHECK WHY THIS IS NOT IN THE LOOP
 
 SDL_Texture* loadTexture(const std::string &path, SDL_Renderer* renderer) {
     SDL_Texture* newTexture = nullptr;
@@ -57,6 +61,13 @@ bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Textur
         return false;
     }
 
+    // initialize SDL_mixer
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        std::cerr << "Failed to initialize SDL_mixer: " << Mix_GetError() << std::endl;
+        SDL_Quit();
+        return false;
+    }
+
     // Create a window
     *window = SDL_CreateWindow("Mothafucka", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     if (!(*window)) {
@@ -79,6 +90,18 @@ bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Textur
     if (!(*playerTexture)) {
         SDL_DestroyRenderer(*renderer);
         SDL_DestroyWindow(*window);
+        SDL_Quit();
+        return false;
+    }
+    
+    // Load MP3 file
+    jumpSound = Mix_LoadWAV(pathToMp3File.c_str());
+    if (!jumpSound) {
+        std::cerr << "Failed to load jump sound effect: " << Mix_GetError() << std::endl;
+        SDL_DestroyTexture(*playerTexture);
+        SDL_DestroyRenderer(*renderer);
+        SDL_DestroyWindow(*window);
+        Mix_CloseAudio();
         SDL_Quit();
         return false;
     }
@@ -109,9 +132,9 @@ void refreshScreen (SDL_Renderer* renderer, SDL_Texture* playerTexture) {
     SDL_RenderPresent(renderer);
 }
 
-
 void jump(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
     isJumping = true;
+    Mix_PlayChannel(-1, jumpSound, 0);
     while (isJumping) {
         fallTime += timer;
         playerPositionY = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
@@ -263,6 +286,8 @@ int main(int argc, char* argv[]) {
     SDL_DestroyTexture(playerTexture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    Mix_FreeChunk(jumpSound);
+    Mix_CloseAudio();
     SDL_Quit();
 
     return 0;
