@@ -25,4 +25,4 @@ set(SOURCES super_mario_adventure.cpp)
 add_executable(super_mario_adventure ${SOURCES})
 
 # Link the SDL2 and SDL2_mixer libraries
-target_link_libraries(super_mario_adventure ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARY} ${SDL2_MIXER_LIBRARY})
+target_link_libraries(super_mario_adventure ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARY} ${SDL2_MIXER_LIBRARY} /usr/lib/x86_64-linux-gnu/libX11.so)

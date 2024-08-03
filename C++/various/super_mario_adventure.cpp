@@ -13,7 +13,14 @@ const int PLAYER_HEIGHT = HEIGHT / 20; // Height of the window
 int PLAYER_POSITION_X = WIDTH / 2 - PLAYER_WIDTH / 2; // Height of the window
 int PLAYER_POSITION_Y = HEIGHT / 2 - PLAYER_HEIGHT / 2; // Height of the window
 
+const int BADGUY_WIDTH = PLAYER_WIDTH; // BadGuy width (same as player for simplicity)
+const int BADGUY_HEIGHT = PLAYER_HEIGHT; // BadGuy height (same as player for simplicity)
+int BADGUY_POSITION_X = WIDTH / 3; // BadGuy starting X position
+int BADGUY_POSITION_Y = HEIGHT - HEIGHT / 5 - BADGUY_HEIGHT; // BadGuy starting Y position (on the ground)
+
 std::string pathToMp3File = "/home/tomcarl/TamiAlQuida.github.io/C++/various/maro-jump-sound-effect_1.mp3";
+std::string pathToMario = "/home/tomcarl/TamiAlQuida.github.io/C++/various/player.png";
+std::string pathToBadGuy = "/home/tomcarl/TamiAlQuida.github.io/C++/various/badGuy.png";
 
 float playerPositionY;
 float playerPositionX;
@@ -47,7 +54,7 @@ SDL_Texture* loadTexture(const std::string &path, SDL_Renderer* renderer) {
     return newTexture;
 }
 
-bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Texture** playerTexture) {
+bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Texture** playerTexture, SDL_Texture** badGuyTexture) {
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
@@ -86,19 +93,31 @@ bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Textur
     }
 
     // Load the player texture
-    *playerTexture = loadTexture("/home/tomcarl/TamiAlQuida.github.io/C++/various/player.png", *renderer);
+    *playerTexture = loadTexture(pathToMario, *renderer);
     if (!(*playerTexture)) {
         SDL_DestroyRenderer(*renderer);
         SDL_DestroyWindow(*window);
         SDL_Quit();
         return false;
     }
+
+    // Load bad guy texture
+    *badGuyTexture = loadTexture(pathToBadGuy, *renderer);
+    if (!(*badGuyTexture)) {
+        SDL_DestroyTexture(*playerTexture);
+        SDL_DestroyRenderer(*renderer);
+        SDL_DestroyWindow(*window);
+        SDL_Quit();
+        return false;
+    }
+
     
     // Load MP3 file
     jumpSound = Mix_LoadWAV(pathToMp3File.c_str());
     if (!jumpSound) {
         std::cerr << "Failed to load jump sound effect: " << Mix_GetError() << std::endl;
         SDL_DestroyTexture(*playerTexture);
+        SDL_DestroyTexture(*badGuyTexture);
         SDL_DestroyRenderer(*renderer);
         SDL_DestroyWindow(*window);
         Mix_CloseAudio();
@@ -109,7 +128,7 @@ bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Textur
     return true;
 }
 
-void refreshScreen (SDL_Renderer* renderer, SDL_Texture* playerTexture) {
+void refreshScreen (SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* badGuyTexture) {
     // Clear screen
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(renderer);
@@ -127,19 +146,23 @@ void refreshScreen (SDL_Renderer* renderer, SDL_Texture* playerTexture) {
     // Draw player (PNG)
     SDL_Rect player = {PLAYER_POSITION_X, PLAYER_POSITION_Y, PLAYER_WIDTH, PLAYER_HEIGHT};
     SDL_RenderCopy(renderer, playerTexture, NULL, &player);
+
+    // Draw BadGuy (PNG)
+    SDL_Rect badGuy = {BADGUY_POSITION_X, BADGUY_POSITION_Y, BADGUY_WIDTH, BADGUY_HEIGHT};
+    SDL_RenderCopy(renderer, badGuyTexture, NULL, &badGuy);
     
     // Update screen
     SDL_RenderPresent(renderer);
 }
 
-void jump(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
+void jump(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* badGuyTexture) {
     isJumping = true;
     Mix_PlayChannel(-1, jumpSound, 0);
     while (isJumping) {
         fallTime += timer;
         playerPositionY = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
         PLAYER_POSITION_Y = HEIGHT - HEIGHT / 5 - playerPositionY * 100;
-        refreshScreen(renderer, playerTexture);
+        refreshScreen(renderer, playerTexture, badGuyTexture);
         std::cout << "Height: " << playerPositionY << "\n";
         std::cout << "Fall Time: " << fallTime << "\n" << "\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
@@ -149,10 +172,13 @@ void jump(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
             break;
         }
     }
-    isJumping = false;
+    if (isJumping = true)
+    {
+        isJumping = false;
+    }    
 }
 
-void runRight(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
+void runRight(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* badGuyTexture) {
     isRunningRight = true;
     while (isRunningRight) {
         if (playerPositionX <= maxSpeed)
@@ -161,13 +187,13 @@ void runRight(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
             runTime += timer;
             playerPositionX = playerPositionX * acceleration * runTime;
             PLAYER_POSITION_X = PLAYER_POSITION_X + playerPositionX * 10;
-            refreshScreen(renderer, playerTexture);
+            refreshScreen(renderer, playerTexture, badGuyTexture);
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         }
         else if (playerPositionX >= maxSpeed)
         {
             PLAYER_POSITION_X = PLAYER_POSITION_X + maxSpeed * 10;
-            refreshScreen(renderer, playerTexture);
+            refreshScreen(renderer, playerTexture, badGuyTexture);
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         }        
     }
@@ -175,7 +201,7 @@ void runRight(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
     playerPositionX = 0;
 }
 
-void runLeft(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
+void runLeft(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* badGuyTexture) {
     isRunningLeft = true;
     while (isRunningLeft) {
         if (playerPositionX <= maxSpeed)
@@ -184,13 +210,13 @@ void runLeft(SDL_Renderer* renderer, SDL_Texture* playerTexture) {
             runTime += timer;
             playerPositionX = playerPositionX * acceleration * runTime;
             PLAYER_POSITION_X = PLAYER_POSITION_X - playerPositionX * 10;
-            refreshScreen(renderer, playerTexture);
+            refreshScreen(renderer, playerTexture, badGuyTexture);
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         }
         else if (playerPositionX >= maxSpeed)
         {
             PLAYER_POSITION_X = PLAYER_POSITION_X - maxSpeed * 10;
-            refreshScreen(renderer, playerTexture);
+            refreshScreen(renderer, playerTexture, badGuyTexture);
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         }
     
@@ -205,8 +231,9 @@ int main(int argc, char* argv[]) {
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
     SDL_Texture* playerTexture = nullptr;
+    SDL_Texture* badGuyTexture = nullptr;
 
-    if (!initializeGraphics(&window, &renderer, &playerTexture)) {
+    if (!initializeGraphics(&window, &renderer, &playerTexture, &badGuyTexture)) {
         return 1;
     }
 
@@ -247,21 +274,21 @@ int main(int argc, char* argv[]) {
                     case SDLK_w:
                         std::cout << "w key pressed" << std::endl;
                         if (!isJumping) {
-                            std::thread jumpThread(jump, renderer, playerTexture);
+                            std::thread jumpThread(jump, renderer, playerTexture, badGuyTexture);
                             jumpThread.detach();
                         }
                         break;
                     case SDLK_d:
                         std::cout << "d key pressed" << std::endl;
                         if (playerPositionX < maxSpeed && !isRunningRight) {
-                            std::thread runThread(runRight, renderer, playerTexture);
+                            std::thread runThread(runRight, renderer, playerTexture, badGuyTexture);
                             runThread.detach();
                         }
                         break;
                     case SDLK_a:
                         std::cout << "a key pressed" << std::endl;
                         if (playerPositionX < maxSpeed && !isRunningLeft) {
-                            std::thread runThread(runLeft, renderer, playerTexture);
+                            std::thread runThread(runLeft, renderer, playerTexture, badGuyTexture);
                             runThread.detach();
                         }
                         break;
@@ -271,19 +298,28 @@ int main(int argc, char* argv[]) {
                 switch (e.key.keysym.sym) {
                     case SDLK_d:
                     std::cout << "d up" << std::endl;
-                    isRunningRight = false;
+                    if (isRunningRight = true)
+                    {
+                        isRunningRight = false;
+                    }
+                    break;
                     case SDLK_a:
                     std::cout << "a up" << std::endl;
-                    isRunningLeft = false;
+                    if (isRunningLeft = true)
+                    {
+                        isRunningLeft = false;
+                    }
+                    break;
                 }
             }
         }
 
-        refreshScreen(renderer, playerTexture);
+        refreshScreen(renderer, playerTexture, badGuyTexture);
     }
 
     // Destroy window and renderer
     SDL_DestroyTexture(playerTexture);
+    SDL_DestroyTexture(badGuyTexture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     Mix_FreeChunk(jumpSound);
