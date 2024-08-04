@@ -1,22 +1,21 @@
-#include <SDL2/SDL.h> // sudo apt install libsdl2-dev               used for graphics etc
-#include <SDL2/SDL_image.h> // sudo apt install libsdl2-image-dev   used for showing pictures etc
-#include <SDL2/SDL_mixer.h> //  sudo apt-get install libsdl2-mixer-dev   used for mp3
+#include <SDL2/SDL.h> // sudo apt install libsdl2-dev                   used for graphics etc
+#include <SDL2/SDL_image.h> // sudo apt install libsdl2-image-dev       used for showing pictures etc
+#include <SDL2/SDL_mixer.h> // sudo apt-get install libsdl2-mixer-dev   used for mp3
 #include <iostream>
 #include <chrono> // time
 #include <thread> // is used to use an extra cpu-thread, so that you can do asynchronous programming. 
 #include <atomic> // async, see atomic-bool explanation below
 
-const int WIDTH = 1920;  // Width of the window
-const int HEIGHT = 1080; // Height of the window
-const int PLAYER_WIDTH = WIDTH / 20; // Height of the window
-const int PLAYER_HEIGHT = HEIGHT / 20; // Height of the window
-int PLAYER_POSITION_X = WIDTH / 2 - PLAYER_WIDTH / 2; // Height of the window
-int PLAYER_POSITION_Y = HEIGHT / 2 - PLAYER_HEIGHT / 2; // Height of the window
-
-const int BADGUY_WIDTH = PLAYER_WIDTH; // BadGuy width (same as player for simplicity)
-const int BADGUY_HEIGHT = PLAYER_HEIGHT; // BadGuy height (same as player for simplicity)
-int BADGUY_POSITION_X = WIDTH / 3; // BadGuy starting X position
-int BADGUY_POSITION_Y = HEIGHT - HEIGHT / 5 - BADGUY_HEIGHT; // BadGuy starting Y position (on the ground)
+const int WIDTH = 1920;                                             // Width of the window
+const int HEIGHT = 1080;                                            // Height of the window
+const int PLAYER_WIDTH = WIDTH / 20;                                // Height of the window
+const int PLAYER_HEIGHT = HEIGHT / 20;                              // Height of the window
+const int BADGUY_WIDTH = PLAYER_WIDTH;                              // BadGuy width (same as player for simplicity)
+const int BADGUY_HEIGHT = PLAYER_HEIGHT;                            // BadGuy height (same as player for simplicity)
+int playerActualPositionX = 50;                                     // Player starting X position
+int playerActualPositionY = HEIGHT - HEIGHT / 5 - PLAYER_HEIGHT;    // Player starting X position
+int badGuyActualPositionX = WIDTH / 3;                              // BadGuy starting X position
+int badGuyActualPositionY = HEIGHT - HEIGHT / 5 - BADGUY_HEIGHT;    // BadGuy starting Y position (on the ground)
 
 std::string pathToMp3File = "/home/tomcarl/TamiAlQuida.github.io/C++/various/maro-jump-sound-effect_1.mp3";
 std::string pathToMario = "/home/tomcarl/TamiAlQuida.github.io/C++/various/player.png";
@@ -144,33 +143,33 @@ void refreshScreen (SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Text
     SDL_RenderFillRect(renderer, &rightHalf);
 
     // Draw player (PNG)
-    SDL_Rect player = {PLAYER_POSITION_X, PLAYER_POSITION_Y, PLAYER_WIDTH, PLAYER_HEIGHT};
+    SDL_Rect player = {playerActualPositionX, playerActualPositionY, PLAYER_WIDTH, PLAYER_HEIGHT};
     SDL_RenderCopy(renderer, playerTexture, NULL, &player);
 
     // Draw BadGuy (PNG)
-    SDL_Rect badGuy = {BADGUY_POSITION_X, BADGUY_POSITION_Y, BADGUY_WIDTH, BADGUY_HEIGHT};
+    SDL_Rect badGuy = {badGuyActualPositionX, badGuyActualPositionY, BADGUY_WIDTH, BADGUY_HEIGHT};
     SDL_RenderCopy(renderer, badGuyTexture, NULL, &badGuy);
     
     // Update screen
     SDL_RenderPresent(renderer);
 }
 
-void jump(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* badGuyTexture) {
+void jump() {
     isJumping = true;
     Mix_PlayChannel(-1, jumpSound, 0);
     while (isJumping) {
         fallTime += timer;
         playerPositionY = jumpSpeed * fallTime - gravity * fallTime * fallTime / 2;
-        PLAYER_POSITION_Y = HEIGHT - HEIGHT / 5 - playerPositionY * 100;
-        refreshScreen(renderer, playerTexture, badGuyTexture);
-        std::cout << "Height: " << playerPositionY << "\n";
-        std::cout << "Fall Time: " << fallTime << "\n" << "\n";
-        std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         if (playerPositionY <= 0) {
             playerPositionY = 0;
             fallTime = 0;
+            playerActualPositionY = HEIGHT - HEIGHT / 5 - PLAYER_HEIGHT - playerPositionY * 100;
             break;
         }
+        playerActualPositionY = HEIGHT - HEIGHT / 5 - PLAYER_HEIGHT - playerPositionY * 100;
+        //std::cout << "Height: " << playerPositionY << "\n";
+        //std::cout << "Fall Time: " << fallTime << "\n" << "\n";
+        std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
     }
     if (isJumping = true)
     {
@@ -178,7 +177,7 @@ void jump(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* badGu
     }    
 }
 
-void runRight(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* badGuyTexture) {
+void runRight() {
     isRunningRight = true;
     while (isRunningRight) {
         if (playerPositionX <= maxSpeed)
@@ -186,14 +185,12 @@ void runRight(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* b
             playerPositionX = 0.1;
             runTime += timer;
             playerPositionX = playerPositionX * acceleration * runTime;
-            PLAYER_POSITION_X = PLAYER_POSITION_X + playerPositionX * 10;
-            refreshScreen(renderer, playerTexture, badGuyTexture);
+            playerActualPositionX = playerActualPositionX + playerPositionX * 10;
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         }
         else if (playerPositionX >= maxSpeed)
         {
-            PLAYER_POSITION_X = PLAYER_POSITION_X + maxSpeed * 10;
-            refreshScreen(renderer, playerTexture, badGuyTexture);
+            playerActualPositionX = playerActualPositionX + maxSpeed * 10;
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         }        
     }
@@ -201,7 +198,7 @@ void runRight(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* b
     playerPositionX = 0;
 }
 
-void runLeft(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* badGuyTexture) {
+void runLeft() {
     isRunningLeft = true;
     while (isRunningLeft) {
         if (playerPositionX <= maxSpeed)
@@ -209,14 +206,12 @@ void runLeft(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* ba
             playerPositionX = 0.1;
             runTime += timer;
             playerPositionX = playerPositionX * acceleration * runTime;
-            PLAYER_POSITION_X = PLAYER_POSITION_X - playerPositionX * 10;
-            refreshScreen(renderer, playerTexture, badGuyTexture);
+            playerActualPositionX = playerActualPositionX - playerPositionX * 10;
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         }
         else if (playerPositionX >= maxSpeed)
         {
-            PLAYER_POSITION_X = PLAYER_POSITION_X - maxSpeed * 10;
-            refreshScreen(renderer, playerTexture, badGuyTexture);
+            playerActualPositionX = playerActualPositionX - maxSpeed * 10;
             std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
         }
     
@@ -225,9 +220,26 @@ void runLeft(SDL_Renderer* renderer, SDL_Texture* playerTexture, SDL_Texture* ba
     playerPositionX = 0;
 }
 
+bool chechForCollision() {
 
+    if ((playerActualPositionY <= badGuyActualPositionY - BADGUY_HEIGHT*2/3 && playerActualPositionY >= badGuyActualPositionY - BADGUY_HEIGHT) &&
+        !(playerActualPositionX - badGuyActualPositionX < -75 || playerActualPositionX - badGuyActualPositionX > 50)) // kill enemy)
+    {
+        std::cout << "You killed him" << std::endl;
+        return false;
+    }
 
-int main(int argc, char* argv[]) {
+    if (playerActualPositionY >= badGuyActualPositionY - BADGUY_HEIGHT*2/3 &&
+        !(playerActualPositionX - badGuyActualPositionX < -75 || playerActualPositionX - badGuyActualPositionX > 50)) // die if walk into enemy
+    {
+        std::cout << "GAME OVER" << std::endl;
+        return true;
+    }
+
+    return false;
+}
+
+int main() {
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
     SDL_Texture* playerTexture = nullptr;
@@ -257,38 +269,38 @@ int main(int argc, char* argv[]) {
                         break;
                     case SDLK_UP:
                         std::cout << "up key pressed" << std::endl;
-                        PLAYER_POSITION_Y -= PLAYER_HEIGHT;
+                        playerActualPositionY -= PLAYER_HEIGHT;
                         break;
                     case SDLK_DOWN:
                         std::cout << "down key pressed" << std::endl;
-                        PLAYER_POSITION_Y += PLAYER_HEIGHT;
+                        playerActualPositionY += PLAYER_HEIGHT;
                         break;
                     case SDLK_RIGHT:
                         std::cout << "right key pressed" << std::endl;
-                        PLAYER_POSITION_X += PLAYER_WIDTH;
+                        playerActualPositionX += PLAYER_WIDTH;
                         break;
                     case SDLK_LEFT:
                         std::cout << "left key pressed" << std::endl;
-                        PLAYER_POSITION_X -= PLAYER_WIDTH;
+                        playerActualPositionX -= PLAYER_WIDTH;
                         break;
                     case SDLK_w:
                         std::cout << "w key pressed" << std::endl;
                         if (!isJumping) {
-                            std::thread jumpThread(jump, renderer, playerTexture, badGuyTexture);
+                            std::thread jumpThread(jump);
                             jumpThread.detach();
                         }
                         break;
                     case SDLK_d:
                         std::cout << "d key pressed" << std::endl;
                         if (playerPositionX < maxSpeed && !isRunningRight) {
-                            std::thread runThread(runRight, renderer, playerTexture, badGuyTexture);
+                            std::thread runThread(runRight);
                             runThread.detach();
                         }
                         break;
                     case SDLK_a:
                         std::cout << "a key pressed" << std::endl;
                         if (playerPositionX < maxSpeed && !isRunningLeft) {
-                            std::thread runThread(runLeft, renderer, playerTexture, badGuyTexture);
+                            std::thread runThread(runLeft);
                             runThread.detach();
                         }
                         break;
@@ -314,6 +326,10 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        if (chechForCollision())
+        {
+            quit = true;
+        }
         refreshScreen(renderer, playerTexture, badGuyTexture);
     }
 
