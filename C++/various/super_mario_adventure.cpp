@@ -5,21 +5,7 @@
 #include <chrono> // time
 #include <thread> // is used to use an extra cpu-thread, so that you can do asynchronous programming. 
 #include <atomic> // async, see atomic-bool explanation below
-
-const int WIDTH = 1920;                                             // Width of the window
-const int HEIGHT = 1080;                                            // Height of the window
-const int PLAYER_WIDTH = WIDTH / 20;                                // Height of the window
-const int PLAYER_HEIGHT = HEIGHT / 20;                              // Height of the window
-const int BADGUY_WIDTH = PLAYER_WIDTH;                              // BadGuy width (same as player for simplicity)
-const int BADGUY_HEIGHT = PLAYER_HEIGHT;                            // BadGuy height (same as player for simplicity)
-int playerActualPositionX = 50;                                     // Player starting X position
-int playerActualPositionY = HEIGHT - HEIGHT / 5 - PLAYER_HEIGHT;    // Player starting X position
-int badGuyActualPositionX = WIDTH / 3;                              // BadGuy starting X position
-int badGuyActualPositionY = HEIGHT - HEIGHT / 5 - BADGUY_HEIGHT;    // BadGuy starting Y position (on the ground)
-
-std::string pathToMp3File = "/home/tomcarl/TamiAlQuida.github.io/C++/various/maro-jump-sound-effect_1.mp3";
-std::string pathToMario = "/home/tomcarl/TamiAlQuida.github.io/C++/various/player.png";
-std::string pathToBadGuy = "/home/tomcarl/TamiAlQuida.github.io/C++/various/badGuy.png";
+#include "super_mario_adventure.h" // includes a class + function and some search paths and other variables 
 
 float playerPositionY;
 float playerPositionX;
@@ -282,6 +268,10 @@ int main() {
                     case SDLK_LEFT:
                         std::cout << "left key pressed" << std::endl;
                         playerActualPositionX -= PLAYER_WIDTH;
+                        break;
+                    case SDLK_e:
+                        createCharacter(12);
+                        badGuyTexture = loadTexture(pathToBadGuy, renderer);
                         break;
                     case SDLK_w:
                         std::cout << "w key pressed" << std::endl;

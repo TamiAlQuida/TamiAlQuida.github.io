@@ -1,58 +1,80 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-using namespace std;
+#include <vector>
+#include <string>
 
-string keyboardIn;
-float playerPositionY;
-int millisecondsToSleep = 100;
-float timer = millisecondsToSleep / 1000;
-float fallTime;
-const int gravity = 9.82;
+const int WIDTH = 1920;                                             // Width of the window
+const int HEIGHT = 1080;                                            // Height of the window
+
+std::string pathToMario = "/home/tomcarl/TamiAlQuida.github.io/C++/various/player.png";
+std::string pathToBadGuy = "/home/tomcarl/TamiAlQuida.github.io/C++/various/badGuy.png";
+std::string pathToBigBadGuy = "/home/tomcarl/TamiAlQuida.github.io/C++/various/bigBadGuy.png";
+
+int counter;
+
+class createCharacter
+{
+private:
+    
+public:
+    std::string name = "character";
+    int number1;
+    int characterType;
+    int pretendNumber = 7;
+    createCharacter(int number);     // call constructor
+    static void createObjectsFromClass(std::vector<createCharacter>& characters, int number);// Static member function to create objects
+};
 
 
-void movePosition (string keyboardIn) {
+createCharacter::createCharacter(int number) // define constructor
+{
+    name += std::to_string(counter);
+    counter++;
+    characterType = rand() % 3;
+    number1 = number;
+    std::cout << "Character Name: " << name << ", counter. " << counter << ", "  << ", caracterType: " << characterType << ", " << number << std::endl;
 
-    cin >> keyboardIn;
-    if (keyboardIn != "w" && keyboardIn != "a" && keyboardIn != "s" && keyboardIn != "d")
+    if (characterType == 0)
     {
-        cout << "enter w,a,s or d"<< "\n" << "\n";
-    };
-
-    if (keyboardIn == "w") {
-        playerPositionY += 100;
-        timer = 0.1;
-        cout << playerPositionY << "\n";
-    };
-}
-
-
-void falling () {
-
-    while (playerPositionY > 0)
+        int characterHeight = WIDTH / 20;
+        int characterWidth = HEIGHT / 20;
+        std::cout << "imagepath:" << pathToMario << std::endl;
+        //std::cout << "characterHeight" << characterHeight << std::endl;
+        //std::cout << "characterWidth" << characterWidth << "\n" << std::endl;
+    }
+    else if (characterType == 1)
     {
-        fallTime += timer;
-        playerPositionY -= gravity * fallTime;
-        if (playerPositionY < 0)
-        {
-            playerPositionY = 0;
-        }
-        
-        cout << playerPositionY << "\n";
-        cout << fallTime << "\n" <<"\n";
-        this_thread::sleep_for(chrono::milliseconds(millisecondsToSleep));
+        int characterHeight = WIDTH / 20;
+        int characterWidth = HEIGHT / 20;
+        std::cout << "imagepath:" << pathToBadGuy << std::endl;
+        //std::cout << "characterHeight" << characterHeight << std::endl;
+        //std::cout << "characterWidth" << characterWidth << "\n" << std::endl;
+    }
+    else if (characterType == 2)
+    {
+        int characterHeight = WIDTH / 10;
+        int characterWidth = HEIGHT / 10;
+        std::cout << "imagepath:" << pathToBigBadGuy << std::endl;
+        //std::cout << "characterHeight" << characterHeight << std::endl;
+        //std::cout << "characterWidth" << characterWidth << "\n" << std::endl;
     }
     
-    playerPositionY = 0;
-    fallTime = 0;    
+}
+
+void createCharacter::createObjectsFromClass(std::vector<createCharacter>& characters, int number) {
+    characters.emplace_back(number);
 }
 
 
 int main () {
+    std::vector<createCharacter> characters;
 
     while (true)
     {
-        movePosition(keyboardIn);
-        falling();        
+        createCharacter::createObjectsFromClass(characters, 12);
+        std::this_thread::sleep_for(std::chrono::seconds(5));
     }
+
+    return 0;
 };
