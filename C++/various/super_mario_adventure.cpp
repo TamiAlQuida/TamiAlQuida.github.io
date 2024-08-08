@@ -1,26 +1,5 @@
-#include <SDL2/SDL.h> // sudo apt install libsdl2-dev                   used for graphics etc
-#include <SDL2/SDL_image.h> // sudo apt install libsdl2-image-dev       used for showing pictures etc
-#include <SDL2/SDL_mixer.h> // sudo apt-get install libsdl2-mixer-dev   used for mp3
-#include <iostream>
-#include <chrono> // time
-#include <thread> // is used to use an extra cpu-thread, so that you can do asynchronous programming. 
-#include <atomic> // async, see atomic-bool explanation below
-#include "super_mario_adventure.h" // includes a class + function and some search paths and other variables 
 
-float playerPositionY;
-float playerPositionX;
-float maxSpeed = 5.0;// m/s
-int millisecondsToSleep = 25;
-float timer = millisecondsToSleep / 1000.0;
-float fallTime = 0.0;
-float runTime = 0.0;
-const float gravity = 9.82; // m/s2
-const float acceleration = 60.0;
-float jumpSpeed = 8.0; // m/s
-
-std::atomic_bool isJumping(false); // atomic bool makes sure the false/true condition is updated directly so that two functions/threads wont see it as false simultaneously
-std::atomic_bool isRunningRight(false);
-std::atomic_bool isRunningLeft(false);
+#include "super_mario_adventure_class.h" // includes a class + function and some search paths, other variables and all the needed #include
 
 Mix_Chunk* jumpSound = nullptr; // CHECK WHY THIS IS NOT IN THE LOOP
 
@@ -206,12 +185,34 @@ void runLeft() {
     playerPositionX = 0;
 }
 
+void runLeftBadGuy() {
+    while (true)
+    {
+        if (badGuyActualPositionX > 0)
+        {
+            badGuyActualPositionX -= 10;
+            std::this_thread::sleep_for(std::chrono::milliseconds(millisecondsToSleep));
+        }
+        
+        else
+        {
+            badGuyActualPositionX = WIDTH;
+        }        
+    }    
+}
+
+void startBadGuyRunLeftThread() { //needs to be defined here for some reason so "case" can understand it
+    std::thread badGuyRunLeftThread(runLeftBadGuy);
+    badGuyRunLeftThread.detach();
+}
+
 bool chechForCollision() {
 
     if ((playerActualPositionY <= badGuyActualPositionY - BADGUY_HEIGHT*2/3 && playerActualPositionY >= badGuyActualPositionY - BADGUY_HEIGHT) &&
         !(playerActualPositionX - badGuyActualPositionX < -75 || playerActualPositionX - badGuyActualPositionX > 50)) // kill enemy)
     {
         std::cout << "You killed him" << std::endl;
+        killed = true;
         return false;
     }
 
@@ -219,6 +220,7 @@ bool chechForCollision() {
         !(playerActualPositionX - badGuyActualPositionX < -75 || playerActualPositionX - badGuyActualPositionX > 50)) // die if walk into enemy
     {
         std::cout << "GAME OVER" << std::endl;
+
         return true;
     }
 
@@ -253,26 +255,20 @@ int main() {
                     case SDLK_ESCAPE:
                         quit = true;
                         break;
-                    case SDLK_UP:
-                        std::cout << "up key pressed" << std::endl;
-                        playerActualPositionY -= PLAYER_HEIGHT;
-                        break;
                     case SDLK_DOWN:
                         std::cout << "down key pressed" << std::endl;
                         playerActualPositionY += PLAYER_HEIGHT;
                         break;
-                    case SDLK_RIGHT:
-                        std::cout << "right key pressed" << std::endl;
-                        playerActualPositionX += PLAYER_WIDTH;
-                        break;
-                    case SDLK_LEFT:
-                        std::cout << "left key pressed" << std::endl;
-                        playerActualPositionX -= PLAYER_WIDTH;
-                        break;
                     case SDLK_e:
-                        createCharacter(12);
-                        badGuyTexture = loadTexture(pathToBadGuy, renderer);
+                        killed = false;
+                        createCharacter();
+                        badGuyTexture = loadTexture(pathToLoad, renderer);
+                        createCharacter::killCharacter();
                         break;
+                    case SDLK_r:
+                        startBadGuyRunLeftThread();
+                        break;
+                    case SDLK_UP: //(no break, so it falls through to the next case)
                     case SDLK_w:
                         std::cout << "w key pressed" << std::endl;
                         if (!isJumping) {
@@ -280,6 +276,7 @@ int main() {
                             jumpThread.detach();
                         }
                         break;
+                    case SDLK_RIGHT: //(no break, so it falls through to the next case)
                     case SDLK_d:
                         std::cout << "d key pressed" << std::endl;
                         if (playerPositionX < maxSpeed && !isRunningRight) {
@@ -287,6 +284,7 @@ int main() {
                             runThread.detach();
                         }
                         break;
+                    case SDLK_LEFT: //(no break, so it falls through to the next case)
                     case SDLK_a:
                         std::cout << "a key pressed" << std::endl;
                         if (playerPositionX < maxSpeed && !isRunningLeft) {
@@ -298,6 +296,7 @@ int main() {
             }
             else if (e.type == SDL_KEYUP) {
                 switch (e.key.keysym.sym) {
+                    case SDLK_RIGHT: //(no break, so it falls through to the next case)
                     case SDLK_d:
                     std::cout << "d up" << std::endl;
                     if (isRunningRight = true)
@@ -305,6 +304,7 @@ int main() {
                         isRunningRight = false;
                     }
                     break;
+                    case SDLK_LEFT: //(no break, so it falls through to the next case)
                     case SDLK_a:
                     std::cout << "a up" << std::endl;
                     if (isRunningLeft = true)
@@ -315,12 +315,20 @@ int main() {
                 }
             }
         }
-
-        if (chechForCollision())
+        
+        if (chechForCollision() && !killed)
         {
             quit = true;
         }
+        else if (chechForCollision() && killed)
+        {
+            //quit = true;
+            SDL_DestroyTexture(badGuyTexture);
+        }
+
+        
         refreshScreen(renderer, playerTexture, badGuyTexture);
+
     }
 
     // Destroy window and renderer
