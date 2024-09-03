@@ -18,7 +18,7 @@ SDL_Texture* loadTexture(const std::string &path, SDL_Renderer* renderer) {
     return newTexture;
 }
 
-bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Texture** playerTexture, SDL_Texture** badGuyTexture) {
+bool initializeGraphics(SDL_Window*& window, SDL_Renderer*& renderer, SDL_Texture*& playerTexture, SDL_Texture*& badGuyTexture) {
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
@@ -40,37 +40,37 @@ bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Textur
     }
 
     // Create a window
-    *window = SDL_CreateWindow("Mothafucka", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
-    if (!(*window)) {
+    window = SDL_CreateWindow("Mothafucka", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+    if (!window) {
         std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
         SDL_Quit();
         return false;
     }
 
     // Create a renderer
-    *renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
-    if (!(*renderer)) {
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
         std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(*window);
+        SDL_DestroyWindow(window);
         SDL_Quit();
         return false;
     }
 
     // Load the player texture
-    *playerTexture = loadTexture(pathToMario, *renderer);
-    if (!(*playerTexture)) {
-        SDL_DestroyRenderer(*renderer);
-        SDL_DestroyWindow(*window);
+    playerTexture = loadTexture(pathToMario, renderer);
+    if (!playerTexture) {
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
         SDL_Quit();
         return false;
     }
 
     // Load bad guy texture
-    *badGuyTexture = loadTexture(pathToBadGuy, *renderer);
-    if (!(*badGuyTexture)) {
-        SDL_DestroyTexture(*playerTexture);
-        SDL_DestroyRenderer(*renderer);
-        SDL_DestroyWindow(*window);
+    badGuyTexture = loadTexture(pathToBadGuy, renderer);
+    if (!badGuyTexture) {
+        SDL_DestroyTexture(playerTexture);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
         SDL_Quit();
         return false;
     }
@@ -80,10 +80,10 @@ bool initializeGraphics(SDL_Window** window, SDL_Renderer** renderer, SDL_Textur
     jumpSound = Mix_LoadWAV(pathToMp3File.c_str());
     if (!jumpSound) {
         std::cerr << "Failed to load jump sound effect: " << Mix_GetError() << std::endl;
-        SDL_DestroyTexture(*playerTexture);
-        SDL_DestroyTexture(*badGuyTexture);
-        SDL_DestroyRenderer(*renderer);
-        SDL_DestroyWindow(*window);
+        SDL_DestroyTexture(playerTexture);
+        SDL_DestroyTexture(badGuyTexture);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
         Mix_CloseAudio();
         SDL_Quit();
         return false;
@@ -206,7 +206,7 @@ void startBadGuyRunLeftThread() { //needs to be defined here for some reason so 
     badGuyRunLeftThread.detach();
 }
 
-bool chechForCollision() {
+bool checkForCollision() {
 
     if ((playerActualPositionY <= badGuyActualPositionY - BADGUY_HEIGHT*2/3 && playerActualPositionY >= badGuyActualPositionY - BADGUY_HEIGHT) &&
         !(playerActualPositionX - badGuyActualPositionX < -75 || playerActualPositionX - badGuyActualPositionX > 50)) // kill enemy)
@@ -233,7 +233,7 @@ int main() {
     SDL_Texture* playerTexture = nullptr;
     SDL_Texture* badGuyTexture = nullptr;
 
-    if (!initializeGraphics(&window, &renderer, &playerTexture, &badGuyTexture)) {
+    if (!initializeGraphics(window, renderer, playerTexture, badGuyTexture)) {
         return 1;
     }
 
@@ -299,7 +299,7 @@ int main() {
                     case SDLK_RIGHT: //(no break, so it falls through to the next case)
                     case SDLK_d:
                     std::cout << "d up" << std::endl;
-                    if (isRunningRight = true)
+                    if (isRunningRight == true)
                     {
                         isRunningRight = false;
                     }
@@ -307,7 +307,7 @@ int main() {
                     case SDLK_LEFT: //(no break, so it falls through to the next case)
                     case SDLK_a:
                     std::cout << "a up" << std::endl;
-                    if (isRunningLeft = true)
+                    if (isRunningLeft == true)
                     {
                         isRunningLeft = false;
                     }
@@ -316,11 +316,11 @@ int main() {
             }
         }
         
-        if (chechForCollision() && !killed)
+        if (checkForCollision() && !killed)
         {
             quit = true;
         }
-        else if (chechForCollision() && killed)
+        else if (checkForCollision() && killed)
         {
             //quit = true;
             SDL_DestroyTexture(badGuyTexture);

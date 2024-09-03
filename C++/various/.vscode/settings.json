@@ -56,5 +56,6 @@
         "numbers": "cpp",
         "__nullptr": "cpp",
         "cinttypes": "cpp"
-    }
+    },
+    "CodeGPT.apiKey": "OpenAI"
 }
