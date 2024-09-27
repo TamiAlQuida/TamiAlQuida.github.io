@@ -1,3 +1,4 @@
+
 import matplotlib.pyplot as plt
 
 """Payment input details"""
@@ -128,3 +129,4 @@ plt.ylabel('Total Value')
 plt.title('Total Value Over Time')
 plt.legend()
 plt.show()
+

@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <iomanip>   // For std::setw and std::setfill
 #include <sstream>   // For std::ostringstream
+#include <thread>
 
 #define CENTER 128
 #define BLIND 6
@@ -68,48 +69,63 @@ int main() {
     }
 
     // Open the serial port for writing
-    std::ofstream serialPort("/dev/ttyACM0");
+    std::ofstream serialPort("/dev/ttyACM1");
 
     // Check if the port is open
     if (!serialPort.is_open()) {
-        std::cerr << "Failed to open /dev/ttyACM0" << std::endl;
+        std::cerr << "Failed to open /dev/ttyACM1" << std::endl;
         return 1;
     }
 
     input_event event;
-    while (read(fd, &event, sizeof(input_event)) > 0) {
-        
-        //Identify event 
-        //std::cout << "Event: " << std::endl
-        //        << "type=" << event.type
-        //          << ", code=" << event.code
-        //          << ", value=" << event.value
-        //          << ", time=" << event.time.tv_sec << "." << event.time.tv_usec
-        //          << std::endl;;
+//    while (read(fd, &event, sizeof(input_event)) > 0) {
+                
+//        //Identify event 
+//        //std::cout << "Event: " << std::endl
+//        //        << "type=" << event.type
+//        //          << ", code=" << event.code
+//        //          << ", value=" << event.value
+//        //          << ", time=" << event.time.tv_sec << "." << event.time.tv_usec
+//        //          << std::endl;;
+//
+//
+//        // Format the numbers to always contain 3 digits
+//        std::string sendPackage1 = formatToThreeDigits(left_joystick[0]);
+//        std::string sendPackage2 = formatToThreeDigits(left_joystick[1]);
+//    
+//        // Combine the formatted strings
+//        std::string sendPackageComplete = sendPackage1 + sendPackage2;
+//        serialPort << sendPackageComplete;
+//        std::cout << sendPackageComplete << std::endl;
+//        serialPort.flush();
+//
+//        if (event.type == EV_ABS && event.code >= 0 && event.code <= 17) {
+//            std::string action = absolutes[event.code];
+//            int value = event.value;
+//
+//            if (event.code == 0 || event.code == 1) { // left joystick
+//                update_left_joystick_position(event);
+//            } else if (event.code == 2 || event.code == 5) { // right joystick
+//                update_right_joystick_position(event);
+//            }
+//        }
+//    }
 
-
-        // Format the numbers to always contain 3 digits
-        std::string sendPackage1 = formatToThreeDigits(left_joystick[0]);
-        std::string sendPackage2 = formatToThreeDigits(left_joystick[1]);
-    
-        // Combine the formatted strings
-        std::string sendPackageComplete = sendPackage1 + sendPackage2;
-        serialPort << sendPackageComplete;
-        std::cout << sendPackageComplete << std::endl;
+    int counter_x = 0;
+    int counter_y = 0;
+    while (true) {
+        std::string message = formatToThreeDigits(counter_x) + formatToThreeDigits(counter_y);
+        std::cout << "Sending: " << message << std::endl;
+        serialPort << message;
         serialPort.flush();
 
-        if (event.type == EV_ABS && event.code >= 0 && event.code <= 17) {
-            std::string action = absolutes[event.code];
-            int value = event.value;
-
-            if (event.code == 0 || event.code == 1) { // left joystick
-                update_left_joystick_position(event);
-            } else if (event.code == 2 || event.code == 5) { // right joystick
-                update_right_joystick_position(event);
-            }
+        counter_x = (counter_x + 1) % 1000;
+        if (counter_x == 0) {
+            counter_y = (counter_y + 1) % 1000;
         }
-    }
 
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
     close(fd);
     serialPort.close();
     return 0;
