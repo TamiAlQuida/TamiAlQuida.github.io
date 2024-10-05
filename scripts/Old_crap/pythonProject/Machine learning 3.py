@@ -12,7 +12,7 @@ scale = StandardScaler()
 # https://www.w3schools.com/python/python_ml_scale.asp
 
 
-df = pandas.read_csv("cars2.csv")
+df = pandas.read_csv("scripts/Old_crap/pythonProject/cars2.csv")
 X = df[['Weight', 'Volume']]
 y = df['CO2']
 

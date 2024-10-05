@@ -8,7 +8,14 @@
 
 import time
 from evdev import InputDevice, categorize, ecodes                   # pip install evdev
-gamepad = InputDevice('/dev/input/event2')      # "cd /dev/input" then "ls -al" to see your connections
+
+#gamepad = InputDevice('/dev/input/event2') # "cd /dev/input" then "ls -al" to see your connections
+for i in range(0, 20):
+    try:
+        input1 = '/dev/input/event' + str(i)
+        gamepad = InputDevice(input1)
+    except:
+        continue
 
 button_presses = {                          # ecodes.EV_KEY
     304: 'square',

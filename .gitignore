@@ -9,7 +9,8 @@ dark.jpg
 C++/QTApp/build-QTApp-Desktop-Debug
 C++/QTApp/build-QTApp-Desktop-Release
 C++/QTAppQmake/build-QTAppQmake-Desktop-Release
-/build
+
+*build
 /venv 
 # virtualenv --python python3.11 .venv # source .venv/bin/activate # deactivate 
 # pip freeze > requirements.txt (makes list of whats in venv)# pip install -r requirements.txt  (installs whats in the list)
@@ -22,12 +23,17 @@ kladd copy.csv
 /scripts/Old_crap/pythonProject/Transaktioner sparkonto modified.csv
 /scripts/Old_crap/pythonProject/Transaktioner privatkonto.csv
 /home/tomcarl/TamiAlQuida.github.io/C++/build-QTAppQmake-Android-Release
-C++/QTAppQmake/build
-C++/.vscode
-C++/build
+
+# Ignore all .vscode folders
+.vscode/
+**/.vscode/
+
+
 
 scripts/tensorflow/ssd_mobilenet_v2_coco_2018_03_29 
 # http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz
 
 /models
+/web_page
+
 

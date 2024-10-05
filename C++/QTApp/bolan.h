@@ -65,5 +65,6 @@ void bolan (int huskostnad, double ranta, int antal_ar) {           // start of 
         cout << "hypotetisk hyra: " << hypotetisk_hyra << "\n\n";
         out << "hypotetisk hyra: " << hypotetisk_hyra << "\n\n";
     }
+
     out.close();
 };
