@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 
 """Payment input details"""
-years = 20
+years = 10
 # Initial house prices
 cheap_house = 2000000
 expensive_house = 3000000
@@ -25,6 +25,8 @@ cheap_house_monthly_price_increase = (1 + cheap_house_price_increase) ** (1/12) 
 expensive_house_monthly_price_increase = (1 + expensive_house_price_increase) ** (1/12) - 1
 # Monthly loan interest rate
 monthly_interest_rate = loan_interest_rate / 12
+# monthly_interest_rate = (1 + loan_interest_rate) ** (1/12) - 1 # depends on bank terms if this or the one above
+
 # Monthly stock market return rate
 monthly_stock_return_rate = (1 + stock_return_rate) ** (1/12) - 1
 
