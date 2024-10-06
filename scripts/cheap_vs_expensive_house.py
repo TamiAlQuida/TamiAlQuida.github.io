@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 
 """Payment input details"""
-years = 30
+years = 15
 # Initial house prices
 cheap_house = 2000000
 expensive_house = 3000000
@@ -54,7 +54,7 @@ money_bank_cheap_if_invested = -down_payment_cheap
 money_bank_expensive_if_invested = -down_payment_expensive
 
 
-"""Lists to store values for plotting"""
+"""Lists to stored values for plotting"""
 house_value_cheap_each_month = []
 house_value_expensive_each_month = []
 
