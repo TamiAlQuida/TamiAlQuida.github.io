@@ -4,22 +4,12 @@
 #include <linux/input.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <ctime>
-#include <stdlib.h>
 #include <iomanip>   // For std::setw and std::setfill
 #include <sstream>   // For std::ostringstream
-#include <thread>
+
 
 #define CENTER 128
-#define BLIND 6
-#define MAX_EMERGENCY_DELAY 1000
 
-std::string button_presses[] = {
-    "square", "x", "circle", "triangle", "L1", "R1", "L2", "R2",
-    "share", "pause", "L3", "R3", "playstation", "touchpad"
-};
-
-std::string button_values[] = {"up", "down"};
 
 std::string absolutes[] = {
     "left joystick left/right", "left joystick up/down", 
@@ -40,13 +30,13 @@ void update_left_joystick_position(input_event &event) {
     }
 }
 
-void update_right_joystick_position(input_event &event) {
+/*void update_right_joystick_position(input_event &event) {
     if (event.code == 2) { // right joystick, x-axis (left/right)
         right_joystick[0] = event.value;
     } else if (event.code == 5) { // right joystick, y-axis (up/down)
         right_joystick[1] = event.value;
     }
-}
+}*/
 
 std::string formatToThreeDigits(int number) {
     std::ostringstream ss;
@@ -105,9 +95,10 @@ int main() {
 
             if (event.code == 0 || event.code == 1) { // left joystick
                 update_left_joystick_position(event);
-            } else if (event.code == 2 || event.code == 5) { // right joystick
+            } 
+            /*else if (event.code == 2 || event.code == 5) { // right joystick
                 update_right_joystick_position(event);
-            }
+            }*/
         }
     }
 
