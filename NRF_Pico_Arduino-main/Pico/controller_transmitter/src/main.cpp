@@ -4,6 +4,34 @@
 #include "hardware/uart.h"
 #include "pico/cyw43_arch.h"
 #include "tusb.h"
+#include "NRF24.h"
+// Global variable to store the 6-digit string
+char current_value[7] = "000000"; // 6 digits + null terminator
+
+void update_value() {
+    if (tud_cdc_available() >= 6) {
+        // Clear the current_value buffer before reading
+        memset(current_value, 0, sizeof(current_value));
+        
+        // Read exactly 6 bytes
+        uint32_t count = tud_cdc_read(current_value, 6);
+        
+        // Ensure null-termination
+        current_value[6] = '\0';
+        
+        // Print the raw received string for debugging
+        printf("%s\n", current_value);
+        
+        int left_x = atoi(current_value);
+        int left_y = atoi(current_value + 3);
+
+        printf("%d %d\n", left_x, left_y);
+
+        // Toggle LED based on received values
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, (left_x + left_y) % 2);
+    }
+}
+
 
 int main() {
     stdio_init_all();
@@ -14,29 +42,16 @@ int main() {
 
     sleep_ms(1000);
 
-    char buffer[7]; // 6 characters + null terminator
-    int buffer_index = 0;
-    
+    NRF24 nrf = NRF24(spi1,9,8);
+    nrf.config((uint8_t*)"gyroc",2,30); // Name=gyroc, channel=2,messagSize=24
+
+    nrf.modeTX(); // <---- Set as transmitter.
+
+
     while (true) {
-        if (tud_cdc_available()) {
-            char c = tud_cdc_read_char();
-            if (c == '\n' || c == '\r') {
-                buffer[buffer_index] = '\0';
-                if (buffer_index == 6) {
-                    int left_x = atoi(buffer);
-                    int left_y = atoi(buffer + 3);
-
-                    printf("Received: Left Joystick X: %d, Y: %d\n", left_x, left_y);
-
-                    // Toggle LED based on received values
-                    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, (left_x + left_y) % 2);
-                }
-                buffer_index = 0;
-            } else if (buffer_index < 6) {
-                buffer[buffer_index++] = c;
-            }
-        }
+        update_value();
         tud_task(); // TinyUSB device task
+        nrf.sendMessage((uint8_t*) current_value);
         sleep_ms(10); // Small delay to prevent overwhelming the CPU
     }
 

@@ -6,6 +6,8 @@
 #include <fcntl.h>
 #include <iomanip>   // For std::setw and std::setfill
 #include <sstream>   // For std::ostringstream
+#include <chrono>
+#include <thread>
 
 
 #define CENTER 128
@@ -29,14 +31,6 @@ void update_left_joystick_position(input_event &event) {
         left_joystick[1] = event.value;
     }
 }
-
-/*void update_right_joystick_position(input_event &event) {
-    if (event.code == 2) { // right joystick, x-axis (left/right)
-        right_joystick[0] = event.value;
-    } else if (event.code == 5) { // right joystick, y-axis (up/down)
-        right_joystick[1] = event.value;
-    }
-}*/
 
 std::string formatToThreeDigits(int number) {
     std::ostringstream ss;
@@ -79,26 +73,18 @@ int main() {
         //          << std::endl;;
 
 
-        // Format the numbers to always contain 3 digits
-        std::string sendPackage1 = formatToThreeDigits(left_joystick[0]);
-        std::string sendPackage2 = formatToThreeDigits(left_joystick[1]);
+        if (event.type == EV_ABS && (event.code == 0 || event.code == 1)) {
+            update_left_joystick_position(event);
+
+            // Format the numbers to always contain 3 digits
+            std::string sendPackage1 = formatToThreeDigits(left_joystick[0]);
+            std::string sendPackage2 = formatToThreeDigits(left_joystick[1]);
     
-        // Combine the formatted strings
-        std::string sendPackageComplete = sendPackage1 + sendPackage2;
-        serialPort << sendPackageComplete;
-        std::cout << sendPackageComplete << std::endl;
-        serialPort.flush();
-
-        if (event.type == EV_ABS && event.code >= 0 && event.code <= 17) {
-            std::string action = absolutes[event.code];
-            int value = event.value;
-
-            if (event.code == 0 || event.code == 1) { // left joystick
-                update_left_joystick_position(event);
-            } 
-            /*else if (event.code == 2 || event.code == 5) { // right joystick
-                update_right_joystick_position(event);
-            }*/
+            // Combine the formatted strings
+            std::string sendPackageComplete = sendPackage1 + sendPackage2;
+            serialPort << sendPackageComplete << std::endl;  // Add newline
+            std::cout << "Sent: " << sendPackageComplete << std::endl;
+            serialPort.flush();
         }
     }
 

@@ -16,11 +16,11 @@ int main()
     cyw43_arch_gpio_put(led_pin, true);
 
     NRF24 nrf = NRF24(spi1,9,8);
-    nrf.config((uint8_t*)"gyroc",2,30); // Name=gyroc, channel=2,messagSize=24
+    nrf.config((uint8_t*)"gyroc",2,24); // Name=gyroc, channel=2,messagSize=24
 
     nrf.modeRX(); // <------ Set as Receiver.
 
-    char message[30];
+    char message[25];
 
     while(1)  
     {

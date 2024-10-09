@@ -16,7 +16,7 @@ int main()
     sleep_ms(100); // give time for things to settle.
 
     NRF24 nrf = NRF24(spi1,9,8);
-    nrf.config((uint8_t*)"gyroc",2,10); // Name=gyroc, channel=2,messagSize=10
+    nrf.config((uint8_t*)"gyroc",2,24); // Name=gyroc, channel=2,messagSize=24
 
     nrf.modeTX(); // <---- Set as transmitter.
 
