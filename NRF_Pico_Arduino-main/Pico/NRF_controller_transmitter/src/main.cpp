@@ -14,7 +14,7 @@ void update_value() {
         memset(current_value, 0, sizeof(current_value));
         
         // Read exactly 6 bytes
-        uint32_t count = tud_cdc_read(current_value, 6);
+        uint8_t count = tud_cdc_read(current_value, 6);
         
         // Ensure null-termination
         current_value[6] = '\0';
@@ -43,7 +43,7 @@ int main() {
     sleep_ms(1000);
 
     NRF24 nrf = NRF24(spi1,9,8);
-    nrf.config((uint8_t*)"gyroc",2,30); // Name=gyroc, channel=2,messagSize=24
+    nrf.config((uint8_t*)"gyroc",2,7); // Name=gyroc, channel=2,messagSize=24
 
     nrf.modeTX(); // <---- Set as transmitter.
 
@@ -52,7 +52,7 @@ int main() {
         update_value();
         tud_task(); // TinyUSB device task
         nrf.sendMessage((uint8_t*) current_value);
-        sleep_ms(10); // Small delay to prevent overwhelming the CPU
+        sleep_us(500); // Small delay to prevent overwhelming the CPU
     }
 
     return 0;

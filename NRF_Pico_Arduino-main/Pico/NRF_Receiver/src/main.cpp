@@ -3,6 +3,7 @@
 #include "NRF24.h"
 #include "stdio.h"
 #include "pico/cyw43_arch.h"
+#include <cstring>
 
 int main()
 {
@@ -16,25 +17,35 @@ int main()
     cyw43_arch_gpio_put(led_pin, true);
 
     NRF24 nrf = NRF24(spi1,9,8);
-    nrf.config((uint8_t*)"gyroc",2,30); // Name=gyroc, channel=2,messagSize=24
+    nrf.config((uint8_t*)"gyroc",2,7); // Name=gyroc, channel=2, messageSize=7
 
     nrf.modeRX(); // <------ Set as Receiver.
 
-    char message[30];
+    char message[8]; // 7 bytes for data (6 digits + null terminator) + 1 extra for safety
 
     while(1)  
     {
         if(nrf.newMessage())
         {
             nrf.getMessage((uint8_t*)&message);
-            std::cout << message << std::endl;
-            cyw43_arch_gpio_put(led_pin, false);
+            message[7] = '\0'; // Ensure null-termination
+            
+            // Check if the message is exactly 6 digits + null terminator
+            if (strlen(message) == 6 && strspn(message, "0123456789") == 6) {
+                std::cout << message << std::endl;
+                cyw43_arch_gpio_put(led_pin, false);
+            } else {
+                // Invalid message, flush the buffer
+                while(nrf.newMessage()) {
+                    nrf.getMessage((uint8_t*)&message); // Flush the buffer
+                }
+                cyw43_arch_gpio_put(led_pin, true);
+            }
         }
         else
         {
             cyw43_arch_gpio_put(led_pin, true);
         }
-        //sleep_ms(5);
     }
-return 0;
+    return 0;
 }

@@ -40,5 +40,4 @@ endfunction()
 
 # Add the three projects
 add_nrf_project(NRF_Receiver)
-add_nrf_project(NRF_Transmitter)
-add_nrf_project(controller_transmitter)
+add_nrf_project(NRF_controller_transmitter)
