@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pico/stdlib.h"
-#include "hardware/uart.h"
 #include "pico/cyw43_arch.h"
 #include "tusb.h"
 #include "NRF24.h"
+
 // Global variable to store the 6-digit string
 char current_value[7] = "000000"; // 6 digits + null terminator
 
@@ -20,15 +20,15 @@ void update_value() {
         current_value[6] = '\0';
         
         // Print the raw received string for debugging
-        printf("%s\n", current_value);
-        
-        int left_x = atoi(current_value);
-        int left_y = atoi(current_value + 3);
-
-        printf("%d %d\n", left_x, left_y);
+        //printf("%s\n", current_value);
+        //
+        //int left_x = atoi(current_value);
+        //int left_y = atoi(current_value + 3);
+//
+        //printf("%d %d\n", left_x, left_y);
 
         // Toggle LED based on received values
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, (left_x + left_y) % 2);
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
     }
 }
 
@@ -53,6 +53,7 @@ int main() {
         tud_task(); // TinyUSB device task
         nrf.sendMessage((uint8_t*) current_value);
         sleep_us(500); // Small delay to prevent overwhelming the CPU
+        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
     }
 
     return 0;

@@ -5,32 +5,12 @@
 #include "pico/cyw43_arch.h"
 #include <cstring>
 #include "hardware/gpio.h"
-#include "hardware/pwm.h"
-
-
-// Function to initialize GPIO pins
-void initialize_GPIO()
-{
-    // Initialize GPIO pin 25
-    gpio_init(25);
-    gpio_init(26);
-    // Set GPIO pin 25 as an output
-    gpio_set_dir(25, GPIO_OUT);
-    // Set GPIO pin 25 to low (turn off)
-    gpio_put(25, true);
-    // Set GPIO pin 26 as pwm
-    pwm_config config = pwm_get_default_config();
-    pwm_init(pwm_gpio_to_slice_num(26), &config, true);
-}
-
 
 int main()
 {
     // Initialize modules
     stdio_init_all(); 
-    cyw43_arch_init(); // Initialize WiFi chip for using the onboard LED
-
-    initialize_GPIO();
+    cyw43_arch_init(); // Initialize WiFi chip for using the onboard LED    
 
     const int led_pin = CYW43_WL_GPIO_LED_PIN;
 

@@ -28,6 +28,8 @@ function(add_nrf_project NAME)
         pico_cyw43_arch_none
         hardware_spi
         hardware_uart
+        hardware_gpio
+        hardware_pwm
     )
 
     #pico_add_extra_outputs(${NAME})
