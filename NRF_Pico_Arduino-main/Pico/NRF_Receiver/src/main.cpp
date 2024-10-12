@@ -44,6 +44,9 @@ int main()
 
     char message[8]; // 7 bytes for data (6 digits + null terminator) + 1 extra for safety
 
+    int left_speed = 0;
+    int right_speed = 0;
+
     while(1)  
     {
         if(nrf.newMessage())
@@ -53,7 +56,17 @@ int main()
             
             // Check if the message is exactly 6 digits + null terminator
             if (strlen(message) == 6 && strspn(message, "0123456789") == 6) {
-                std::cout << message << std::endl;
+                //std::cout << message << std::endl;
+                char left_str[4] = {message[0], message[1], message[2], '\0'};
+                char right_str[4] = {message[3], message[4], message[5], '\0'};
+                left_speed = atoi(left_str);
+                right_speed = atoi(right_str);
+
+                printf("%d %d\n", left_speed, right_speed);
+
+                // Set PWM duty cycle for left motor (GPIO 26)
+                pwm_set_gpio_level(26, left_speed * 257); // Scale 0-255 to 0-65535
+
                 cyw43_arch_gpio_put(led_pin, false);
             } else {
                 // Invalid message, flush the buffer

@@ -53,11 +53,11 @@ int main() {
     }
 
     // Open the serial port for writing
-    std::ofstream serialPort("/dev/ttyACM1");
+    std::ofstream serialPort("/dev/ttyACM0");
 
     // Check if the port is open
     if (!serialPort.is_open()) {
-        std::cerr << "Failed to open /dev/ttyACM1" << std::endl;
+        std::cerr << "Failed to open /dev/ttyACM0" << std::endl;
         return 1;
     }
 

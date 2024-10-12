@@ -19,13 +19,7 @@ void update_value() {
         // Ensure null-termination
         current_value[6] = '\0';
         
-        // Print the raw received string for debugging
-        //printf("%s\n", current_value);
-        //
-        //int left_x = atoi(current_value);
-        //int left_y = atoi(current_value + 3);
-//
-        //printf("%d %d\n", left_x, left_y);
+        
 
         // Toggle LED based on received values
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
