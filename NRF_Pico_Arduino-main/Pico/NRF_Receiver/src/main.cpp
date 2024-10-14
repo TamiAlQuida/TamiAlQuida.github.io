@@ -6,21 +6,39 @@
 #include <cstring>
 #include "hardware/gpio.h"
 #include "hardware/pwm.h"
+#include "hardware/clocks.h"
 
 
 // Function to initialize GPIO pins
 void initialize_GPIO()
 {
     // Initialize GPIO pin 25
-    gpio_init(25);
+    //gpio_init(25);
     gpio_init(26);
     // Set GPIO pin 25 as an output
-    gpio_set_dir(25, GPIO_OUT);
+    //gpio_set_dir(25, GPIO_OUT);
     // Set GPIO pin 25 to low (turn off)
-    gpio_put(25, true);
+    //gpio_put(25, true);
     // Set GPIO pin 26 as pwm
+    gpio_set_function(26, GPIO_FUNC_PWM);
+    uint slice_num = pwm_gpio_to_slice_num(26);
     pwm_config config = pwm_get_default_config();
-    pwm_init(pwm_gpio_to_slice_num(26), &config, true);
+    
+    // Set PWM frequency to 50 Hz (20ms period)
+    float divider = clock_get_hz(clk_sys) / (50.0f * 65535.0f);
+    pwm_config_set_clkdiv(&config, divider);
+    pwm_config_set_wrap(&config, 65535);
+    pwm_init(slice_num, &config, true);
+}
+
+
+// Function to set servo position
+void set_servo_position(uint gpio, float degree) {
+    // Convert 0-180 degrees to 500-2500 microseconds
+    float pulsewidth = 500.0f + degree * (2000.0f / 180.0f);
+    // Convert microseconds to PWM counts
+    uint16_t counts = (uint16_t)(pulsewidth / 20000.0f * 65535.0f);
+    pwm_set_gpio_level(gpio, counts);
 }
 
 
@@ -64,8 +82,9 @@ int main()
 
                 printf("%d %d\n", left_speed, right_speed);
 
-                // Set PWM duty cycle for left motor (GPIO 26)
-                pwm_set_gpio_level(26, left_speed * 257); // Scale 0-255 to 0-65535
+                // Convert left_speed (0-255) to servo angle (0-180 degrees)
+                float servo_angle = (float)left_speed * (180.0f / 255.0f);
+                set_servo_position(26, servo_angle);
 
                 cyw43_arch_gpio_put(led_pin, false);
             } else {

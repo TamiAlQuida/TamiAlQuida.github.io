@@ -30,6 +30,7 @@ function(add_nrf_project NAME)
         hardware_uart
         hardware_gpio
         hardware_pwm
+        hardware_clocks
     )
 
     #pico_add_extra_outputs(${NAME})
