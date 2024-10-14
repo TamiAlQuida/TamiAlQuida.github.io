@@ -67,6 +67,8 @@ int main()
                 // Set PWM duty cycle for left motor (GPIO 26)
                 pwm_set_gpio_level(26, left_speed * 257); // Scale 0-255 to 0-65535
 
+                printf("test\n");
+
                 cyw43_arch_gpio_put(led_pin, false);
             } else {
                 // Invalid message, flush the buffer
