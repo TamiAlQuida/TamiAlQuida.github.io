@@ -22,4 +22,8 @@ int main() {
     ptr = &y;
 
     std::cout << *ptr;
+
+    y = 13;
+
+    std::cout << *ptr;
 }
