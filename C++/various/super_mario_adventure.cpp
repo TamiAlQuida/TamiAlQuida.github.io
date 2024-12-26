@@ -2,6 +2,10 @@
 #include "super_mario_adventure_class.h" // includes a class + function and some search paths, other variables and all the needed #include
 
 Mix_Chunk* jumpSound = nullptr; // CHECK WHY THIS IS NOT IN THE LOOP
+SDL_Window* window = nullptr;
+SDL_Renderer* renderer = nullptr;
+SDL_Texture* playerTexture = nullptr;
+SDL_Texture* badGuyTexture = nullptr;
 
 SDL_Texture* loadTexture(const std::string &path, SDL_Renderer* renderer) {
     SDL_Texture* newTexture = nullptr;
@@ -228,10 +232,7 @@ bool checkForCollision() {
 }
 
 int main() {
-    SDL_Window* window = nullptr;
-    SDL_Renderer* renderer = nullptr;
-    SDL_Texture* playerTexture = nullptr;
-    SDL_Texture* badGuyTexture = nullptr;
+    
 
     if (!initializeGraphics(window, renderer, playerTexture, badGuyTexture)) {
         return 1;
