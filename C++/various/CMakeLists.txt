@@ -12,7 +12,7 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 # Manually set SDL2_mixer variables
-# set(SDL2_MIXER_INCLUDE_DIR /usr/include/SDL2)  # Change this to your actual include path
+set(SDL2_MIXER_INCLUDE_DIR /usr/lib/x86_64-linux-gnu/libSDL2.so)  # Change this to your actual include path
 set(SDL2_MIXER_LIBRARY /usr/lib/x86_64-linux-gnu/libSDL2_mixer.so)  # Change this to your actual library path, needed because ${SDL2_MIXER_LIBRARY} wont be found by cmake
 set(SDL2_IMAGE_LIBRARY /usr/lib/x86_64-linux-gnu/libSDL2_image.so)  # Change this to your actual library path, needed because ${SDL2_MIXER_LIBRARY} wont be found by cmake
 

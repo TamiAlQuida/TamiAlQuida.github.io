@@ -1,4 +1,3 @@
-
 #include <SDL2/SDL.h> // sudo apt install libsdl2-dev                   used for graphics etc
 #include <SDL2/SDL_image.h> // sudo apt install libsdl2-image-dev       used for showing pictures etc
 #include <SDL2/SDL_mixer.h> // sudo apt-get install libsdl2-mixer-dev   used for mp3
@@ -35,8 +34,8 @@ std::atomic_bool isRunningRight(false);
 std::atomic_bool isRunningLeft(false);
 bool killed(false);
 
-std::string pathToMp3File = "/home/tomcarl/TamiAlQuida.github.io/C++/various/maro-jump-sound-effect_1.mp3";
-std::string pathToMario = "/home/tomcarl/TamiAlQuida.github.io/C++/various/player.png";
-std::string pathToBadGuy = "/home/tomcarl/TamiAlQuida.github.io/C++/various/badGuy.png";
-std::string pathToBigBadGuy = "/home/tomcarl/TamiAlQuida.github.io/C++/various/bigBadGuy.png";
+std::string pathToMp3File = "/home/" + std::string(getenv("USER")) + "/TamiAlQuida.github.io/C++/various/maro-jump-sound-effect_1.mp3";
+std::string pathToMario = "/home/" + std::string(getenv("USER")) + "/TamiAlQuida.github.io/C++/various/player.png";
+std::string pathToBadGuy = "/home/" + std::string(getenv("USER")) + "/TamiAlQuida.github.io/C++/various/badGuy.png";
+std::string pathToBigBadGuy = "/home/" + std::string(getenv("USER")) + "/TamiAlQuida.github.io/C++/various/bigBadGuy.png";
 std::string pathToLoad = pathToBadGuy;
