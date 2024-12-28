@@ -34,8 +34,8 @@ std::atomic_bool isRunningRight(false);
 std::atomic_bool isRunningLeft(false);
 bool killed(false);
 
-std::string pathToMp3File = "/home/" + std::string(getenv("USER")) + "/TamiAlQuida.github.io/C++/various/maro-jump-sound-effect_1.mp3";
-std::string pathToMario = "/home/" + std::string(getenv("USER")) + "/TamiAlQuida.github.io/C++/various/player.png";
-std::string pathToBadGuy = "/home/" + std::string(getenv("USER")) + "/TamiAlQuida.github.io/C++/various/badGuy.png";
-std::string pathToBigBadGuy = "/home/" + std::string(getenv("USER")) + "/TamiAlQuida.github.io/C++/various/bigBadGuy.png";
+std::string pathToMp3File = "../maro-jump-sound-effect_1.mp3";
+std::string pathToMario = "../player.png";
+std::string pathToBadGuy = "../badGuy.png";
+std::string pathToBigBadGuy = "../bigBadGuy.png";
 std::string pathToLoad = pathToBadGuy;

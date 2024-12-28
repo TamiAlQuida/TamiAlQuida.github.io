@@ -30,7 +30,7 @@ createCharacter::createCharacter() // define constructor
     {
         BADGUY_WIDTH = WIDTH / 20;                             // BadGuy width (same as player for simplicity)
         BADGUY_HEIGHT = HEIGHT / 20;                           // BadGuy height (same as player for simplicity)
-        pathToLoad = "/home/tomcarl/TamiAlQuida.github.io/C++/various/player.png";
+        pathToLoad = pathToMario;
         std::cout << "imagepath:" << pathToMario << std::endl;
 
     }
@@ -38,14 +38,14 @@ createCharacter::createCharacter() // define constructor
     {
         BADGUY_WIDTH = WIDTH / 20;                             // BadGuy width (same as player for simplicity)
         BADGUY_HEIGHT = HEIGHT / 20;                           // BadGuy height (same as player for simplicity)
-        pathToLoad = "/home/tomcarl/TamiAlQuida.github.io/C++/various/badGuy.png";
+        pathToLoad = pathToBadGuy;
         std::cout << "imagepath:" << pathToBadGuy << std::endl;
     }
     else if (characterType == 2)
     {
         BADGUY_WIDTH = WIDTH / 10;                             // BadGuy width (same as player for simplicity)
         BADGUY_HEIGHT = HEIGHT / 10;                           // BadGuy height (same as player for simplicity)
-        pathToLoad = "/home/tomcarl/TamiAlQuida.github.io/C++/various/bigBadGuy.png";
+        pathToLoad = pathToBigBadGuy;
         std::cout << "imagepath:" << pathToBigBadGuy << std::endl;
     }
 }
