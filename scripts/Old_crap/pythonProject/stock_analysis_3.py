@@ -1,4 +1,3 @@
-
 import pandas as pd
 from requests_html import HTMLSession
 from time import sleep
@@ -28,6 +27,7 @@ def sleep_random_time ():
 
 
 def parse_data_yahoo (ticker):
+    global counter
     try:
         print(ticker)
     
@@ -84,7 +84,7 @@ def parse_data_yahoo (ticker):
 
 for ticker in tickers:
     parse_data_yahoo(ticker)
-    sleep_random_time
+    sleep_random_time()
 
 
 df = pd.DataFrame.from_dict(summary_dict)

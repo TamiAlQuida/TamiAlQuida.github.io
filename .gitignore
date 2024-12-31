@@ -10,6 +10,8 @@ C++/QTApp/build-QTApp-Desktop-Debug
 C++/QTApp/build-QTApp-Desktop-Release
 C++/QTAppQmake/build-QTAppQmake-Desktop-Release
 
+*.ods
+
 *build
 /venv 
 # virtualenv --python python3.12 .venv # source .venv/bin/activate # deactivate 
