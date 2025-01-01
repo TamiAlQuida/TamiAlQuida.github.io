@@ -299,20 +299,20 @@ int main() {
                 switch (e.key.keysym.sym) {
                     case SDLK_RIGHT: //(no break, so it falls through to the next case)
                     case SDLK_d:
-                    std::cout << "d up" << std::endl;
-                    if (isRunningRight == true)
-                    {
-                        isRunningRight = false;
-                    }
-                    break;
+                        std::cout << "d up" << std::endl;
+                        if (isRunningRight == true)
+                        {
+                            isRunningRight = false;
+                        }
+                        break;
                     case SDLK_LEFT: //(no break, so it falls through to the next case)
                     case SDLK_a:
-                    std::cout << "a up" << std::endl;
-                    if (isRunningLeft == true)
-                    {
-                        isRunningLeft = false;
-                    }
-                    break;
+                        std::cout << "a up" << std::endl;
+                        if (isRunningLeft == true)
+                        {
+                            isRunningLeft = false;
+                        }
+                        break;
                 }
             }
         }

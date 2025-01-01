@@ -50,7 +50,7 @@ createCharacter::createCharacter() // define constructor
     }
 }
 
-void createCharacter::killCharacter() 
+void createCharacter::killCharacter() // define function
 {
     std::cout << "killCharacter" << std::endl;
     std::cout << "isAlive=" << isAlive << std::endl;
