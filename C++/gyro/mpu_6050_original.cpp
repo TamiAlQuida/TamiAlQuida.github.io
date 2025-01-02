@@ -1,7 +1,6 @@
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
 #include <stdio.h>
-#include <math.h>
 
 // I2C defines
 #define I2C_PORT i2c0
@@ -34,24 +33,6 @@
 #define ACCEL_CONFIG_VALUE 0x08  // for ±4g
 #define GYRO_CONFIG_VALUE 0x00  // for ±250 DPS
 #define SAMPLE_RATE_DIV 1  // Sample rate = 1kHz / (1 + 1) = 500Hz
-
-#define ALPHA 0.96  // Complementary filter coefficient
-#define RAD_TO_DEG 57.2957795131  // 180/PI
-
-// Add these variables to store the angles
-float pitch = 0;
-float roll = 0;
-
-// Add this function to calculate angles
-void calculate_angles(float accel_g[3], float gyro_dps[3], float dt) {
-    // Calculate pitch and roll from accelerometer (gravity vector)
-    float accel_pitch = atan2(accel_g[0], sqrt(accel_g[1] * accel_g[1] + accel_g[2] * accel_g[2])) * RAD_TO_DEG;
-    float accel_roll = atan2(accel_g[1], accel_g[2]) * RAD_TO_DEG;
-    
-    // Integrate gyroscope data
-    pitch = ALPHA * (pitch + gyro_dps[1] * dt) + (1 - ALPHA) * accel_pitch;
-    roll = ALPHA * (roll + gyro_dps[0] * dt) + (1 - ALPHA) * accel_roll;
-}
 
 void mpu6050_reset() {
     uint8_t reset[] = {REG_PWR_MGMT_1, 0x80};
@@ -134,11 +115,9 @@ int main() {
         gyro_dps[1] = gyro[1] / GYRO_SCALE_FACTOR;
         gyro_dps[2] = gyro[2] / GYRO_SCALE_FACTOR;
 
-        // Calculate angles (dt is time step in seconds, 0.01 for 10ms sleep)
-        calculate_angles(accel_g, gyro_dps, 0.01);
-
-        // Print angles instead of raw values
-        printf("Pitch: %.2f° | Roll: %.2f°\n", pitch, roll);
+        // Print converted values
+        printf("aX = %.2f g | aY = %.2f g | aZ = %.2f g | gX = %.2f dps | gY = %.2f dps | gZ = %.2f dps | temp = %.2f°C\n",
+            accel_g[0], accel_g[1], accel_g[2], gyro_dps[0], gyro_dps[1], gyro_dps[2], temp / 340.00 + 36.53);
 
         sleep_ms(10);
     }

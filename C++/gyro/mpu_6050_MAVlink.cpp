@@ -1,5 +1,6 @@
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
+#include "hardware/uart.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -35,23 +36,11 @@
 #define GYRO_CONFIG_VALUE 0x00  // for ±250 DPS
 #define SAMPLE_RATE_DIV 1  // Sample rate = 1kHz / (1 + 1) = 500Hz
 
-#define ALPHA 0.96  // Complementary filter coefficient
-#define RAD_TO_DEG 57.2957795131  // 180/PI
-
-// Add these variables to store the angles
-float pitch = 0;
-float roll = 0;
-
-// Add this function to calculate angles
-void calculate_angles(float accel_g[3], float gyro_dps[3], float dt) {
-    // Calculate pitch and roll from accelerometer (gravity vector)
-    float accel_pitch = atan2(accel_g[0], sqrt(accel_g[1] * accel_g[1] + accel_g[2] * accel_g[2])) * RAD_TO_DEG;
-    float accel_roll = atan2(accel_g[1], accel_g[2]) * RAD_TO_DEG;
-    
-    // Integrate gyroscope data
-    pitch = ALPHA * (pitch + gyro_dps[1] * dt) + (1 - ALPHA) * accel_pitch;
-    roll = ALPHA * (roll + gyro_dps[0] * dt) + (1 - ALPHA) * accel_roll;
-}
+// UART definitions for MAVLink
+#define UART_ID uart0
+#define BAUD_RATE 57600
+#define UART_TX_PIN 0
+#define UART_RX_PIN 1
 
 void mpu6050_reset() {
     uint8_t reset[] = {REG_PWR_MGMT_1, 0x80};
@@ -91,9 +80,40 @@ void mpu6050_read_raw(int16_t accel[3], int16_t gyro[3], int16_t *temp) {
     gyro[2] = (buffer[12] << 8) | buffer[13];
 }
 
+// Function to send MAVLink heartbeat (simplified)
+void send_heartbeat() {
+    uint8_t buf[] = {
+        0xFE,  // MAVLink 1.0 start
+        9,     // Payload length
+        0,     // Packet sequence
+        1,     // System ID
+        1,     // Component ID
+        0,     // Message ID (heartbeat)
+        // ... rest of heartbeat message
+    };
+    uart_write_blocking(UART_ID, buf, sizeof(buf));
+}
+
+// Function to send attitude data (simplified)
+void send_attitude(float roll, float pitch, float yaw) {
+    // Convert angles to radians
+    float roll_rad = roll * 0.0174533f;
+    float pitch_rad = pitch * 0.0174533f;
+    float yaw_rad = yaw * 0.0174533f;
+
+    uint8_t buf[32];  // Adjust size as needed
+    // ... Pack MAVLink attitude message ...
+    uart_write_blocking(UART_ID, buf, sizeof(buf));
+}
+
 int main() {
     // Initialize chosen serial port
     stdio_init_all();
+    
+    // Initialize UART for MAVLink
+    uart_init(UART_ID, BAUD_RATE);
+    gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
+    gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
     // Initialize I2C
     i2c_init(I2C_PORT, 400 * 1000);
@@ -122,25 +142,20 @@ int main() {
     while (1) {
         mpu6050_read_raw(accel, gyro, &temp);
 
-        // Convert raw accelerometer values to g
-        float accel_g[3];
-        accel_g[0] = accel[0] / ACCEL_SCALE_FACTOR;
-        accel_g[1] = accel[1] / ACCEL_SCALE_FACTOR;
-        accel_g[2] = accel[2] / ACCEL_SCALE_FACTOR;
+        // Convert raw values to angles (basic example)
+        float accel_x = accel[0] / ACCEL_SCALE_FACTOR;
+        float accel_y = accel[1] / ACCEL_SCALE_FACTOR;
+        float accel_z = accel[2] / ACCEL_SCALE_FACTOR;
 
-        // Convert raw gyroscope values to degrees per second
-        float gyro_dps[3];
-        gyro_dps[0] = gyro[0] / GYRO_SCALE_FACTOR;
-        gyro_dps[1] = gyro[1] / GYRO_SCALE_FACTOR;
-        gyro_dps[2] = gyro[2] / GYRO_SCALE_FACTOR;
+        // Calculate roll and pitch from accelerometer
+        float roll = atan2(accel_y, accel_z) * 57.3;
+        float pitch = atan2(-accel_x, sqrt(accel_y*accel_y + accel_z*accel_z)) * 57.3;
 
-        // Calculate angles (dt is time step in seconds, 0.01 for 10ms sleep)
-        calculate_angles(accel_g, gyro_dps, 0.01);
+        // Send data via MAVLink
+        send_heartbeat();
+        send_attitude(roll, pitch, 0);  // Yaw set to 0 as we can't measure it with just accelerometer
 
-        // Print angles instead of raw values
-        printf("Pitch: %.2f° | Roll: %.2f°\n", pitch, roll);
-
-        sleep_ms(10);
+        sleep_ms(100);  // 10Hz update rate
     }
 
     return 0;
