@@ -16,44 +16,49 @@
 #define WHO_AM_I_REG 0x75
 
 // Sensitivity scale factors for different ranges
-#define ACCEL_SCALE_FACTOR_2G 16384.0  // for ±2g
-#define ACCEL_SCALE_FACTOR_4G 8192.0   // for ±4g
-#define ACCEL_SCALE_FACTOR_8G 4096.0   // for ±8g
-#define ACCEL_SCALE_FACTOR_16G 2048.0  // for ±16g
+#define ACCEL_SCALE_FACTOR_2G 16384.0 // for ±2g
+#define ACCEL_SCALE_FACTOR_4G 8192.0  // for ±4g
+#define ACCEL_SCALE_FACTOR_8G 4096.0  // for ±8g
+#define ACCEL_SCALE_FACTOR_16G 2048.0 // for ±16g
 
-#define GYRO_SCALE_FACTOR_250DPS 131.0    // for ±250 DPS
-#define GYRO_SCALE_FACTOR_500DPS 65.5     // for ±500 DPS
-#define GYRO_SCALE_FACTOR_1000DPS 32.8    // for ±1000 DPS
-#define GYRO_SCALE_FACTOR_2000DPS 16.4    // for ±2000 DPS
+#define GYRO_SCALE_FACTOR_250DPS 131.0 // for ±250 DPS
+#define GYRO_SCALE_FACTOR_500DPS 65.5  // for ±500 DPS
+#define GYRO_SCALE_FACTOR_1000DPS 32.8 // for ±1000 DPS
+#define GYRO_SCALE_FACTOR_2000DPS 16.4 // for ±2000 DPS
 
 // Select the desired scale factor
-#define ACCEL_SCALE_FACTOR ACCEL_SCALE_FACTOR_4G  // Change this to the desired accelerometer range
+#define ACCEL_SCALE_FACTOR ACCEL_SCALE_FACTOR_4G   // Change this to the desired accelerometer range
 #define GYRO_SCALE_FACTOR GYRO_SCALE_FACTOR_250DPS // Change this to the desired gyroscope range
 
 // Corresponding configuration values
-#define ACCEL_CONFIG_VALUE 0x08  // for ±4g
+#define ACCEL_CONFIG_VALUE 0x08 // for ±4g
 #define GYRO_CONFIG_VALUE 0x00  // for ±250 DPS
-#define SAMPLE_RATE_DIV 1  // Sample rate = 1kHz / (1 + 1) = 500Hz
+#define SAMPLE_RATE_DIV 1       // Sample rate = 1kHz / (1 + 1) = 500Hz
 
-#define ALPHA 0.96  // Complementary filter coefficient
-#define RAD_TO_DEG 57.2957795131  // 180/PI
+#define ALPHA 0.96               // Complementary filter coefficient
+#define RAD_TO_DEG 57.2957795131 // 180/PI
 
 // Add these variables to store the angles
 float pitch = 0;
 float roll = 0;
+float yaw = 0;
 
 // Add this function to calculate angles
-void calculate_angles(float accel_g[3], float gyro_dps[3], float dt) {
+void calculate_angles(float accel_g[3], float gyro_dps[3], float dt)
+{
     // Calculate pitch and roll from accelerometer (gravity vector)
     float accel_pitch = atan2(accel_g[0], sqrt(accel_g[1] * accel_g[1] + accel_g[2] * accel_g[2])) * RAD_TO_DEG;
     float accel_roll = atan2(accel_g[1], accel_g[2]) * RAD_TO_DEG;
-    
+    float accel_yaw = atan2(accel_g[2], sqrt(accel_g[0] * accel_g[0] + accel_g[1] * accel_g[1])) * RAD_TO_DEG;
+
     // Integrate gyroscope data
     pitch = ALPHA * (pitch + gyro_dps[1] * dt) + (1 - ALPHA) * accel_pitch;
     roll = ALPHA * (roll + gyro_dps[0] * dt) + (1 - ALPHA) * accel_roll;
+    yaw = ALPHA * (yaw + gyro_dps[2] * dt) + (1 - ALPHA) * accel_yaw;
 }
 
-void mpu6050_reset() {
+void mpu6050_reset()
+{
     uint8_t reset[] = {REG_PWR_MGMT_1, 0x80};
     i2c_write_blocking(I2C_PORT, MPU6050_ADDR, reset, 2, false);
     sleep_ms(200);
@@ -62,7 +67,8 @@ void mpu6050_reset() {
     sleep_ms(200);
 }
 
-void mpu6050_configure() {
+void mpu6050_configure()
+{
     // Set accelerometer range
     uint8_t accel_config[] = {REG_ACCEL_CONFIG, ACCEL_CONFIG_VALUE};
     i2c_write_blocking(I2C_PORT, MPU6050_ADDR, accel_config, 2, false);
@@ -76,7 +82,8 @@ void mpu6050_configure() {
     i2c_write_blocking(I2C_PORT, MPU6050_ADDR, sample_rate, 2, false);
 }
 
-void mpu6050_read_raw(int16_t accel[3], int16_t gyro[3], int16_t *temp) {
+void mpu6050_read_raw(int16_t accel[3], int16_t gyro[3], int16_t *temp)
+{
     uint8_t buffer[14];
     uint8_t reg = REG_ACCEL_XOUT_H;
     i2c_write_blocking(I2C_PORT, MPU6050_ADDR, &reg, 1, true);
@@ -91,7 +98,8 @@ void mpu6050_read_raw(int16_t accel[3], int16_t gyro[3], int16_t *temp) {
     gyro[2] = (buffer[12] << 8) | buffer[13];
 }
 
-int main() {
+int main()
+{
     // Initialize chosen serial port
     stdio_init_all();
 
@@ -112,14 +120,17 @@ int main() {
     i2c_read_blocking(I2C_PORT, MPU6050_ADDR, &who_am_i, 1, false);
     printf("MPU6050 WHO_AM_I: 0x%02X\n", who_am_i);
 
-    if (who_am_i != 0x68) {
+    if (who_am_i != 0x68)
+    {
         printf("MPU6050 not found!\n");
-        while (1);
+        while (1)
+            ;
     }
 
     int16_t accel[3], gyro[3], temp;
 
-    while (1) {
+    while (1)
+    {
         mpu6050_read_raw(accel, gyro, &temp);
 
         // Convert raw accelerometer values to g
@@ -138,7 +149,7 @@ int main() {
         calculate_angles(accel_g, gyro_dps, 0.01);
 
         // Print angles instead of raw values
-        printf("Pitch: %.2f° | Roll: %.2f°\n", pitch, roll);
+        printf("Pitch: %.2f° | Roll: %.2f° | Yaw: %.2f \n", pitch, roll, yaw);
 
         sleep_ms(10);
     }
