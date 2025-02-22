@@ -4,13 +4,12 @@ dark.jpg
 /.idea
 /.venv
 /.vscode
-/C++/QTApp/.vscode
-/C++/QTApp/build
-C++/QTApp/build-QTApp-Desktop-Debug
-C++/QTApp/build-QTApp-Desktop-Release
-C++/QTAppQmake/build-QTAppQmake-Desktop-Release
+*build-QTApp-Desktop-Debug
+*QTApp/build-QTApp-Desktop-Release
+*build-QTAppQmake-Desktop-Release
 
 *.ods
+*.vscode
 
 *build
 /venv 
