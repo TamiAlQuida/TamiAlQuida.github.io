@@ -3,22 +3,26 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 
-#DEFINE LED_PIN = 0;
+#define LED_PIN 25;
+#define RELAY_PIN 0;
 
 
 int main() {
-    stdio_init_all();    
+    stdio_init_all();
+
+    gpio_set_dir(LED_PIN, GPIO_OUT);
+    gpio_set_dir(RELAY_PIN, GPIO_OUT);
 
     sleep_ms(1000);
 
     while (true) {
-        
-        gpio_put(0, 0);
-        printf("LED off\n");
-        sleep_ms(5000);
-        gpio_put(0, 1);
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
+        gpio_put(LED_PIN, 1);
+        gpio_put(RELAY_PIN, 1);
         printf("LED on\n");
+        sleep_ms(5000);
+        gpio_put(LED_PIN, 0);
+        gpio_put(RELAY_PIN, 0);
+        printf("LED off\n");
         sleep_ms(5000);
     }
 }
