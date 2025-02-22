@@ -3,13 +3,14 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 
-#define LED_PIN 25;
-#define RELAY_PIN 0;
+const uint LED_PIN = 25;
+const uint RELAY_PIN = 1;
 
 
 int main() {
     stdio_init_all();
-
+    gpio_init(LED_PIN);
+    gpio_init(RELAY_PIN);
     gpio_set_dir(LED_PIN, GPIO_OUT);
     gpio_set_dir(RELAY_PIN, GPIO_OUT);
 
