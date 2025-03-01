@@ -1,37 +1,54 @@
+import schemdraw
+import schemdraw.elements as elm
 
-true_matrix = [[1,2,3,4], 
-               [2,4,1,3], 
-               [3,1,4,2], 
-               [4,3,2,1]]
-false_matrix = [[1,2,3], [3,2,1], [1,3,2]]
-
-
-
-def check_numeric_matrix(matrix):
-    sum_row = 0
-    sum_column = 0
-
-    for i in range(len(matrix)):
-        print(matrix[i])
-        row = 0
-        column = 0
-        for j in range(len(matrix)):
-            row += matrix[i][j]
-            column += matrix[j][i]
-
-        print('row', row)
-        print('column', column)
-
-        if (row == sum_row == column == sum_column) or (sum_row == 0 == sum_column):
-            print('success')
-
-        else:
-            print('failed')
-        
-        sum_row = row
-        sum_column = column
-
-
-check_numeric_matrix(true_matrix)
-check_numeric_matrix(false_matrix)
-
+with schemdraw.Drawing() as d:
+    # 12V Power Supply
+    d += elm.SourceV().label('12V Power Supply').length(2)
+    d += elm.Line().right().length(1)
+    d += elm.Dot().label('12V')
+    
+    # LM2596 Step-Down Converter (12V to 5V)
+    d += elm.Line().right().length(2)
+    d += elm.RBox(label='LM2596\n(12V to 5V)').length(2)
+    d += elm.Line().right().length(2)
+    d += elm.Dot().label('5V')
+    d += elm.Line().down().length(1)
+    d += elm.Ground()
+    
+    # Raspberry Pi Pico (Powered by 5V)
+    d += elm.Line().right().length(2)
+    d += elm.RBox(label='Raspberry Pi Pico').length(2)
+    d += elm.Line().right().length(2)
+    
+    # Relay Module (5V Control, 12V Switching)
+    d += elm.Line().down().length(2)
+    d += elm.RBox(label='Relay Module\n(GND, 5V, Signal)').length(2)
+    d += elm.Line().down().length(2)
+    d += elm.Dot()
+    d += elm.Line().down().length(1)
+    d += elm.Ground()
+    
+    # GPIO Control from Pico to Relay
+    d += elm.Line().left().length(2)
+    d += elm.Dot()
+    d += elm.Line().up().length(2)
+    d += elm.RBox(label='GPIO Control').length(2)
+    d += elm.Line().up().length(2)
+    
+    # Relay NO Terminal Controls 12V+ to Grow Light
+    d += elm.Line().left().length(2)
+    d += elm.RBox(label='Relay NO Terminal').length(2)
+    d += elm.Line().left().length(2)
+    d += elm.Dot().label('12V')
+    d += elm.Line().up().length(1)
+    d += elm.Line().left().length(2)
+    
+    # Grow Light Properly Connected
+    d += elm.Line().right().length(4)
+    d += elm.RBox(label='Grow Light').length(2)
+    d += elm.Line().down().length(2)
+    d += elm.Dot()
+    d += elm.Line().down().length(1)
+    d += elm.Ground()
+    
+    d.save('raspberry_pi_relay_diagram.svg')
