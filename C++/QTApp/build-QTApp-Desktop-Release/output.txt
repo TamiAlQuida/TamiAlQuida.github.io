@@ -1,0 +1,545 @@
+########################################
+
+kontaninsats  : 90000
+lån           : 510000
+
+year: 0 month: 1
+kostnad_ranta : 314.5
+kostnad_lån   : 8500
+att_betala    : 8814.5
+kvar_på_lån   : 501500
+totalt_betalat: 98814.5
+
+hypotetisk hyra: 11500
+
+year: 0 month: 2
+kostnad_ranta : 309.258
+kostnad_lån   : 8500
+att_betala    : 8809.26
+kvar_på_lån   : 493000
+totalt_betalat: 107624
+
+hypotetisk hyra: 23000
+
+year: 0 month: 3
+kostnad_ranta : 304.017
+kostnad_lån   : 8500
+att_betala    : 8804.02
+kvar_på_lån   : 484500
+totalt_betalat: 116428
+
+hypotetisk hyra: 34500
+
+year: 0 month: 4
+kostnad_ranta : 298.775
+kostnad_lån   : 8500
+att_betala    : 8798.78
+kvar_på_lån   : 476000
+totalt_betalat: 125227
+
+hypotetisk hyra: 46000
+
+year: 0 month: 5
+kostnad_ranta : 293.533
+kostnad_lån   : 8500
+att_betala    : 8793.53
+kvar_på_lån   : 467500
+totalt_betalat: 134020
+
+hypotetisk hyra: 57500
+
+year: 0 month: 6
+kostnad_ranta : 288.292
+kostnad_lån   : 8500
+att_betala    : 8788.29
+kvar_på_lån   : 459000
+totalt_betalat: 142808
+
+hypotetisk hyra: 69000
+
+year: 0 month: 7
+kostnad_ranta : 283.05
+kostnad_lån   : 8500
+att_betala    : 8783.05
+kvar_på_lån   : 450500
+totalt_betalat: 151591
+
+hypotetisk hyra: 80500
+
+year: 0 month: 8
+kostnad_ranta : 277.808
+kostnad_lån   : 8500
+att_betala    : 8777.81
+kvar_på_lån   : 442000
+totalt_betalat: 160369
+
+hypotetisk hyra: 92000
+
+year: 0 month: 9
+kostnad_ranta : 272.567
+kostnad_lån   : 8500
+att_betala    : 8772.57
+kvar_på_lån   : 433500
+totalt_betalat: 169142
+
+hypotetisk hyra: 103500
+
+year: 0 month: 10
+kostnad_ranta : 267.325
+kostnad_lån   : 8500
+att_betala    : 8767.33
+kvar_på_lån   : 425000
+totalt_betalat: 177909
+
+hypotetisk hyra: 115000
+
+year: 0 month: 11
+kostnad_ranta : 262.083
+kostnad_lån   : 8500
+att_betala    : 8762.08
+kvar_på_lån   : 416500
+totalt_betalat: 186671
+
+hypotetisk hyra: 126500
+
+year: 0 month: 12
+kostnad_ranta : 256.842
+kostnad_lån   : 8500
+att_betala    : 8756.84
+kvar_på_lån   : 408000
+totalt_betalat: 195428
+
+hypotetisk hyra: 138000
+
+year: 1 month: 1
+kostnad_ranta : 251.6
+kostnad_lån   : 8500
+att_betala    : 8751.6
+kvar_på_lån   : 399500
+totalt_betalat: 204180
+
+hypotetisk hyra: 149500
+
+year: 1 month: 2
+kostnad_ranta : 246.358
+kostnad_lån   : 8500
+att_betala    : 8746.36
+kvar_på_lån   : 391000
+totalt_betalat: 212926
+
+hypotetisk hyra: 161000
+
+year: 1 month: 3
+kostnad_ranta : 241.117
+kostnad_lån   : 8500
+att_betala    : 8741.12
+kvar_på_lån   : 382500
+totalt_betalat: 221667
+
+hypotetisk hyra: 172500
+
+year: 1 month: 4
+kostnad_ranta : 235.875
+kostnad_lån   : 8500
+att_betala    : 8735.88
+kvar_på_lån   : 374000
+totalt_betalat: 230403
+
+hypotetisk hyra: 184000
+
+year: 1 month: 5
+kostnad_ranta : 230.633
+kostnad_lån   : 8500
+att_betala    : 8730.63
+kvar_på_lån   : 365500
+totalt_betalat: 239134
+
+hypotetisk hyra: 195500
+
+year: 1 month: 6
+kostnad_ranta : 225.392
+kostnad_lån   : 8500
+att_betala    : 8725.39
+kvar_på_lån   : 357000
+totalt_betalat: 247859
+
+hypotetisk hyra: 207000
+
+year: 1 month: 7
+kostnad_ranta : 220.15
+kostnad_lån   : 8500
+att_betala    : 8720.15
+kvar_på_lån   : 348500
+totalt_betalat: 256579
+
+hypotetisk hyra: 218500
+
+year: 1 month: 8
+kostnad_ranta : 214.908
+kostnad_lån   : 8500
+att_betala    : 8714.91
+kvar_på_lån   : 340000
+totalt_betalat: 265294
+
+hypotetisk hyra: 230000
+
+year: 1 month: 9
+kostnad_ranta : 209.667
+kostnad_lån   : 8500
+att_betala    : 8709.67
+kvar_på_lån   : 331500
+totalt_betalat: 274004
+
+hypotetisk hyra: 241500
+
+year: 1 month: 10
+kostnad_ranta : 204.425
+kostnad_lån   : 8500
+att_betala    : 8704.42
+kvar_på_lån   : 323000
+totalt_betalat: 282708
+
+hypotetisk hyra: 253000
+
+year: 1 month: 11
+kostnad_ranta : 199.183
+kostnad_lån   : 8500
+att_betala    : 8699.18
+kvar_på_lån   : 314500
+totalt_betalat: 291407
+
+hypotetisk hyra: 264500
+
+year: 1 month: 12
+kostnad_ranta : 193.942
+kostnad_lån   : 8500
+att_betala    : 8693.94
+kvar_på_lån   : 306000
+totalt_betalat: 300101
+
+hypotetisk hyra: 276000
+
+year: 2 month: 1
+kostnad_ranta : 188.7
+kostnad_lån   : 8500
+att_betala    : 8688.7
+kvar_på_lån   : 297500
+totalt_betalat: 308790
+
+hypotetisk hyra: 287500
+
+year: 2 month: 2
+kostnad_ranta : 183.458
+kostnad_lån   : 8500
+att_betala    : 8683.46
+kvar_på_lån   : 289000
+totalt_betalat: 317473
+
+hypotetisk hyra: 299000
+
+year: 2 month: 3
+kostnad_ranta : 178.217
+kostnad_lån   : 8500
+att_betala    : 8678.22
+kvar_på_lån   : 280500
+totalt_betalat: 326152
+
+hypotetisk hyra: 310500
+
+year: 2 month: 4
+kostnad_ranta : 172.975
+kostnad_lån   : 8500
+att_betala    : 8672.97
+kvar_på_lån   : 272000
+totalt_betalat: 334825
+
+hypotetisk hyra: 322000
+
+year: 2 month: 5
+kostnad_ranta : 167.733
+kostnad_lån   : 8500
+att_betala    : 8667.73
+kvar_på_lån   : 263500
+totalt_betalat: 343492
+
+hypotetisk hyra: 333500
+
+year: 2 month: 6
+kostnad_ranta : 162.492
+kostnad_lån   : 8500
+att_betala    : 8662.49
+kvar_på_lån   : 255000
+totalt_betalat: 352155
+
+hypotetisk hyra: 345000
+
+year: 2 month: 7
+kostnad_ranta : 157.25
+kostnad_lån   : 8500
+att_betala    : 8657.25
+kvar_på_lån   : 246500
+totalt_betalat: 360812
+
+hypotetisk hyra: 356500
+
+year: 2 month: 8
+kostnad_ranta : 152.008
+kostnad_lån   : 8500
+att_betala    : 8652.01
+kvar_på_lån   : 238000
+totalt_betalat: 369464
+
+hypotetisk hyra: 368000
+
+year: 2 month: 9
+kostnad_ranta : 146.767
+kostnad_lån   : 8500
+att_betala    : 8646.77
+kvar_på_lån   : 229500
+totalt_betalat: 378111
+
+hypotetisk hyra: 379500
+
+year: 2 month: 10
+kostnad_ranta : 141.525
+kostnad_lån   : 8500
+att_betala    : 8641.53
+kvar_på_lån   : 221000
+totalt_betalat: 386752
+
+hypotetisk hyra: 391000
+
+year: 2 month: 11
+kostnad_ranta : 136.283
+kostnad_lån   : 8500
+att_betala    : 8636.28
+kvar_på_lån   : 212500
+totalt_betalat: 395389
+
+hypotetisk hyra: 402500
+
+year: 2 month: 12
+kostnad_ranta : 131.042
+kostnad_lån   : 8500
+att_betala    : 8631.04
+kvar_på_lån   : 204000
+totalt_betalat: 404020
+
+hypotetisk hyra: 414000
+
+year: 3 month: 1
+kostnad_ranta : 125.8
+kostnad_lån   : 8500
+att_betala    : 8625.8
+kvar_på_lån   : 195500
+totalt_betalat: 412646
+
+hypotetisk hyra: 425500
+
+year: 3 month: 2
+kostnad_ranta : 120.558
+kostnad_lån   : 8500
+att_betala    : 8620.56
+kvar_på_lån   : 187000
+totalt_betalat: 421266
+
+hypotetisk hyra: 437000
+
+year: 3 month: 3
+kostnad_ranta : 115.317
+kostnad_lån   : 8500
+att_betala    : 8615.32
+kvar_på_lån   : 178500
+totalt_betalat: 429881
+
+hypotetisk hyra: 448500
+
+year: 3 month: 4
+kostnad_ranta : 110.075
+kostnad_lån   : 8500
+att_betala    : 8610.08
+kvar_på_lån   : 170000
+totalt_betalat: 438492
+
+hypotetisk hyra: 460000
+
+year: 3 month: 5
+kostnad_ranta : 104.833
+kostnad_lån   : 8500
+att_betala    : 8604.83
+kvar_på_lån   : 161500
+totalt_betalat: 447096
+
+hypotetisk hyra: 471500
+
+year: 3 month: 6
+kostnad_ranta : 99.5917
+kostnad_lån   : 8500
+att_betala    : 8599.59
+kvar_på_lån   : 153000
+totalt_betalat: 455696
+
+hypotetisk hyra: 483000
+
+year: 3 month: 7
+kostnad_ranta : 94.35
+kostnad_lån   : 8500
+att_betala    : 8594.35
+kvar_på_lån   : 144500
+totalt_betalat: 464290
+
+hypotetisk hyra: 494500
+
+year: 3 month: 8
+kostnad_ranta : 89.1083
+kostnad_lån   : 8500
+att_betala    : 8589.11
+kvar_på_lån   : 136000
+totalt_betalat: 472879
+
+hypotetisk hyra: 506000
+
+year: 3 month: 9
+kostnad_ranta : 83.8667
+kostnad_lån   : 8500
+att_betala    : 8583.87
+kvar_på_lån   : 127500
+totalt_betalat: 481463
+
+hypotetisk hyra: 517500
+
+year: 3 month: 10
+kostnad_ranta : 78.625
+kostnad_lån   : 8500
+att_betala    : 8578.62
+kvar_på_lån   : 119000
+totalt_betalat: 490042
+
+hypotetisk hyra: 529000
+
+year: 3 month: 11
+kostnad_ranta : 73.3833
+kostnad_lån   : 8500
+att_betala    : 8573.38
+kvar_på_lån   : 110500
+totalt_betalat: 498615
+
+hypotetisk hyra: 540500
+
+year: 3 month: 12
+kostnad_ranta : 68.1417
+kostnad_lån   : 8500
+att_betala    : 8568.14
+kvar_på_lån   : 102000
+totalt_betalat: 507183
+
+hypotetisk hyra: 552000
+
+year: 4 month: 1
+kostnad_ranta : 62.9
+kostnad_lån   : 8500
+att_betala    : 8562.9
+kvar_på_lån   : 93500
+totalt_betalat: 515746
+
+hypotetisk hyra: 563500
+
+year: 4 month: 2
+kostnad_ranta : 57.6583
+kostnad_lån   : 8500
+att_betala    : 8557.66
+kvar_på_lån   : 85000
+totalt_betalat: 524304
+
+hypotetisk hyra: 575000
+
+year: 4 month: 3
+kostnad_ranta : 52.4167
+kostnad_lån   : 8500
+att_betala    : 8552.42
+kvar_på_lån   : 76500
+totalt_betalat: 532856
+
+hypotetisk hyra: 586500
+
+year: 4 month: 4
+kostnad_ranta : 47.175
+kostnad_lån   : 8500
+att_betala    : 8547.17
+kvar_på_lån   : 68000
+totalt_betalat: 541404
+
+hypotetisk hyra: 598000
+
+year: 4 month: 5
+kostnad_ranta : 41.9333
+kostnad_lån   : 8500
+att_betala    : 8541.93
+kvar_på_lån   : 59500
+totalt_betalat: 549946
+
+hypotetisk hyra: 609500
+
+year: 4 month: 6
+kostnad_ranta : 36.6917
+kostnad_lån   : 8500
+att_betala    : 8536.69
+kvar_på_lån   : 51000
+totalt_betalat: 558482
+
+hypotetisk hyra: 621000
+
+year: 4 month: 7
+kostnad_ranta : 31.45
+kostnad_lån   : 8500
+att_betala    : 8531.45
+kvar_på_lån   : 42500
+totalt_betalat: 567014
+
+hypotetisk hyra: 632500
+
+year: 4 month: 8
+kostnad_ranta : 26.2083
+kostnad_lån   : 8500
+att_betala    : 8526.21
+kvar_på_lån   : 34000
+totalt_betalat: 575540
+
+hypotetisk hyra: 644000
+
+year: 4 month: 9
+kostnad_ranta : 20.9667
+kostnad_lån   : 8500
+att_betala    : 8520.97
+kvar_på_lån   : 25500
+totalt_betalat: 584061
+
+hypotetisk hyra: 655500
+
+year: 4 month: 10
+kostnad_ranta : 15.725
+kostnad_lån   : 8500
+att_betala    : 8515.72
+kvar_på_lån   : 17000
+totalt_betalat: 592577
+
+hypotetisk hyra: 667000
+
+year: 4 month: 11
+kostnad_ranta : 10.4833
+kostnad_lån   : 8500
+att_betala    : 8510.48
+kvar_på_lån   : 8500
+totalt_betalat: 601087
+
+hypotetisk hyra: 678500
+
+year: 4 month: 12
+kostnad_ranta : 5.24167
+kostnad_lån   : 8500
+att_betala    : 8505.24
+kvar_på_lån   : 0
+totalt_betalat: 609592
+
+hypotetisk hyra: 690000
+
