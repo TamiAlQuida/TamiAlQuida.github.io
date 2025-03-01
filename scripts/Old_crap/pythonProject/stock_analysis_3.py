@@ -1,3 +1,4 @@
+
 import pandas as pd
 from requests_html import HTMLSession
 from time import sleep
@@ -27,7 +28,6 @@ def sleep_random_time ():
 
 
 def parse_data_yahoo (ticker):
-    global counter
     try:
         print(ticker)
     
@@ -48,7 +48,7 @@ def parse_data_yahoo (ticker):
 
         """Parsing the analysis page with requests_html"""
         request_page_analysis = HTMLSession().get(page_analysis)
-        sel_growth_5_years = '.gridLayout > section:nth-child(9) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(5)' #Firefox-> copy CSS Selector.
+        sel_growth_5_years = '.gridLayout > section:nth-child(7) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)' #Firefox-> copy CSS Selector.
         growth_5_years = request_page_analysis.html.find(sel_growth_5_years, first=True).text
 
         """Convert strings into floats"""
@@ -84,7 +84,7 @@ def parse_data_yahoo (ticker):
 
 for ticker in tickers:
     parse_data_yahoo(ticker)
-    sleep_random_time()
+    sleep_random_time
 
 
 df = pd.DataFrame.from_dict(summary_dict)
