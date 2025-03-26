@@ -6,7 +6,8 @@ from random import random
 
 # ticker = input("What stock/ticker do you want to analyse?")
 #tickers = ['AAPL', 'MSFT', 'BRK-B', 'AMZN', 'TSLA', 'META', 'NVDA', 'GOOG', 'AMD', 'BABA']
-tickers = ['AAPL', 'MSFT', 'BRK-B','AMZN', 'TSLA', 'META', 'UNH', 'V', 'NVDA', 'JNJ', 'XOM', 'WMT', 'JPM', 'PG', 'MA', 'HD', 'LLY', 'PFE', 'CVX', 'BAC', 'KO', 'ABBV', 'COST', 'PEP', 'MRK', 'TMO', 'AVGO', 'DHR', 'VZ', 'ORCL', 'ABT', 'ADBE', 'ACN', 'DIS', 'CMCSA', 'MCD', 'CSCO', 'CRM', 'QCOM', 'NKE', 'TMUS', 'INTC', 'WFC', 'UPS', 'BMY', 'NEE', 'TXN', 'AMD', 'MS', 'PM', 'LIN', 'RTX', 'T', 'UNP', 'AMGN', 'LOW', 'SPGI', 'HON', 'CVS', 'MDT', 'INTU', 'SCHW', 'AMT', 'COP', 'IBM', 'AXP', 'GS', 'ELV', 'LMT', 'C', 'NFLX', 'BLK', 'DE', 'CAT', 'PYPL', 'SBUX', 'BA', 'EL', 'PLD', 'NOW', 'ADP', 'AMAT', 'ADI', 'ZTS', 'MDLZ', 'CI', 'CHTR', 'ISRG', 'DUK', 'MMC', 'CB', 'GOOG', 'GOOGL', 'MO', 'GILD', 'MMM', 'SYK', 'SO', 'GE', 'CCI', 'TJX', 'BKNG', 'CME', 'TGT', 'VRTX', 'USB', 'NOC', 'MU', 'BDX', 'CSX', 'MRNA']
+tickers = ['MSFT','KO','SAAB-B.ST','META']
+#tickers = ['AAPL', 'MSFT', 'BRK-B','AMZN', 'TSLA', 'META', 'UNH', 'V', 'NVDA', 'JNJ', 'XOM', 'WMT', 'JPM', 'PG', 'MA', 'HD', 'LLY', 'PFE', 'CVX', 'BAC', 'KO', 'ABBV', 'COST', 'PEP', 'MRK', 'TMO', 'AVGO', 'DHR', 'VZ', 'ORCL', 'ABT', 'ADBE', 'ACN', 'DIS', 'CMCSA', 'MCD', 'CSCO', 'CRM', 'QCOM', 'NKE', 'TMUS', 'INTC', 'WFC', 'UPS', 'BMY', 'NEE', 'TXN', 'AMD', 'MS', 'PM', 'LIN', 'RTX', 'T', 'UNP', 'AMGN', 'LOW', 'SPGI', 'HON', 'CVS', 'MDT', 'INTU', 'SCHW', 'AMT', 'COP', 'IBM', 'AXP', 'GS', 'ELV', 'LMT', 'C', 'NFLX', 'BLK', 'DE', 'CAT', 'PYPL', 'SBUX', 'BA', 'EL', 'PLD', 'NOW', 'ADP', 'AMAT', 'ADI', 'ZTS', 'MDLZ', 'CI', 'CHTR', 'ISRG', 'DUK', 'MMC', 'CB', 'GOOG', 'GOOGL', 'MO', 'GILD', 'MMM', 'SYK', 'SO', 'GE', 'CCI', 'TJX', 'BKNG', 'CME', 'TGT', 'VRTX', 'USB', 'NOC', 'MU', 'BDX', 'CSX', 'MRNA']
 
 #headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/125.0.2'}
 headers={'User-Agent': 'Custom'}
@@ -28,6 +29,7 @@ def sleep_random_time ():
 
 
 def parse_data_yahoo (ticker):
+    global counter
     try:
         print(ticker)
     
@@ -37,18 +39,18 @@ def parse_data_yahoo (ticker):
 
         """Parsing the summary page with requests_html"""
         request_page_summary = HTMLSession().get(page_summary)
-        sel_previous_close = 'li.yf-dudngy:nth-child(1) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
+        sel_previous_close = 'li.yf-1jj98ts:nth-child(1) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
         previous_close = request_page_summary.html.find(sel_previous_close, first=True).text
 
         sel_EPS = 'li.last-md:nth-child(12) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
         EPS = request_page_summary.html.find(sel_EPS, first=True).text
 
-        sel_PE = 'li.yf-dudngy:nth-child(11) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
+        sel_PE = 'li.yf-1jj98ts:nth-child(11) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
         PE = request_page_summary.html.find(sel_PE, first=True).text
 
         """Parsing the analysis page with requests_html"""
         request_page_analysis = HTMLSession().get(page_analysis)
-        sel_growth_5_years = '.gridLayout > section:nth-child(7) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)' #Firefox-> copy CSS Selector.
+        sel_growth_5_years = '.gridLayout > section:nth-child(10) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(5)' #Firefox-> copy CSS Selector.
         growth_5_years = request_page_analysis.html.find(sel_growth_5_years, first=True).text
 
         """Convert strings into floats"""
