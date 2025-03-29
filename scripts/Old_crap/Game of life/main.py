@@ -103,7 +103,7 @@ def main():
         N = int(args.N)
 
     # set animation update interval
-    updateInterval = 500
+    updateInterval = 10
     if args.interval:
         updateInterval = int(args.interval)
 
