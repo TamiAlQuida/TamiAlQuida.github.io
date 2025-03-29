@@ -2,10 +2,10 @@
 import matplotlib.pyplot as plt
 
 """Payment input details"""
-years = 15
+years = 20
 # Initial house prices
 cheap_house = 2000000
-expensive_house = 3000000
+expensive_house = 3400000
 # Monthly payments for each house (assumed to be the same for both)
 payment_per_month_cheap = 20000
 payment_per_month_expensive = 20000
