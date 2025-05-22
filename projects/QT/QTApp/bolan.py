@@ -1,6 +1,6 @@
 # This Python file uses the following encoding: utf-8
 
-huskostnad = 3000000 #input("vad kostar huset?")
+huskostnad = 3500000 #input("vad kostar huset?")
 ranta = 0.04
 antal_ar = 20
     
@@ -33,7 +33,6 @@ def bolan(huskostnad, ranta, antal_ar):
         print("kvar_på_lån   : ", kvar_på_lån)
         print("totalt_betalat: ", totalt_betalat, "\n")
 
-
-bolan(huskostnad, ranta, antal_ar)
-
-quit()
+if __name__ == "__main__":
+    bolan(huskostnad, ranta, antal_ar)
+    quit()

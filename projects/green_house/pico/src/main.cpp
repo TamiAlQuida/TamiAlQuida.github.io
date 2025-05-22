@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
+#include "clock/time.h"
 
 const uint LED_PIN = 25;
 const uint RELAY_PIN = 1;
