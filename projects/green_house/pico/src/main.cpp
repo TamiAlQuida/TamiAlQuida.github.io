@@ -2,29 +2,38 @@
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
-#include "clock/time.h"
+#include "functions.h"
+
+int setClock[3] = {22, 0, 0}; // Set initial time
+int sleepTime = 1;
+
+int activitionHours[] = {0}; // Set initial activation hours
+int activitionMinutes[] = {0}; // Set initial activation minutes
+int activitionSeconds[] = {2, 4, 7, 10, 12}; // Set initial activation seconds
+const int activitionHoursSize = sizeof(activitionHours) / sizeof(activitionHours[0]);
+const int activitionMinutesSize = sizeof(activitionMinutes) / sizeof(activitionMinutes[0]);
+const int activitionSecondsSize = sizeof(activitionSeconds) / sizeof(activitionSeconds[0]);
 
 const uint LED_PIN = 25;
-const uint RELAY_PIN = 1;
+const uint RELAY_PIN = 0;
 
+int* fakeClock = setClock;
 
 int main() {
-    stdio_init_all();
-    gpio_init(LED_PIN);
-    gpio_init(RELAY_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
-    gpio_set_dir(RELAY_PIN, GPIO_OUT);
-
-    sleep_ms(1000);
-
+    setup();
+    gpio_put(LED_PIN, 1);
+    sleep_ms(5000);
     while (true) {
-        gpio_put(LED_PIN, 1);
-        gpio_put(RELAY_PIN, 1);
-        printf("LED on\n");
-        sleep_ms(5000);
-        gpio_put(LED_PIN, 0);
-        gpio_put(RELAY_PIN, 0);
-        printf("LED off\n");
-        sleep_ms(5000);
+        changeClock();
+        if (checkArray(activitionSeconds, activitionSecondsSize, fakeClock[2]))
+        {
+            gpio_put(LED_PIN, 1);
+            gpio_put(RELAY_PIN, 1);
+        }
+        else {
+            gpio_put(LED_PIN, 0);
+            gpio_put(RELAY_PIN, 0);
+        }
+        
     }
 }
