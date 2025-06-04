@@ -3,10 +3,23 @@ import pandas as pd
 from requests_html import HTMLSession
 from time import sleep
 from random import random
+import mmap
 
-# ticker = input("What stock/ticker do you want to analyse?")
-#tickers = ['AAPL', 'MSFT', 'BRK-B', 'AMZN', 'TSLA', 'META', 'NVDA', 'GOOG', 'AMD', 'BABA']
-tickers = ['MSFT','KO','SAAB-B.ST','META']
+# Open the shared memory region (saved "ticker"- list from C++)
+with open('/dev/shm/tickers', 'r') as f:
+    # Map the shared memory region into the address space
+    mm = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
+
+    # Read the tickers list from the shared memory region
+    tickers = mm.readline().decode('utf-8').strip().split(',')
+    # print("Tickers:", tickers) # tickers with all the 1024 values
+    tickers.pop(-1) # remove the unnecessary \x00 values
+    print(tickers)
+
+    # Close the shared memory region
+    mm.close()
+
+#tickers = ['TSM','AAPL', 'MSFT', 'BRK-B', 'AMZN', 'TSLA', 'META', 'NVDA', 'GOOG', 'AMD', 'BABA']
 #tickers = ['AAPL', 'MSFT', 'BRK-B','AMZN', 'TSLA', 'META', 'UNH', 'V', 'NVDA', 'JNJ', 'XOM', 'WMT', 'JPM', 'PG', 'MA', 'HD', 'LLY', 'PFE', 'CVX', 'BAC', 'KO', 'ABBV', 'COST', 'PEP', 'MRK', 'TMO', 'AVGO', 'DHR', 'VZ', 'ORCL', 'ABT', 'ADBE', 'ACN', 'DIS', 'CMCSA', 'MCD', 'CSCO', 'CRM', 'QCOM', 'NKE', 'TMUS', 'INTC', 'WFC', 'UPS', 'BMY', 'NEE', 'TXN', 'AMD', 'MS', 'PM', 'LIN', 'RTX', 'T', 'UNP', 'AMGN', 'LOW', 'SPGI', 'HON', 'CVS', 'MDT', 'INTU', 'SCHW', 'AMT', 'COP', 'IBM', 'AXP', 'GS', 'ELV', 'LMT', 'C', 'NFLX', 'BLK', 'DE', 'CAT', 'PYPL', 'SBUX', 'BA', 'EL', 'PLD', 'NOW', 'ADP', 'AMAT', 'ADI', 'ZTS', 'MDLZ', 'CI', 'CHTR', 'ISRG', 'DUK', 'MMC', 'CB', 'GOOG', 'GOOGL', 'MO', 'GILD', 'MMM', 'SYK', 'SO', 'GE', 'CCI', 'TJX', 'BKNG', 'CME', 'TGT', 'VRTX', 'USB', 'NOC', 'MU', 'BDX', 'CSX', 'MRNA']
 
 #headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/125.0.2'}
@@ -18,12 +31,12 @@ print("V = Intrinsic Value \n"
       "P/E = price per earnings \n"
       "r = Expected earnings growth rate \n")
 
-counter = 1
+counter = 0
 summary_dict = {'stock': [], 'EPS': [], 'P/E': [], 'growth_5_years': [], 'actual price': [], 'intrinsic value': [], 'price evaluation': []}
 
 
-def sleep_random_time ():
-    time_to_sleep = 5 + (10 * random())
+def sleep_random_time (x):
+    time_to_sleep = x + (7.5 * random())
     print(time_to_sleep)
     sleep(time_to_sleep)
 
@@ -39,18 +52,19 @@ def parse_data_yahoo (ticker):
 
         """Parsing the summary page with requests_html"""
         request_page_summary = HTMLSession().get(page_summary)
-        sel_previous_close = 'li.yf-1jj98ts:nth-child(1) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
+        sel_previous_close = 'li.svelte-tx3nkj:nth-child(1) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
         previous_close = request_page_summary.html.find(sel_previous_close, first=True).text
 
         sel_EPS = 'li.last-md:nth-child(12) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
         EPS = request_page_summary.html.find(sel_EPS, first=True).text
 
-        sel_PE = 'li.yf-1jj98ts:nth-child(11) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
+        sel_PE = 'li.svelte-tx3nkj:nth-child(11) > span:nth-child(2) > fin-streamer:nth-child(1)' #Firefox-> copy CSS Selector.
         PE = request_page_summary.html.find(sel_PE, first=True).text
 
         """Parsing the analysis page with requests_html"""
+        sleep_random_time(1)
         request_page_analysis = HTMLSession().get(page_analysis)
-        sel_growth_5_years = '.gridLayout > section:nth-child(10) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(5)' #Firefox-> copy CSS Selector.
+        sel_growth_5_years = '.gridLayout > section:nth-child(7) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(2)' #Firefox-> copy CSS Selector.
         growth_5_years = request_page_analysis.html.find(sel_growth_5_years, first=True).text
 
         """Convert strings into floats"""
@@ -74,22 +88,21 @@ def parse_data_yahoo (ticker):
         summary_dict['price evaluation'] += [price_evaluation]
         #print(summary_dict)
 
-        print(f"{counter}" + "/" + f"{len(tickers)}")
         counter += 1
-
-        sleep_random_time()
+        print(f"{counter}" + "/" + f"{len(tickers)}")
 
     except:
         print("Failed for some reason")
-        sleep_random_time()
 
 
 for ticker in tickers:
     parse_data_yahoo(ticker)
-    sleep_random_time
+    sleep_random_time(7.5)
 
 
 df = pd.DataFrame.from_dict(summary_dict)
 print(df)
+sorted_values = df.sort_values(by=['price evaluation'])
+print(sorted_values)
 
-df.to_csv('stock_values.csv', index=False)
+sorted_values.to_csv('stock_values.csv', index=False)
