@@ -1,3 +1,5 @@
+/*https://www.youtube.com/watch?v=BvyYMIpI2R8*/
+
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
