@@ -34,6 +34,5 @@ int main() {
             gpio_put(LED_PIN, 0);
             gpio_put(RELAY_PIN, 0);
         }
-        
     }
 }
