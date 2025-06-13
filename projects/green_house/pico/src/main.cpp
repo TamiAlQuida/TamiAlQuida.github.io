@@ -3,6 +3,11 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 #include "functions.h"
+#include "../display/src/font.h"
+#include "../display/src/ssd1306.h"
+#include "../display/src/i2c_oled_1306.h"
+
+
 
 int setClock[3] = {22, 0, 0}; // Set initial time
 int sleepTime = 1;
@@ -21,9 +26,13 @@ int* fakeClock = setClock;
 
 int main() {
     setup();
+    setupOled();
     gpio_put(LED_PIN, 1);
     sleep_ms(5000);
     while (true) {
+        ssd1306_clear(&oled);
+		drawTest(&oled, "Yiiihaaa");
+        ssd1306_show(&oled);
         changeClock();
         if (checkArray(activitionSeconds, activitionSecondsSize, fakeClock[2]))
         {

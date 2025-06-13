@@ -7,7 +7,7 @@ include(pico_sdk_import.cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 
-project(main)
+project(i2c_oled_1306)
 
 pico_sdk_init()
 
