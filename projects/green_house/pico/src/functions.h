@@ -1,4 +1,4 @@
-
+#pragma once
 extern int setClock[];
 extern int sleepTime;
 extern const uint LED_PIN;
