@@ -8,7 +8,6 @@
 #include "../display/src/i2c_oled_1306.h"
 
 
-
 int setClock[3] = {22, 0, 0}; // Set initial time
 int sleepTime = 1;
 
@@ -22,16 +21,18 @@ const int activitionSecondsSize = sizeof(activitionSeconds) / sizeof(activitionS
 const uint LED_PIN = 25;
 const uint RELAY_PIN = 0;
 
+char timeString[9];  // Buffer for "HH:MM:SS\0"
 int* fakeClock = setClock;
 
 int main() {
-    setup();
+    setupPico();
     setupOled();
     gpio_put(LED_PIN, 1);
     sleep_ms(5000);
     while (true) {
+        sprintf(timeString, "%02d:%02d:%02d", fakeClock[0], fakeClock[1], fakeClock[2]);
         ssd1306_clear(&oled);
-		drawTest(&oled, "Yiiihaaa");
+        drawTest(&oled, timeString);
         ssd1306_show(&oled);
         changeClock();
         if (checkArray(activitionSeconds, activitionSecondsSize, fakeClock[2]))

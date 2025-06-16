@@ -11,7 +11,7 @@ extern const int activitionHoursSize;
 extern const int activitionMinutesSize;
 extern const int activitionSecondsSize;
 
-void setup() {
+void setupPico() {
     stdio_init_all();
     gpio_init(LED_PIN);
     gpio_init(RELAY_PIN);
