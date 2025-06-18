@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
-#include "functions.h"
+#include "main.h"
 #include "../display/src/font.h"
 #include "../display/src/ssd1306.h"
 #include "../display/src/i2c_oled_1306.h"
+#include "../clock/clock.h"
 
 
 int setClock[3] = {22, 0, 0}; // Set initial time
