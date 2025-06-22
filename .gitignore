@@ -4,6 +4,7 @@ dark.jpg
 /.idea
 /.venv
 /.vscode
+/models
 *build-QTApp-Desktop-Debug
 *QTApp/build-QTApp-Desktop-Release
 *build-QTAppQmake-Desktop-Release
