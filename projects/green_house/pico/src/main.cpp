@@ -48,13 +48,13 @@ int main() {
         else {
             gpio_put(LED_PIN, 0);
             gpio_put(RELAY_PIN, 0);
+        }
         
         while (gpio_get(BUTTON_IN_PIN)) { 
             sleep_ms(1000);
             if (gpio_get(BUTTON_IN_PIN) == 0){
                 break;
+            }
         }
-        }
-        
     }
 }

@@ -30,14 +30,14 @@ void test_relay() {
     }
 }
 
-void buttonPressed() {
-        gpio_put(LED_PIN, 2);
-        gpio_put(RELAY_PIN, 2);
-        printf("button pressed\n"); // print out to console
-        sleep_ms(100);
-        gpio_put(LED_PIN, 0);
-        gpio_put(RELAY_PIN, 0);
-        printf("LED off\n");
-        sleep_ms(100);
-    }
-}
+//void buttonPressed() {
+//        gpio_put(LED_PIN, 2);
+//        gpio_put(RELAY_PIN, 2);
+//        printf("button pressed\n"); // print out to console
+//        sleep_ms(100);
+//        gpio_put(LED_PIN, 0);
+//        gpio_put(RELAY_PIN, 0);
+//        printf("LED off\n");
+//        sleep_ms(100);
+//    }
+//}
