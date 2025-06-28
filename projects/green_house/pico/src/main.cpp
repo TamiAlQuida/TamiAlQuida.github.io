@@ -3,11 +3,6 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 #include "main.h"
-#include "../display/src/font.h"
-#include "../display/src/ssd1306.h"
-#include "../display/src/i2c_oled_1306.h"
-#include "../clock/clock.h"
-
 
 int setClock[3] = {22, 0, 0}; // Set initial time
 int sleepTime = 1;
@@ -21,9 +16,15 @@ const int activitionSecondsSize = sizeof(activitionSeconds) / sizeof(activitionS
 
 const uint LED_PIN = 25;
 const uint RELAY_PIN = 0;
-const bool BUTTON_OUT_PIN = 1;
-const bool BUTTON_IN_PIN = 2;
+const uint BUTTON_OUT_PIN = 2;
+const uint BUTTON_IN_PIN = 3;
+const uint BUTTON2_OUT_PIN = 4;
+const uint BUTTON2_IN_PIN = 5;
+const uint BUTTON3_OUT_PIN = 6;
+const uint BUTTON3_IN_PIN = 7;
 
+int chooseNumber = 0; // Variable to choose number for clock setting
+int setClockMode = 0;
 
 char timeString[9];  // Buffer for "HH:MM:SS\0"
 int* fakeClock = setClock;
@@ -33,28 +34,13 @@ int main() {
     setupOled();
     gpio_put(LED_PIN, 1);
     gpio_put(BUTTON_OUT_PIN, 1);
-    sleep_ms(2000);
+    gpio_put(BUTTON2_OUT_PIN, 1);
+    gpio_put(BUTTON3_OUT_PIN, 1);
+    sleep_ms(1000);
     while (true) {
-        sprintf(timeString, "%02d:%02d:%02d", fakeClock[0], fakeClock[1], fakeClock[2]);
-        ssd1306_clear(&oled);
-        drawTest(&oled, timeString);
-        ssd1306_show(&oled);
+        printOnScreen();
         changeClock();
-        if (checkArray(activitionSeconds, activitionSecondsSize, fakeClock[2]))
-        {
-            gpio_put(LED_PIN, 1);
-            gpio_put(RELAY_PIN, 1);
-        }
-        else {
-            gpio_put(LED_PIN, 0);
-            gpio_put(RELAY_PIN, 0);
-        }
-        
-        while (gpio_get(BUTTON_IN_PIN)) { 
-            sleep_ms(1000);
-            if (gpio_get(BUTTON_IN_PIN) == 0){
-                break;
-            }
-        }
+        activatRelay();
+        adjustClock();
     }
 }
