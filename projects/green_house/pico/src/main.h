@@ -88,17 +88,63 @@ void adjustClock () {
                 if (chooseNumber == 0) {
                     fakeClock[chooseNumber] = (fakeClock[chooseNumber] + 1) % 24; // Increment hour
                     printOnScreen();
-                    sleep_ms(500);
-                } else if (chooseNumber == 1 || chooseNumber == 2) {
+                    sleep_ms(250);
+                    sprintf(timeString, "  :%02d:%02d", fakeClock[1], fakeClock[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                } else if (chooseNumber == 1) {
                     fakeClock[chooseNumber] = (fakeClock[chooseNumber] + 1) % 60; // Increment minute or second
                     printOnScreen();
-                    sleep_ms(125);
+                    sleep_ms(63);
+                    sprintf(timeString, "%02d:  :%02d", fakeClock[0], fakeClock[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString);
+                    ssd1306_show(&oled);
+                    sleep_ms(62);
+                } else if (chooseNumber == 2) {
+                    fakeClock[chooseNumber] = (fakeClock[chooseNumber] + 1) % 60; // Increment minute or second
+                    printOnScreen();
+                    sleep_ms(63);
+                    sprintf(timeString, "%02d:%02d:  ", fakeClock[0], fakeClock[1]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString);
+                    ssd1306_show(&oled);
+                    sleep_ms(62);
                 }
             }
             if (gpio_get(BUTTON3_IN_PIN)) {
                 chooseNumber = (chooseNumber + 1) % 3; // Cycle through hour, minute, second
                 printf("Choose number: %d\n", chooseNumber);
                 sleep_ms(500);
+            }
+            if (!gpio_get(BUTTON_IN_PIN) && !gpio_get(BUTTON2_IN_PIN) && !gpio_get(BUTTON3_IN_PIN)) {
+                if (chooseNumber == 0) {
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(timeString, "  :%02d:%02d", fakeClock[1], fakeClock[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                } else if (chooseNumber == 1) {
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(timeString, "%02d:  :%02d", fakeClock[0], fakeClock[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                } else if (chooseNumber == 2) {
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(timeString, "%02d:%02d:  ", fakeClock[0], fakeClock[1]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                }
             }
         sleep_ms(10);
         }

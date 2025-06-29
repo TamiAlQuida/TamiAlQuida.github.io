@@ -40,7 +40,7 @@ void drawTest(ssd1306_t *pOled, const char* word){
 }
 
 /***
- * Deaw the word Testing amd Blink on the Screen
+ * Draw the word Testing amd Blink on the Screen
  */
 void drawBlink(ssd1306_t *pOled){
 	ssd1306_draw_string(
