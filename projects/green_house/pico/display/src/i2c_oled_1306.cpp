@@ -20,23 +20,32 @@ const char* word[] = {
 	"how are ya?"
 };
 
+const char* date[] = {"30/06/2025"}; // Example date
+
 /***
  * Draw the word testing on the Oled Screen
  size 1 -> 21 or 22 tokens
  size 2 -> 10 or 11 tokens
  */
-void drawTest(ssd1306_t *pOled, const char* word){
+void drawTest(ssd1306_t *pOled, const char* word, const char* date){
 	ssd1306_draw_string(
-			pOled,
-			0,
-			1,
-			2,
-			word);
+		pOled,
+		0,
+		1,
+		2,
+		word);
+	
+	ssd1306_draw_string(
+		pOled,
+		0,
+		20,
+		2,
+		date);
 
 	ssd1306_draw_line(
-			pOled,
-			2, 40,
-			126, 40);
+		pOled,
+		2, 40,
+		126, 40);
 }
 
 /***
@@ -67,7 +76,7 @@ void setupOled(){
 	//If setup OK then write the test text on OLED
 	if (res){
 		ssd1306_clear(&oled);
-		drawTest(&oled, word[0]);
+		drawTest(&oled, word[0], date[0]);
 		ssd1306_show(&oled);
 	} else {
 		printf("Oled Init failed\n");

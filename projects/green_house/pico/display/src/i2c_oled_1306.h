@@ -21,7 +21,7 @@ void setupOled();
  * @param pOled Pointer to the OLED display structure
  * @param word Text to display
  */
-void drawTest(ssd1306_t *pOled, const char* word);
+void drawTest(ssd1306_t *pOled, const char* word, const char* date);
 
 /**
  * Draw blinking text on the OLED screen

@@ -16,7 +16,9 @@ extern int chooseNumber;
 extern int setClockMode; // Variable to indicate if clock setting mode is active
 
 extern char timeString[9];  // Buffer for "HH:MM:SS\0"
+extern char dateString[11]; // Buffer for "DD/MM/YYYY\0"
 extern int* fakeClock;
+extern int* fakeDate;
 
 void setupPico() {
     stdio_init_all();
@@ -57,8 +59,9 @@ void test_relay() {
 
 void printOnScreen () {
     sprintf(timeString, "%02d:%02d:%02d", fakeClock[0], fakeClock[1], fakeClock[2]);
+    sprintf(dateString, "%02d/%02d/%04d", fakeDate[0], fakeDate[1], fakeDate[2]);
     ssd1306_clear(&oled);
-    drawTest(&oled, timeString);
+    drawTest(&oled, timeString, dateString);
     ssd1306_show(&oled);
 }
 
@@ -77,7 +80,7 @@ void activatRelay() {
 void adjustClock () {
     if (gpio_get(BUTTON_IN_PIN)) { 
         setClockMode = 1;
-        sleep_ms(1000);
+        sleep_ms(500);
         int chooseNumber = 0;
         while (setClockMode == 1) {
             
@@ -91,7 +94,7 @@ void adjustClock () {
                     sleep_ms(250);
                     sprintf(timeString, "  :%02d:%02d", fakeClock[1], fakeClock[2]);
                     ssd1306_clear(&oled);
-                    drawTest(&oled, timeString);
+                    drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
                     sleep_ms(250);
                 } else if (chooseNumber == 1) {
@@ -100,7 +103,7 @@ void adjustClock () {
                     sleep_ms(63);
                     sprintf(timeString, "%02d:  :%02d", fakeClock[0], fakeClock[2]);
                     ssd1306_clear(&oled);
-                    drawTest(&oled, timeString);
+                    drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
                     sleep_ms(62);
                 } else if (chooseNumber == 2) {
@@ -109,13 +112,55 @@ void adjustClock () {
                     sleep_ms(63);
                     sprintf(timeString, "%02d:%02d:  ", fakeClock[0], fakeClock[1]);
                     ssd1306_clear(&oled);
-                    drawTest(&oled, timeString);
+                    drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
                     sleep_ms(62);
+                } else if (chooseNumber == 3) {
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+                    fakeDate[0] = (fakeDate[0] + 1) % 32; // Increment day
+                    if (fakeDate[0] == 0) fakeDate[0] = 1; // Ensure day is not zero
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(dateString, "%02d/%02d/%04d", fakeDate[0], fakeDate[1], fakeDate[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString, dateString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                } else if (chooseNumber == 4) {
+                    fakeDate[1] = (fakeDate[1] + 1) % 13; // Increment month
+                    if (fakeDate[1] == 0) fakeDate[1] = 1; // Ensure month is not zero
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(dateString, "%02d/%02d/%04d", fakeDate[0], fakeDate[1], fakeDate[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString, dateString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                } else if (chooseNumber == 5) {
+                    fakeDate[2]++; // Increment year
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(dateString, "%02d/%02d/%04d", fakeDate[0], fakeDate[1], fakeDate[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString, dateString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
                 }
             }
             if (gpio_get(BUTTON3_IN_PIN)) {
-                chooseNumber = (chooseNumber + 1) % 3; // Cycle through hour, minute, second
+                chooseNumber = (chooseNumber + 1) % 6; // Cycle through hour, minute, second
                 printf("Choose number: %d\n", chooseNumber);
                 sleep_ms(500);
             }
@@ -125,7 +170,7 @@ void adjustClock () {
                     sleep_ms(250);
                     sprintf(timeString, "  :%02d:%02d", fakeClock[1], fakeClock[2]);
                     ssd1306_clear(&oled);
-                    drawTest(&oled, timeString);
+                    drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
                     sleep_ms(250);
                 } else if (chooseNumber == 1) {
@@ -133,7 +178,7 @@ void adjustClock () {
                     sleep_ms(250);
                     sprintf(timeString, "%02d:  :%02d", fakeClock[0], fakeClock[2]);
                     ssd1306_clear(&oled);
-                    drawTest(&oled, timeString);
+                    drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
                     sleep_ms(250);
                 } else if (chooseNumber == 2) {
@@ -141,7 +186,7 @@ void adjustClock () {
                     sleep_ms(250);
                     sprintf(timeString, "%02d:%02d:  ", fakeClock[0], fakeClock[1]);
                     ssd1306_clear(&oled);
-                    drawTest(&oled, timeString);
+                    drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
                     sleep_ms(250);
                 }

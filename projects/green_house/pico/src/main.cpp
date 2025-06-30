@@ -5,6 +5,7 @@
 #include "main.h"
 
 int setClock[3] = {22, 0, 0}; // Set initial time
+int setDate[3] = {30, 6, 2025}; // Set initial date (DD, MM, YYYY)
 int sleepTime = 1;
 
 int activitionHours[] = {0}; // Set initial activation hours
@@ -27,7 +28,9 @@ int chooseNumber = 0; // Variable to choose number for clock setting
 int setClockMode = 0;
 
 char timeString[9];  // Buffer for "HH:MM:SS\0"
+char dateString[11]; // Buffer for "DD/MM/YYYY\0"
 int* fakeClock = setClock;
+int* fakeDate = setDate;
 
 int main() {
     setupPico();
