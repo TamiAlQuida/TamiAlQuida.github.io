@@ -7,6 +7,7 @@ camera.resolution = (3280, 2464)    # max resolution 3280 x 2464
 camera.start_preview()
 # Camera warm-up time
 datetime_1 = datetime.now()
+datetime_1_str = datetime_1.strftime("%Y-%m-%d_%H_%M_%S") #convert datetime to string
 sleep(2)
 camera.capture(f'foo{datetime_1}.jpg')
 
