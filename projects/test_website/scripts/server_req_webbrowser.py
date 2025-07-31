@@ -10,9 +10,9 @@ direction = 50
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # s.bind((socket.gethostname(), 5001)) # windows
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # makes it so that you can bind same port in linux after crash
-#s.bind(('192.168.1.25', 5002))  # Windows laptop IP address
+s.bind(('192.168.1.25', 5002))  # Windows laptop IP address
 #s.bind(('192.168.1.78', 5002))  # Linux Mint IP address and different port
-s.bind(('192.168.1.91', 5001))  # Linux Ubuntu IP address and different port
+#s.bind(('192.168.1.91', 5001))  # Linux Ubuntu IP address and different port
 #s.bind(('192.168.1.41', 5002))  # New Linux Ubuntu IP address and different port
 s.listen(0) # maybe makes it so only 1 can connect, not sure
 clientsocket, address = s.accept()
