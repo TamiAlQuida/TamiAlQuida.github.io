@@ -7,18 +7,21 @@ include(pico_sdk_import.cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 
-project(main)
+project(i2c_oled_1306)
 
 pico_sdk_init()
 
 # Create an executable for the project
 add_executable(${PROJECT_NAME}
     src/main.cpp
+    display/src/i2c_oled_1306.cpp
+    display/src/ssd1306.c
 )
 
 target_link_libraries(${PROJECT_NAME}
     pico_stdlib
     hardware_gpio
+    hardware_i2c
 )
 
 # Enable USB output
