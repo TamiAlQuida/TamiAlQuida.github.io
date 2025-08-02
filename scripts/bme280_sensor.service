@@ -1,12 +1,12 @@
+# Contents of /etc/systemd/system/bme280_sensor.service
 [Unit]
-Description=bme280_sensor service
-After=network-online.target
+Description=My Service
+After=network.target
+
 [Service]
-ExecStart=/usr/bin/python3.9 -u bme280_sensor.py
-WorkingDirectory=/home/zero/tamialquida.github.io/scripts
-StandardOutput=inherit
-StandardError=inherit
+Type=simple
 Restart=always
-User=zero
+ExecStart=/home/$USER/TamiAlQuida.github.io/scripts/bme280_sensor.sh
+
 [Install]
 WantedBy=multi-user.target
