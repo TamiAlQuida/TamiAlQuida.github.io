@@ -1,27 +1,26 @@
-import ctypes
-
-# Specify the full path to libcamera.so
-libcamera_path = '/home/pi5/libcamera/build/src/libcamera/libcamera.so'  # Adjust path as per your findings
-
-# Load libcamera.so using ctypes
-try:
-    libcamera = ctypes.CDLL(libcamera_path)
-except OSError as e:
-    print(f"Error loading {libcamera_path}: {e}")
-    exit(1)
+import cv2
 
 def main():
-    # Your libcamera operations go here
-    # Example: Initialize libcamera
-    # libcamera.init()
+    cap = cv2.VideoCapture(0)
 
-    # Example: Capture an image
-    # image = libcamera.capture_image()
+    if not cap.isOpened():
+        print("Error: Could not open camera.")
+        return
 
-    # Example: Stream video
-    # libcamera.start_video_stream()
+    while True:
+        ret, frame = cap.read()
 
-    print("Successfully initialized libcamera!")
+        if not ret:
+            print("Error: Failed to capture frame.")
+            break
+
+        cv2.imshow('Frame', frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main()

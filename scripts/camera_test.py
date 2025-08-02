@@ -1,14 +1,26 @@
-from picamera import PiCamera
+from picamera2 import Picamera2
+from picamera2.encoders import JpegEncoder
+from picamera2.outputs import FileOutput
 from time import sleep
 from datetime import datetime
 
-camera = PiCamera()
-camera.resolution = (3280, 2464)    # max resolution 3280 x 2464
+camera = Picamera2()
+# Set the camera configuration
+camera.configure(camera.create_still_configuration())
+camera.encoder = JpegEncoder()
+camera.output = FileOutput('foo.jpg')
+# Start the camera preview
+#camera.start_preview(Preview.QTGL)
+# Set the resolution and start the camera
+camera.resolution = (640, 480)  # Set resolution to 640x480
 camera.start_preview()
+# Set the resolution and start the camera
+#camera.resolution = (3280, 2464)    # max resolution 3280 x 2464
+#camera.start_preview()
 # Camera warm-up time
 datetime_1 = datetime.now()
 sleep(2)
-camera.capture(f'foo{datetime_1}.jpg')
+#camera.capture(f'foo{datetime_1}.jpg')
 
 
 
