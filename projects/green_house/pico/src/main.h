@@ -116,34 +116,19 @@ void adjustClock () {
                     ssd1306_show(&oled);
                     sleep_ms(62);
                 } else if (chooseNumber == 3) {
-
-
-
-
-
-
-
-
-
-
-
-
-                    
                     fakeDate[0] = (fakeDate[0] + 1) % 32; // Increment day
-                    if (fakeDate[0] == 0) fakeDate[0] = 1; // Ensure day is not zero
                     printOnScreen();
                     sleep_ms(250);
-                    sprintf(dateString, "%02d/%02d/%04d", fakeDate[0], fakeDate[1], fakeDate[2]);
+                    sprintf(dateString, "  /%02d/%04d", fakeDate[1], fakeDate[2]);
                     ssd1306_clear(&oled);
                     drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
                     sleep_ms(250);
                 } else if (chooseNumber == 4) {
                     fakeDate[1] = (fakeDate[1] + 1) % 13; // Increment month
-                    if (fakeDate[1] == 0) fakeDate[1] = 1; // Ensure month is not zero
                     printOnScreen();
                     sleep_ms(250);
-                    sprintf(dateString, "%02d/%02d/%04d", fakeDate[0], fakeDate[1], fakeDate[2]);
+                    sprintf(dateString, "%02d/  /%04d", fakeDate[0], fakeDate[2]);
                     ssd1306_clear(&oled);
                     drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
@@ -152,7 +137,7 @@ void adjustClock () {
                     fakeDate[2]++; // Increment year
                     printOnScreen();
                     sleep_ms(250);
-                    sprintf(dateString, "%02d/%02d/%04d", fakeDate[0], fakeDate[1], fakeDate[2]);
+                    sprintf(dateString, "%02d/%02d/    ", fakeDate[0], fakeDate[1]);
                     ssd1306_clear(&oled);
                     drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
@@ -185,6 +170,30 @@ void adjustClock () {
                     printOnScreen();
                     sleep_ms(250);
                     sprintf(timeString, "%02d:%02d:  ", fakeClock[0], fakeClock[1]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString, dateString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                } else if (chooseNumber == 3) {
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(dateString, "  /%02d/%04d", fakeDate[1], fakeDate[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString, dateString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                } else if (chooseNumber == 4) {
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(dateString, "%02d/  /%04d", fakeDate[0], fakeDate[2]);
+                    ssd1306_clear(&oled);
+                    drawTest(&oled, timeString, dateString);
+                    ssd1306_show(&oled);
+                    sleep_ms(250);
+                } else if (chooseNumber == 5) {
+                    printOnScreen();
+                    sleep_ms(250);
+                    sprintf(dateString, "%02d/%02d/    ", fakeDate[0], fakeDate[1]);
                     ssd1306_clear(&oled);
                     drawTest(&oled, timeString, dateString);
                     ssd1306_show(&oled);
