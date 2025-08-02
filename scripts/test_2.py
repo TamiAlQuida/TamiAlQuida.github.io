@@ -1,11 +1,6 @@
+from datetime import datetime
 
-villavagn = 1300000
-mark = 500000
-brunn_avlopp = 300000
-el = 145000
-hus = 1800000
+datetime_1 = datetime.now()
+datetime_1_str = datetime_1.strftime("%Y-%m-%d_%H_%M_%S") #convert datetime to string
 
-
-summerat = villavagn + mark + brunn_avlopp + el + hus
-
-print(summerat)
+print(datetime_1_str)
