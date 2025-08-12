@@ -121,6 +121,7 @@ int main()
         {
             cyw43_arch_gpio_put(led_pin, true);
         }
+        //Should be a sleep about here somewhere.
     }
     return 0;
 }

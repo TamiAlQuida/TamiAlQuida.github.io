@@ -7,7 +7,7 @@
 
 int main() {
     // Replace 'event10' with the correct event file (bash: evtest)
-    const char* device_path = "/dev/input/event12";
+    const char* device_path = "/dev/input/event11";
     int fd = open(device_path, O_RDONLY | O_NONBLOCK);
     if (fd == -1) {
         std::cerr << "Failed to open input device: " << device_path << std::endl;

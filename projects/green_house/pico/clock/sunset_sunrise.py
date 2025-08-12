@@ -24,14 +24,6 @@ if __name__ == "__main__":
         f"Latitude: {city.latitude:.02f}; Longitude: {city.longitude:.02f}\n"
     )
 
-    #print(
-    #f'Dawn:    {s["dawn"]}\n'
-    #f'Sunrise: {s["sunrise"]}\n'
-    #f'Noon:    {s["noon"]}\n'
-    #f'Sunset:  {s["sunset"]}\n'
-    #f'Dusk:    {s["dusk"]}\n'
-    #)
-
     print(date_str)
     print(sunrise_str)
     print(sunset_str)
