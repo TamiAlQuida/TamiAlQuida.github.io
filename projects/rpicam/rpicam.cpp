@@ -17,3 +17,7 @@ int main() {
 
     return 0;
 }
+
+//https://www.raspberrypi.com/documentation/computers/camera_software.html
+//sudo rpicam-vid -t 0 -n --codec libav --libav-format mpegts -o tcp://0.0.0.0:81?listen=1
+//vlc tcp://100.78.223.99:81/stream1
