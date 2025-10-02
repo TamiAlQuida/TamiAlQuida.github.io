@@ -1,0 +1,15 @@
+https://github.com/bluenviron/mediamtx
+
+download latest release
+
+tar -xvzf mediamtx_v1.15.1_linux_armv7.tar.gz 
+
+nano mediamtx.yml
+add :"
+paths:
+  cam:
+    source: rpiCamera
+"
+sudo ./mediamtx
+
+https://www.reddit.com/r/raspberry_pi/comments/1c7lzuw/streaming_video_with_raspberry_pi_zero_2_w_camera/
