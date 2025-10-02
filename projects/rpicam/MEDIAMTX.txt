@@ -12,6 +12,6 @@ paths:
 "
 sudo ./mediamtx
 
-connect in browser to "http://100.66.108.16:8889/cam/"
+connect in browser to "http://<IPADRESS>:8889/cam/"
 
 https://www.reddit.com/r/raspberry_pi/comments/1c7lzuw/streaming_video_with_raspberry_pi_zero_2_w_camera/
