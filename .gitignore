@@ -28,7 +28,7 @@ kladd copy.csv
 # Ignore all .vscode folders
 .vscode/
 **/.vscode/
-
+**/rpicam-apps/
 
 
 scripts/tensorflow/ssd_mobilenet_v2_coco_2018_03_29 

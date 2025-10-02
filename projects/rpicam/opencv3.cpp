@@ -2,14 +2,15 @@
 #include <opencv2/opencv.hpp>
 
 int main() {
-    // GStreamer pipeline for Raspberry Pi Camera Module using v4l2
-    std::string pipeline = "v4l2src device=/dev/media0 ! video/x-raw, width=640, height=480 ! videoconvert ! appsink";
+    cv::VideoCapture cap(0, cv::CAP_V4L2); // Use /dev/video0
 
-    // Use the pipeline string to open the camera
-    cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
+    cap.set(cv::CAP_PROP_FRAME_WIDTH, 160);
+    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 120);
+
+    std::cout << "VideoCapture opened: " << cap.isOpened() << std::endl;
 
     if (!cap.isOpened()) {
-        std::cerr << "Error: Could not open camera with GStreamer pipeline." << std::endl;
+        std::cerr << "Error: Could not open camera device." << std::endl;
         return -1;
     }
 
@@ -24,7 +25,6 @@ int main() {
             break;
         }
 
-        // Display frame for testing, or write to file as before
         cv::imshow("Live Feed", frame);
         if (cv::waitKey(1) == 'q') {
             break;

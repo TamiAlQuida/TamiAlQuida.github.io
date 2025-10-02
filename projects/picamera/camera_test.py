@@ -8,19 +8,34 @@ camera = Picamera2()
 # Set the camera configuration
 camera.configure(camera.create_still_configuration())
 camera.encoder = JpegEncoder()
-camera.output = FileOutput('foo.jpg')
+camera.output = FileOutput('foo1.jpg')
 # Start the camera preview
 #camera.start_preview(Preview.QTGL)
 # Set the resolution and start the camera
-camera.resolution = (640, 480)  # Set resolution to 640x480
-camera.start_preview()
+#camera.resolution = (640, 480)  # Set resolution to 640x480
+print("preview \n")
+#camera.start_preview()
 # Set the resolution and start the camera
 #camera.resolution = (3280, 2464)    # max resolution 3280 x 2464
 #camera.start_preview()
 # Camera warm-up time
-datetime_1 = datetime.now()
-datetime_1_str = datetime_1.strftime("%Y-%m-%d_%H_%M_%S") #convert datetime to string
 sleep(2)
+camera.start()
+sleep(2)
+for i in range(5):
+    datetime_1 = datetime.now()
+    datetime_1_str = datetime_1.strftime("%Y-%m-%d_%H_%M_%S_%f") #convert datetime to string
+    print("Taking picture...\n")
+    
+    camera.capture_file(f'foo{datetime_1_str}.jpg')
+    
+    print("sucecss\n")
+    
+
+
+
+camera.stop()
+camera.close()
 #camera.capture(f'foo{datetime_1}.jpg')
 
 
