@@ -23,7 +23,7 @@ def measuring_atmosphere():
     date = str(datetime.datetime.now())
     collected_data = f'{date:.16},{ambient_temperature:.4},{pressure:.6},{humidity:.4} \n'
     print(collected_data)
-    with open('/home/pi5/TamiAlQuida.github.io/scripts/bme280data.csv', 'a') as f:
+    with open('/home/pi5/TamiAlQuida.github.io/projects/old_historic/bme280data.csv', 'a') as f:
         f.write(collected_data)
 
 

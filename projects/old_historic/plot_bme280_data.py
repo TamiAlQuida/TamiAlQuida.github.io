@@ -2,9 +2,9 @@ import pandas as pd
 from matplotlib import pyplot as plt
 
 try:
-    bme280_plot_data = pd.read_csv('scripts/raspberrypico/bme280_data_pico.csv')  # Linux
+    bme280_plot_data = pd.read_csv('/home/pi/TamiAlQuida.github.io/projects/old_historic/bme280data.csv')         # Linux
 except:
-    bme280_plot_data = pd.read_csv(r'scripts/raspberrypico\bme280_data_pico.csv')  # Windows
+    bme280_plot_data = pd.read_csv(r'projects/old_historic/bme280data.csv')  # Windows
 
 # print(bme280_plot_data),
 

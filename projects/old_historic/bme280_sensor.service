@@ -6,7 +6,7 @@ After=network.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/home/pi5/TamiAlQuida.github.io/scripts/bme280_sensor.sh
+ExecStart=/home/pi5/TamiAlQuida.github.io/projects/old_historic/bme280_sensor.sh
 
 [Install]
 WantedBy=multi-user.target

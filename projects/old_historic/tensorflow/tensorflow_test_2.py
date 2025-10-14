@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 
 # Load the pre-trained object detection model
-model_dir = "scripts/tensorflow/ssd_mobilenet_v2_coco_2018_03_29"
+model_dir = "scripts/projects/old_historic/tensorflow/ssd_mobilenet_v2_coco_2018_03_29"
 model_path = model_dir + "/frozen_inference_graph.pb"
 
 # Load the TensorFlow model into memory

@@ -2,9 +2,9 @@ import socket
 import pandas as pd
 
 try:
-    bme280_plot_data = pd.read_csv('scripts/raspberrypico/bme280_data_pico.csv')  # Linux
+    bme280_plot_data = pd.read_csv('/projects/old_historic/raspberrypico/bme280_data_pico.csv')  # Linux
 except:
-    bme280_plot_data = pd.read_csv(r'scripts/raspberrypico\bme280_data_pico.csv')  # Windows
+    bme280_plot_data = pd.read_csv(r'projects/old_historic/raspberrypico\bme280_data_pico.csv')  # Windows
 
 data_dictionary_list = []
 
@@ -39,7 +39,7 @@ def connect_to_pico():
                 df = pd.DataFrame(data_dictionary_list)
                 print(df)
                 df.to_csv(
-                    'scripts/raspberrypico/bme280_data_pico.csv',
+                    '/projects/old_historic//raspberrypico/bme280_data_pico.csv',
                     mode='a',
                     index=False,
                     header=False,

@@ -17,7 +17,7 @@ def measuring_atmosphere():
     print(date, f'{ambient_temperature:.4} C, {pressure:.6} hPa, {humidity:.4} %')
     
     df = pd.DataFrame({'Date': [date], 'Temperature C': [ambient_temperature], 'Pressure hPa': [pressure], 'Humidity %': [humidity]})
-    df.to_csv('/home/pi/TamiAlQuida.github.io/scripts/bme280data.csv', mode='a', index=False, header=False)
+    df.to_csv('/home/pi/TamiAlQuida.github.io/projects/old_historic/bme280data.csv', mode='a', index=False, header=False)
 
 
 bme280.load_calibration_params(bus,address)
