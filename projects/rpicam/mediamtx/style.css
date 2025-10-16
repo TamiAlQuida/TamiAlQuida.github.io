@@ -10,6 +10,29 @@ h1 {
   font-size: 40px;
 }
 
+.iframe-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.iframe-wrapper {
+  position: relative;
+  width: 50%;
+  aspect-ratio: 16 / 9; /* Modern browsers support this! */
+}
+
+.iframe-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
 p, li {
   margin: 0 auto;
   font-size: 16px;

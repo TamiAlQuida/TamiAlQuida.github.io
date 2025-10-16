@@ -1,2 +1,3 @@
 #!/bin/bash
-/home/zero2w/mediamtx
+sleep 5
+/home/$USER/mediamtx

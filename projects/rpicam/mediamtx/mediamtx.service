@@ -1,0 +1,14 @@
+[Unit]
+Description=Start mediamtx at startup
+After=network.target tailscaled.service
+Requires=tailscaled.service
+
+[Service]
+Type=simple
+ExecStart=/home/zero2w/mediamtx.sh
+Restart=on-failure
+User=zero2w
+WorkingDirectory=/home/zero2w
+
+[Install]
+WantedBy=multi-user.target
