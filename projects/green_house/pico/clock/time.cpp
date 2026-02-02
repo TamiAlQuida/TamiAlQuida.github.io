@@ -1,46 +1,44 @@
-#include <iostream>
 #include <chrono>
+#include <iostream>
 #include <thread>
 
 int fakeClock[3] = {22, 0, 0}; // Set initial time
 
-int* fakeClock = fakeClock;
+int *fakeClockPtr = fakeClock;
 int sleepTime = 1;
 
 void changeClock() {
-    std::cout<<"Clock: "<<fakeClock[0]<<":"<<fakeClock[1]<<":"<<fakeClock[2]<<"\n";
-        if (fakeClock[0] == 23 && fakeClock[1] == 59 && fakeClock[2] == 60 - sleepTime)
-        {
-            fakeClock[0] = 0;
-            fakeClock[1] = 0;
-            fakeClock[2] = 0;
-        }
-        
-        else if (fakeClock[1] == 59 && fakeClock[2] == 60 - sleepTime)
-        {
-            fakeClock[0] += 1;
-            fakeClock[1] = 0;
-            fakeClock[2] = 0;
-        }
+  std::cout << "Clock: " << fakeClockPtr[0] << ":" << fakeClockPtr[1] << ":"
+            << fakeClockPtr[2] << "\n";
+  if (fakeClockPtr[0] == 23 && fakeClockPtr[1] == 59 &&
+      fakeClockPtr[2] == 60 - sleepTime) {
+    fakeClockPtr[0] = 0;
+    fakeClockPtr[1] = 0;
+    fakeClockPtr[2] = 0;
+  }
 
-        else if (fakeClock[2] == 60 - sleepTime)
-        {
-            fakeClock[1] += 1;
-            fakeClock[2] = 0;
-        }
+  else if (fakeClockPtr[1] == 59 && fakeClockPtr[2] == 60 - sleepTime) {
+    fakeClockPtr[0] += 1;
+    fakeClockPtr[1] = 0;
+    fakeClockPtr[2] = 0;
+  }
 
-        else
-        {
-            fakeClock[2] += sleepTime;
-        }
+  else if (fakeClockPtr[2] == 60 - sleepTime) {
+    fakeClockPtr[1] += 1;
+    fakeClockPtr[2] = 0;
+  }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime *1000));
+  else {
+    fakeClockPtr[2] += sleepTime;
+  }
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime * 1000));
 }
 
 int main() {
-    std::cout<<"Hello, world!\n";
+  std::cout << "Hello, world!\n";
 
-    while (true) {
-        changeClock();
-    }
+  while (true) {
+    changeClock();
+  }
 }
