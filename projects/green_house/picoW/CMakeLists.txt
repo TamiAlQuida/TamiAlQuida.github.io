@@ -1,7 +1,14 @@
 cmake_minimum_required(VERSION 3.12)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 
 # Set the board type
 set(PICO_BOARD pico_w)
+
+# Use prebuilt pioasm to skip building it from source
+add_executable(pioasm IMPORTED GLOBAL)
+set_property(TARGET pioasm PROPERTY IMPORTED_LOCATION /usr/local/bin/pioasm)
+
 
 include(pico_sdk_import.cmake)
 
