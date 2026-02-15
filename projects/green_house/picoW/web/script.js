@@ -4,6 +4,9 @@
 // For now, we'll placeholder it with a common local IP or use `window.location.hostname` 
 // if served from the Pico itself.
 const WEBSOCKET_URL = `ws://${window.location.hostname}:80/ws`;
+//sudo ufw allow 8000/tcp
+//python -m http.server 8000
+//sudo ufw delete allow 8000/tcp
 
 // DOM Elements
 const statusDot = document.getElementById('connectionStatus')?.querySelector('.status-dot');
