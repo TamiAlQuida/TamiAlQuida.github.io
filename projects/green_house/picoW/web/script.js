@@ -31,172 +31,170 @@ const btnSend = document.getElementById('btnSend');
  * WebSocket Manager class to handle connection, reconnection, and messaging
  */
 class PicoController {
-    constructor(url) {
-        this.ws = null;
-        this.url = url;
-        this.retryInterval = 3000;
-        this.isConnected = false;
+  constructor(url) {
+    this.ws = null;
+    this.url = url;
+    this.retryInterval = 3000;
+    this.isConnected = false;
 
+    this.init();
+  }
+
+  init() {
+    this.log('system', `Attempting to connect to ${this.url}...`);
+
+    try {
+      this.ws = new WebSocket(this.url);
+
+      this.ws.onopen = this.onOpen.bind(this);
+      this.ws.onmessage = this.onMessage.bind(this);
+      this.ws.onclose = this.onClose.bind(this);
+      this.ws.onerror = this.onError.bind(this);
+
+    } catch (e) {
+      this.log('error', 'Connection failed immediately. Retrying...');
+      this.scheduleReconnect();
+    }
+  }
+
+  onOpen() {
+    this.isConnected = true;
+    this.updateStatus(true);
+    this.log('system', 'Connected to Pico W');
+  }
+
+  onClose() {
+    this.isConnected = false;
+    this.updateStatus(false);
+    this.log('system', 'Disconnected from Pico W');
+    this.scheduleReconnect();
+  }
+
+  onError(event) {
+    this.log('error', 'WebSocket Error occurred');
+    console.error('WebSocket Error:', event);
+  }
+
+  onMessage(event) {
+    try {
+      const data = event.data;
+      this.log('received', `< ${data}`);
+
+      // Attempt to parse JSON if message is structured
+      // Expected format example: {"type": "sensor", "temp": 24.5, "humid": 60, "soil": 45}
+      try {
+        const parsed = JSON.parse(data);
+        this.handleData(parsed);
+      } catch (e) {
+        // Not JSON, just plain text message
+        // Could be a simple command acknowledgment
+      }
+
+    } catch (e) {
+      console.error('Error processing message:', e);
+    }
+  }
+
+  handleData(data) {
+    if (data.type === 'sensor') {
+      if (data.temp !== undefined && tempValue) tempValue.textContent = data.temp.toFixed(1);
+      if (data.humid !== undefined && humidityValue) humidityValue.textContent = data.humid.toFixed(1);
+      if (data.soil !== undefined && soilValue) soilValue.textContent = data.soil.toFixed(0);
+    }
+  }
+
+  send(message) {
+    if (this.ws && this.isConnected) {
+      this.ws.send(message);
+      this.log('sent', `> ${message}`);
+    } else {
+      this.log('error', 'Cannot send: Not connected');
+    }
+  }
+
+  scheduleReconnect() {
+    setTimeout(() => {
+      if (!this.isConnected) {
         this.init();
+      }
+    }, this.retryInterval);
+  }
+
+  updateStatus(connected) {
+    if (connected) {
+      statusDot?.classList.add('connected');
+      if (statusText) {
+        statusText.textContent = 'Connected';
+        statusText.style.color = 'var(--text-primary)';
+      }
+    } else {
+      statusDot?.classList.remove('connected');
+      if (statusText) {
+        statusText.textContent = 'Disconnected';
+        statusText.style.color = 'var(--text-secondary)';
+      }
     }
+  }
 
-    init() {
-        this.log('system', `Attempting to connect to ${this.url}...`);
+  log(type, message) {
+    if (!logOutput) return;
 
-        try {
-            this.ws = new WebSocket(this.url);
+    const entry = document.createElement('div');
+    entry.className = `log-entry ${type}`;
 
-            this.ws.onopen = this.onOpen.bind(this);
-            this.ws.onmessage = this.onMessage.bind(this);
-            this.ws.onclose = this.onClose.bind(this);
-            this.ws.onerror = this.onError.bind(this);
+    const timestamp = new Date().toLocaleTimeString();
+    entry.textContent = `[${timestamp}] ${message}`;
 
-        } catch (e) {
-            this.log('error', 'Connection failed immediately. Retrying...');
-            this.scheduleReconnect();
-        }
-    }
-
-    onOpen() {
-        this.isConnected = true;
-        this.updateStatus(true);
-        this.log('system', 'Connected to Pico W');
-    }
-
-    onClose() {
-        this.isConnected = false;
-        this.updateStatus(false);
-        this.log('system', 'Disconnected from Pico W');
-        this.scheduleReconnect();
-    }
-
-    onError(event) {
-        this.log('error', 'WebSocket Error occurred');
-        console.error('WebSocket Error:', event);
-    }
-
-    onMessage(event) {
-        try {
-            const data = event.data;
-            this.log('received', `< ${data}`);
-
-            // Attempt to parse JSON if message is structured
-            // Expected format example: {"type": "sensor", "temp": 24.5, "humid": 60, "soil": 45}
-            try {
-                const parsed = JSON.parse(data);
-                this.handleData(parsed);
-            } catch (e) {
-                // Not JSON, just plain text message
-                // Could be a simple command acknowledgment
-            }
-
-        } catch (e) {
-            console.error('Error processing message:', e);
-        }
-    }
-
-    handleData(data) {
-        if (data.type === 'sensor') {
-            if (data.temp !== undefined && tempValue) tempValue.textContent = data.temp.toFixed(1);
-            if (data.humid !== undefined && humidityValue) humidityValue.textContent = data.humid.toFixed(1);
-            if (data.soil !== undefined && soilValue) soilValue.textContent = data.soil.toFixed(0);
-        }
-    }
-
-    send(message) {
-        if (this.ws && this.isConnected) {
-            this.ws.send(message);
-            this.log('sent', `> ${message}`);
-        } else {
-            this.log('error', 'Cannot send: Not connected');
-        }
-    }
-
-    scheduleReconnect() {
-        setTimeout(() => {
-            if (!this.isConnected) {
-                this.init();
-            }
-        }, this.retryInterval);
-    }
-
-    updateStatus(connected) {
-        if (connected) {
-            statusDot?.classList.add('connected');
-            if (statusText) {
-                statusText.textContent = 'Connected';
-                statusText.style.color = 'var(--text-primary)';
-            }
-        } else {
-            statusDot?.classList.remove('connected');
-            if (statusText) {
-                statusText.textContent = 'Disconnected';
-                statusText.style.color = 'var(--text-secondary)';
-            }
-        }
-    }
-
-    log(type, message) {
-        if (!logOutput) return;
-
-        const entry = document.createElement('div');
-        entry.className = `log-entry ${type}`;
-
-        const timestamp = new Date().toLocaleTimeString();
-        entry.textContent = `[${timestamp}] ${message}`;
-
-        logOutput.appendChild(entry);
-        logOutput.scrollTop = logOutput.scrollHeight;
-    }
+    logOutput.appendChild(entry);
+    logOutput.scrollTop = logOutput.scrollHeight;
+  }
 }
 
 // Initialize Controller
-// For development testing without a running Pico, replace the URL with a test echo server like 'wss://echo.websocket.org' if needed.
-// However, the user asked to communicate with a Pico via wifi.
-// If testing locally (not served by Pico), you might need to hardcode the Pico's IP address.
-// e.g., const controller = new PicoController('ws://192.168.1.50:80/ws');
+// Priority: 1. window.location.hostname (if served from Pico), 2. Hardcoded IP
+const picoIp = (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
+  ? window.location.hostname
+  : '192.168.4.1'; // Change this to your Pico's IP if testing locally
 
-// For now, we default to relative path assuming file acts as interface.
-// If this file is just local, let's try a default local IP or placeholder.
-const controller = new PicoController('ws://192.168.4.1/ws'); // Common Default AP IP for Pico or similar
+const controller = new PicoController(`ws://${picoIp}:80/ws`);
 
 // Event Listeners for Buttons
 if (btnLightToggle) {
-    btnLightToggle.addEventListener('click', () => {
-        controller.send('TOGGLE_LIGHT');
-    });
+  btnLightToggle.addEventListener('click', () => {
+    controller.send('TOGGLE_LIGHT');
+  });
 }
 
 if (btnPumpToggle) {
-    btnPumpToggle.addEventListener('click', () => {
-        controller.send('TOGGLE_PUMP');
-    });
+  btnPumpToggle.addEventListener('click', () => {
+    controller.send('TOGGLE_PUMP');
+  });
 }
 
 if (btnFanToggle) {
-    btnFanToggle.addEventListener('click', () => {
-        controller.send('TOGGLE_FAN');
-    });
+  btnFanToggle.addEventListener('click', () => {
+    controller.send('TOGGLE_FAN');
+  });
 }
 
 // Manual Command Sending
 if (btnSend && commandInput) {
-    btnSend.addEventListener('click', () => {
-        const cmd = commandInput.value.trim();
-        if (cmd) {
-            controller.send(cmd);
-            commandInput.value = '';
-        }
-    });
+  btnSend.addEventListener('click', () => {
+    const cmd = commandInput.value.trim();
+    if (cmd) {
+      controller.send(cmd);
+      commandInput.value = '';
+    }
+  });
 
-    // Allow Enter key to send
-    commandInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const cmd = commandInput.value.trim();
-            if (cmd) {
-                controller.send(cmd);
-                commandInput.value = '';
-            }
-        }
-    });
+  // Allow Enter key to send
+  commandInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const cmd = commandInput.value.trim();
+      if (cmd) {
+        controller.send(cmd);
+        commandInput.value = '';
+      }
+    }
+  });
 }
