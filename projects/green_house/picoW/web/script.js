@@ -27,6 +27,11 @@ const logOutput = document.getElementById('logOutput');
 const commandInput = document.getElementById('commandInput');
 const btnSend = document.getElementById('btnSend');
 
+// Test Buttons
+const btnPythonToggle = document.getElementById('btnPythonToggle');
+const btnCppToggle = document.getElementById('btnCppToggle');
+const btnBashToggle = document.getElementById('btnBashToggle');
+
 /**
  * WebSocket Manager class to handle connection, reconnection, and messaging
  */
@@ -158,6 +163,25 @@ const picoIp = (window.location.hostname && window.location.hostname !== 'localh
 
 const controller = new PicoController(`ws://${picoIp}:80/ws`);
 
+// Local Script Execution Helper
+const runLocalScript = (type) => {
+  // Use relative path so it works whether on localhost or network IP
+  fetch(`/run-script`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: type })
+  })
+    .then(response => {
+      if (!response.ok) throw new Error('Bridge server not running');
+      return response.json();
+    })
+    .catch(error => {
+      console.error('Error running local script:', error);
+      controller.log('error', `Local Bridge Server not detected. Make sure bridge_server.py is running.`);
+    });
+};
+
 // Event Listeners for Buttons
 if (btnLightToggle) {
   btnLightToggle.addEventListener('click', () => {
@@ -174,6 +198,38 @@ if (btnPumpToggle) {
 if (btnFanToggle) {
   btnFanToggle.addEventListener('click', () => {
     controller.send('TOGGLE_FAN');
+  });
+}
+
+if (btnPythonToggle) {
+  btnPythonToggle.addEventListener('click', () => {
+    // Ported logic from projects/old_historic/bolan.py
+    const huskostnad = prompt("Vad kostar huset? (Bolan kalkylator)");
+    if (huskostnad) {
+      const kostnad = parseInt(huskostnad);
+      const kontantinsats = kostnad * 0.15;
+
+      // Show result in a nice alert
+      alert(`Bolan Kalkyl:\nKostnad: ${kostnad.toLocaleString()} SEK\nKontantinsats (15%): ${kontantinsats.toLocaleString()} SEK`);
+
+      // Also log it to the system log
+      controller.log('system', `Bolan calculation: ${kontantinsats} SEK kontantinsats`);
+
+      // Optionally still try to run the actual file if bridge server is up
+      runLocalScript('python');
+    }
+  });
+}
+
+if (btnCppToggle) {
+  btnCppToggle.addEventListener('click', () => {
+    runLocalScript('cpp');
+  });
+}
+
+if (btnBashToggle) {
+  btnBashToggle.addEventListener('click', () => {
+    runLocalScript('bash');
   });
 }
 
