@@ -120,55 +120,37 @@ export default function Home() {
   return (
     <>
       <main className="dashboard">
-        <section className="card sensor-card">
-          <h2>Environment</h2>
+
+        <section className="card test-card">
+          <h2>Test area</h2>
           <div className="sensor-grid">
             <div className="sensor-item">
-              <span className="sensor-label">Temperature</span>
-              <div className="sensor-value-container">
-                <span className="sensor-value">{sensors.temp}</span>
-                <span className="unit">°C</span>
-              </div>
-            </div>
-            <div className="sensor-item">
-              <span className="sensor-label">Humidity</span>
-              <div className="sensor-value-container">
-                <span className="sensor-value">{sensors.humid}</span>
-                <span className="unit">%</span>
-              </div>
-            </div>
-            <div className="sensor-item">
-              <span className="sensor-label">Soil Moisture</span>
-              <div className="sensor-value-container">
-                <span className="sensor-value">{sensors.soil}</span>
-                <span className="unit">%</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="card controls-card">
-          <h2>Controls</h2>
-          <div className="controls-grid">
-            <div className="control-group">
-              <label>Grow Lights</label>
-              <button onClick={() => sendCommand('TOGGLE_LIGHT')} className="btn-toggle">
+              <label>Python script</label>
+              <button onClick={() => {
+                const huskostnad = prompt("Vad kostar huset? (Bolan kalkylator)");
+                if (huskostnad) {
+                  const kostnad = parseInt(huskostnad);
+                  const kontantinsats = kostnad * 0.15;
+                  alert(`Bolan Kalkyl:\nKostnad: ${kostnad.toLocaleString()} SEK\nKontantinsats (15%): ${kontantinsats.toLocaleString()} SEK`);
+                  runLocalScript('python');
+                }
+              }} className="btn-toggle">
                 <span className="btn-icon">💡</span>
-                <span className="btn-text">Toggle</span>
+                <span className="btn-text">Run Script</span>
               </button>
             </div>
-            <div className="control-group">
-              <label>Water Pump</label>
-              <button onClick={() => sendCommand('TOGGLE_PUMP')} className="btn-toggle">
+            <div className="sensor-item">
+              <label>C++ script</label>
+              <button onClick={() => runLocalScript('cpp')} className="btn-toggle">
                 <span className="btn-icon">💧</span>
-                <span className="btn-text">Water Now</span>
+                <span className="btn-text">Run Script</span>
               </button>
             </div>
-            <div className="control-group">
-              <label>Ventilation Fan</label>
-              <button onClick={() => sendCommand('TOGGLE_FAN')} className="btn-toggle">
+            <div className="sensor-item">
+              <label>Bash script</label>
+              <button onClick={() => runLocalScript('bash')} className="btn-toggle">
                 <span className="btn-icon">🌪️</span>
-                <span className="btn-text">Toggle</span>
+                <span className="btn-text">Run Script</span>
               </button>
             </div>
           </div>
@@ -204,6 +186,7 @@ export default function Home() {
           </form>
         </section>
       </main>
+
     </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,7 +28,39 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="app-container">
+          <header className="status-bar">
+            <div className="logo">
+              <span className="icon">🌿</span>
+              <h1>Greenhouse<span className="highlight">Pico</span></h1>
+            </div>
+            <nav style={{ display: 'flex', gap: '20px' }}>
+              <Link href="/" className="btn-toggle">
+                <span className="btn-icon">🏠</span>
+                <span className="btn-text">Home</span>
+              </Link>
+              <Link href="/test" className="btn-toggle">
+                <span className="btn-icon">🧪</span>
+                <span className="btn-text">Test</span>
+              </Link>
+            </nav>
+            <div className="connection-status">
+              <div className="status-dot"></div>
+              <span>System Active</span>
+            </div>
+          </header>
+          {children}  {/* This is your page content */}
+          <footer>
+            <section className="card test-card">
+              <div className="sensor-grid">
+                <div className="sensor-item">
+                  <h2>Footer</h2>
+                  <h2>Description</h2>
+                </div>
+              </div>
+            </section>
+          </footer>
+        </div>
       </body>
     </html>
   );
