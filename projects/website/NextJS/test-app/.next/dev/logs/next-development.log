@@ -1,0 +1,46 @@
+[00:01:12.688] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:12.776] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:12.866] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:12.904] Server  ERROR   Error: ENOENT: no such file or directory, open '/home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/.next/dev/server/app/page/build-manifest.json'
+[00:01:12.915] Server  ERROR   ⨯ Error: Cannot find module 'next/dist/pages/_error'
+Require stack:
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/on-demand-entry-handler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/hot-reloader-turbopack.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-server.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/start-server.js
+[00:01:12.925] Server  ERROR   Error: Cannot find module 'next/dist/pages/_error'
+Require stack:
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/on-demand-entry-handler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/hot-reloader-turbopack.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-server.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/start-server.js
+[00:01:12.945] Server  ERROR   ⨯ Error: Cannot find module 'next/dist/pages/_error'
+Require stack:
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/on-demand-entry-handler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/hot-reloader-turbopack.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-server.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/start-server.js
+[00:01:12.956] Server  ERROR   Error: Cannot find module 'next/dist/pages/_error'
+Require stack:
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/on-demand-entry-handler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/hot-reloader-turbopack.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-server.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/start-server.js
+[00:01:12.975] Server  ERROR   ⨯ Error: Cannot find module 'next/dist/pages/_error'
+Require stack:
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/on-demand-entry-handler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/hot-reloader-turbopack.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-server.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/start-server.js
+[00:01:12.990] Server  ERROR   Error: Cannot find module 'next/dist/pages/_error'
+Require stack:
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/on-demand-entry-handler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/dev/hot-reloader-turbopack.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/router-server.js
+- /home/tomcarl/TamiAlQuida.github.io/projects/green_house/website/NextJS/test-app/node_modules/next/dist/server/lib/start-server.js

@@ -1,11 +1,15 @@
 "use client";
 
+// npm run dev
+
 import { useEffect, useState, useRef } from "react";
+import { fetchLatestSensorData } from "./actions";
 
 // Types for our data
 interface SensorData {
   temp: string;
   humid: string;
+  pressure: string;
   soil: string;
 }
 
@@ -17,7 +21,7 @@ interface LogEntry {
 
 export default function Home() {
   // --- State ---
-  const [sensors, setSensors] = useState<SensorData>({ temp: "--", humid: "--", soil: "--" });
+  const [sensors, setSensors] = useState<SensorData>({ temp: "--", humid: "--", pressure: "--", soil: "--" });
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [isConnected, setIsConnected] = useState(false);
   const [command, setCommand] = useState("");
@@ -25,6 +29,7 @@ export default function Home() {
   // Refs
   const ws = useRef<WebSocket | null>(null);
   const logEndRef = useRef<HTMLDivElement | null>(null);
+
 
   // --- Helpers ---
   const addLog = (type: LogEntry["type"], message: string) => {
@@ -83,7 +88,7 @@ export default function Home() {
       socket.onclose = () => {
         setIsConnected(false);
         addLog("system", "Disconnected. Retrying in 3s...");
-        reconnectTimeout = setTimeout(connect, 3000);
+        reconnectTimeout = setTimeout(connect, 60000);
       };
 
       socket.onerror = (err) => {
@@ -97,6 +102,7 @@ export default function Home() {
             setSensors({
               temp: data.temp !== undefined ? data.temp.toFixed(1) : "--",
               humid: data.humid !== undefined ? data.humid.toFixed(1) : "--",
+              pressure: data.pressure !== undefined ? data.pressure.toFixed(1) : "--",
               soil: data.soil !== undefined ? data.soil.toFixed(0) : "--"
             });
           }
@@ -110,6 +116,21 @@ export default function Home() {
     };
 
     connect();
+
+    // Fetch historical data on load
+    const loadInitialData = async () => {
+      const data = await fetchLatestSensorData();
+      if (data) {
+        setSensors({
+          temp: data.temp || "--",
+          humid: data.humidity || "--",
+          pressure: data.pressure || "--",
+          soil: "--"
+        });
+        addLog("system", "Loaded latest historical data from CSV");
+      }
+    };
+    loadInitialData();
 
     return () => {
       ws.current?.close();
@@ -138,12 +159,39 @@ export default function Home() {
               </div>
             </div>
             <div className="sensor-item">
+              <span className="sensor-label">Pressure</span>
+              <div className="sensor-value-container">
+                <span className="sensor-value">{sensors.pressure}</span>
+                <span className="unit">hPa</span>
+              </div>
+            </div>
+            <div className="sensor-item">
               <span className="sensor-label">Soil Moisture</span>
               <div className="sensor-value-container">
                 <span className="sensor-value">{sensors.soil}</span>
                 <span className="unit">%</span>
               </div>
             </div>
+          </div>
+          <div className="sensor-item">
+            <label>Fetch values</label>
+            <button onClick={async () => {
+              const data = await fetchLatestSensorData();
+              if (data) {
+                setSensors({
+                  temp: data.temp || "--",
+                  humid: data.humidity || "--",
+                  pressure: data.pressure || "--",
+                  soil: "--" // Soil moisture is not in the CSV
+                });
+                addLog("system", `Fetched historical data: Temp ${data.temp}°C, Humid ${data.humidity}%, Pressure ${data.pressure} hPa`);
+              } else {
+                addLog("error", "Failed to fetch CSV data");
+              }
+            }} className="btn-toggle">
+              <span className="btn-icon">�</span>
+              <span className="btn-text">Load CSV</span>
+            </button>
           </div>
         </section>
 

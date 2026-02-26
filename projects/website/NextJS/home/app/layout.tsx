@@ -39,9 +39,13 @@ export default function RootLayout({
                 <span className="btn-icon">🏠</span>
                 <span className="btn-text">Home</span>
               </Link>
-              <Link href="/test" className="btn-toggle">
+              <Link href="/testArea" className="btn-toggle">
                 <span className="btn-icon">🧪</span>
-                <span className="btn-text">Test</span>
+                <span className="btn-text">Test Area</span>
+              </Link>
+              <Link href="http://100.85.165.95/huset/" className="btn-toggle">
+                <span className="btn-icon"><img src="/plane.png" /></span>
+                <span className="btn-text">Plane</span>
               </Link>
             </nav>
             <div className="connection-status">
