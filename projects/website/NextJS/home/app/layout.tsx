@@ -56,12 +56,7 @@ export default function RootLayout({
           {children}  {/* This is your page content */}
           <footer>
             <section className="card test-card">
-              <div className="sensor-grid">
-                <div className="sensor-item">
-                  <h2>Footer</h2>
-                  <h2>Description</h2>
-                </div>
-              </div>
+              <h2>Footer</h2>
             </section>
           </footer>
         </div>
