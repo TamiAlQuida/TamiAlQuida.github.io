@@ -64,7 +64,7 @@ body {
   border: 1px solid var(--card-border);
   border-color: var(--accent-hover);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-  transition: border-color 1.0s ease, box-shadow 1.0s ease;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .logo h1 {
@@ -128,7 +128,7 @@ body {
   border: 1px solid var(--card-border);
   border-color: var(--accent-hover);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-  transition: border-color 1.0s ease, box-shadow 1.0s ease;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .card h2 {

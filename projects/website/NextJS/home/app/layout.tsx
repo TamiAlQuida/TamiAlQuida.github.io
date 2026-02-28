@@ -43,9 +43,17 @@ export default function RootLayout({
                 <span className="btn-icon">🧪</span>
                 <span className="btn-text">Test Area</span>
               </Link>
-              <Link href="http://100.85.165.95/huset/" className="btn-toggle">
+              <Link href="http://100.85.165.95/huset/" className="btn-toggle" target="_blank">
                 <span className="btn-icon"><img src="/plane.png" /></span>
                 <span className="btn-text">Plane</span>
+              </Link>
+              <Link href="/surveillance" className="btn-toggle">
+                <span className="btn-icon">👁️</span>
+                <span className="btn-text">Surveillance</span>
+              </Link>
+              <Link href="http://localhost:18789" className="btn-toggle" target="_blank">
+                <span className="btn-icon">🧘</span>
+                <span className="btn-text">Jedi Wigga</span>
               </Link>
             </nav>
             <div className="connection-status">
