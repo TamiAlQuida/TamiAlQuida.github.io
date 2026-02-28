@@ -51,6 +51,11 @@ export default function RootLayout({
                 <span className="btn-icon">👁️</span>
                 <span className="btn-text">Surveillance</span>
               </Link>
+              {/* New Business Analyzer Link */}
+              <Link href="/businessAnalyzer" className="btn-toggle">
+                <span className="btn-icon">📊</span>
+                <span className="btn-text">Business Analyzer</span>
+              </Link>
               <Link href="http://localhost:18789" className="btn-toggle" target="_blank">
                 <span className="btn-icon">🧘</span>
                 <span className="btn-text">Jedi Wigga</span>
