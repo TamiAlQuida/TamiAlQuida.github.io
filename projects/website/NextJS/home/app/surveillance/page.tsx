@@ -8,7 +8,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 // =============================================================================
 
 const ESP32_SAMPLE_RATE = 16000; // Must match firmware SAMPLE_RATE
-const ESP32_WS_PORT = 81;       // Must match firmware WS_PORT
+const ESP32_WS_PORT = 80;       // Must match firmware (ESP-IDF httpd default port)
 
 type Esp32Status = "disconnected" | "connecting" | "connected" | "error";
 
